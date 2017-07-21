@@ -1,14 +1,16 @@
 .memoryTitle {
     font-weight: bold;
     color: white;
+    font-family: "roboto thin";
 }
 .memory {
-    font-size: 17px;
+    font-size: 15px;
     color: gray;
-    padding: 10px 0px 40px 100px;
+    text-align: justify;
+    font-family: "roboto regular";
 }
 .header {
-    padding-bottom: 30px;
+    padding-bottom: 20px;
 }
 a:hover {
     background-color: gray;
@@ -24,6 +26,7 @@ a:hover {
 .group {
     font-size: 10px;
     color: white;
+    font-family: "roboto medium";
 }
 .input-group-btn {
     background-color: white;

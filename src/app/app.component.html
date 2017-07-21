@@ -8,7 +8,7 @@
                                 <span class="icon-bar"></span>
                                 <span class="icon-bar"></span>
                             </button>
-                            <a class="navbar-brand" href="#">MEMORY SEQUENCE</a>
+                            <a class="navbar-brand" href="#"><span class="group">MEMORY SEQUENCE</span></a>
                         </div>
                         
                         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -16,7 +16,8 @@
                             <ul class="nav navbar-nav navbar-right">
                                 <li><a href="#"><span class="group">ABOUT</span></a></li>
                                 <li><a href="#"><span class="group">ALL MEMORIES</span></a></li>
-                                <li><a href="#"><span class="glyphicon glyphicon-search group"></span></a></li>
+                                <li><a href="#"><img src="assets/img/yoda.png" width="20px" height="10px"></a></li>
+                                <li><a href="#"><span class="group"><i class="fa fa-search"></i></span></a></li>
                             </ul>
                             
                             <!--
@@ -46,8 +47,13 @@
 <div class="container">
     <div class = "container" *ngFor="let memory of memories">
         <h1 class="memoryTitle">{{memory.title}}</h1>
-        <div class="container memory">
-            <p>{{memory.content}}</p>
+        <div class="row blogArea">
+            <div class="col-md-1">
+                <p style="color:white; font-size:10px">December 20, 2017</p>
+            </div>
+            <div class="col-md-11 memory">
+                    <p>{{memory.content}}</p>
+                </div>
         </div>
     </div>
 </div>
