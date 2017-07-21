@@ -1,27 +1,31 @@
-.gutter-0.row {
-    margin-right: 0;
-    margin-left: 0;
+.memoryTitle {
+    font-weight: bold;
+    color: white;
 }
-.gutter-0 > [class^="col-"]{
-    padding-right: 0;
-    padding-left: 0;
+.memory {
+    font-size: 20px;
+    color: gray;
 }
 .header {
-    padding-bottom: 70px;
+    padding-bottom: 50px;
+}
+a:hover {
+    background-color: gray;
 }
 .navbar {
-    background-color: white;
+    background-color: #222222;
+    border: none;
 }
 .navbar-brand {
-    color: black;
+    color: white;
     font-size: 12px;
 }
 .group {
     font-size: 12px;
-    color: black;
+    color: white;
 }
 .input-group-btn {
-    background-color: black;
+    background-color: white;
 }
 .navbar-collapse {
     position: relative;
