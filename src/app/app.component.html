@@ -1,63 +1,65 @@
-<div class="header">
-        <nav class="navbar navbar-default" role="navigation">
-                <div class="container-fluid">
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                                <span class="sr-only">Toggle navigation</span>
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                            </button>
-                            <a class="navbar-brand" href="#"><span class="group">MEMORY SEQUENCE</span></a>
-                        </div>
-                        
-                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+<div class = "row gutter-0" [style.background-color] = "myBgColor" style="min-height: 100vh">
+    <div class="header">
+            <nav class="navbar navbar-default" role="navigation">
+                    <div class="container-fluid">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                                    <span class="sr-only">Toggle navigation</span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>
+                                <a class="navbar-brand" href="#"><span [style.color] = "myColor" class="group">MEMORY SEQUENCE</span></a>
+                            </div>
                             
-                            <ul class="nav navbar-nav navbar-right">
-                                <li><a href="#"><span class="group">ABOUT</span></a></li>
-                                <li><a href="#"><span class="group">ALL MEMORIES</span></a></li>
-
+                            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                                 
-                                <li><a href="#"><span title = "turn to light side"><img  src="assets/img/yoda.png" width="20px" height="10px"></span></a></li>
+                                <ul class="nav navbar-nav navbar-right">
+                                    <li><a href="#"><span [style.color] = "myColor" class="group">ABOUT</span></a></li>
+                                    <li><a href="#"><span [style.color] = "myColor" class="group">ALL MEMORIES</span></a></li>
 
 
-                                <li><a href="#"><span class="group"><i class="fa fa-search"></i></span></a></li>
-                            </ul>
-                            
-                            <!--
-                            <form class="navbar-form" role="search">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Search">
-                                    <span class="input-group-btn">
-                                        <button type="reset" class="btn btn-default">
-                                            <span class="glyphicon glyphicon-remove">
-                                                <span class="sr-only">Close</span>
-                                            </span>
-                                        </button>
-                                        <button type="submit" class="btn btn-default">
-                                            <span class="glyphicon glyphicon-search">
-                                                <span class="sr-only">Search Memories</span>
-                                            </span>
-                                        </button>
-                                    </span>
-                                </div>
-                            </form>
-                        -->
-                    </div><!-- /.navbar-collapse -->
+                                    <li (click) = "toggleSide(); toggleBg()"><a href="#"><span title = {{seduce}}><img  src={{myImage}} width="25px" ></span></a></li>
+
+
+                                    <li><a href="#"><span [style.color] = "myColor" class="group"><i class="fa fa-search"></i></span></a></li>
+                                </ul>
+                                
+                                <!--
+                                <form class="navbar-form" role="search">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" placeholder="Search">
+                                        <span class="input-group-btn">
+                                            <button type="reset" class="btn btn-default">
+                                                <span class="glyphicon glyphicon-remove">
+                                                    <span class="sr-only">Close</span>
+                                                </span>
+                                            </button>
+                                            <button type="submit" class="btn btn-default">
+                                                <span class="glyphicon glyphicon-search">
+                                                    <span class="sr-only">Search Memories</span>
+                                                </span>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </form>
+                                -->
+                        </div>
+                    </div>
+                </nav>
+    </div>
+
+    <div class="container">
+        <div class = "container" *ngFor="let memory of memories">
+            <h1 [style.color] = "myColor" class="memoryTitle">{{memory.title}}</h1>
+            <div class="row">
+                <div class="col-md-1">
+                    <p [style.color] = "myColor" style="font-size:10px">December 20, 2017</p>
                 </div>
-            </nav>
-</div>
-
-<div class="container">
-    <div class = "container" *ngFor="let memory of memories">
-        <h1 class="memoryTitle">{{memory.title}}</h1>
-        <div class="row blogArea">
-            <div class="col-md-1">
-                <p style="color:white; font-size:10px">December 20, 2017</p>
+                <div class="col-md-11 memory">
+                        <p>{{memory.content}}</p>
+                    </div>
             </div>
-            <div class="col-md-11 memory">
-                    <p>{{memory.content}}</p>
-                </div>
         </div>
     </div>
 </div>

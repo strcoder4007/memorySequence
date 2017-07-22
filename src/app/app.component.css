@@ -1,7 +1,7 @@
 .memoryTitle {
     font-weight: bold;
-    color: white;
     font-family: "roboto thin";
+    color: white;
 }
 .memory {
     font-size: 15px;
@@ -12,11 +12,8 @@
 .header {
     padding-bottom: 20px;
 }
-a:hover {
-    background-color: gray;
-}
 .navbar {
-    background-color: #222222;
+    background-color: transparent;
     border: none;
 }
 .navbar-brand {
@@ -25,32 +22,16 @@ a:hover {
 }
 .group {
     font-size: 10px;
-    color: white;
     font-family: "roboto medium";
 }
 
-
-.tooltip {
-    position: relative;
-    display: inline-block;
+.gutter-0.row {
+    margin-right: 0;
+    margin-left: 0;
 }
-
-.tooltip .tooltiptext {
-    visibility: hidden;
-    width: 120px;
-    background-color: black;
-    color: #fff;
-    text-align: center;
-    border-radius: 6px;
-    padding: 5px 0;
-
-    /* Position the tooltip */
-    position: absolute;
-    z-index: 1;
-}
-
-.tooltip:hover .tooltiptext {
-    visibility: visible;
+.gutter-0 > [class^="col-"]{
+    padding-right: 0;
+    padding-left: 0;
 }
 
 .input-group-btn {
