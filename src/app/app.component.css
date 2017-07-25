@@ -1,10 +1,11 @@
 .memoryTitle {
     font-weight: bold;
-    font-family: "roboto thin";
+    font-family: "roboto medium";
     color: white;
+    font-size: 45px;
 }
 .memory {
-    font-size: 15px;
+    font-size: 17px;
     color: gray;
     text-align: justify;
     font-family: "roboto regular";
@@ -18,11 +19,11 @@
 }
 .navbar-brand {
     color: white;
-    font-size: 10px;
+    font-size: 13px;
 }
 .group {
-    font-size: 10px;
-    font-family: "roboto medium";
+    font-size: 13px;
+    font-family: "roboto regular";
     cursor: pointer;
 }
 

@@ -17,10 +17,10 @@
                                 <ul class="nav navbar-nav navbar-right">
                                     <li><a href="#"><span [style.color] = "myColor" class="group">ABOUT</span></a></li>
                                     <li><a href="#"><span [style.color] = "myColor" class="group">ALL MEMORIES</span></a></li>
-                                    <li><a (click)="isCollapsedContent = !isCollapsedContent"><span [style.color] = "myColor" class="group">Add New</span></a></li>
+                                    <li><a (click)="clear(); isCollapsedContent = !isCollapsedContent"><span [style.color] = "myColor" class="group">ADD NEW</span></a></li>
 
 
-                                    <li (click) = "toggleSide(); toggleBg()"><a href="#"><span title = {{seduce}}><img  src={{myImage}} width="20px" ></span></a></li>
+                                    <li (click) = "toggleSide(); toggleBg()"><a href="#"><span title = {{seduce}}><img  src={{myImage}} width="25px" ></span></a></li>
 
 
                                     <li><a href="#"><span [style.color] = "myColor" class="group"><i class="fa fa-search"></i></span></a></li>
@@ -57,14 +57,15 @@
                     <br>
                     <textarea class="form-control inputBackground" rows="10" [(ngModel)]="newMemory" name="newMemory"></textarea>
                     <br>
-                    <button class="btn btn-primary" type="submit" (click)="save()">Add</button>
+                    <button class="btn btn-primary" type="submit" (click)="save(); isCollapsedContent = !isCollapsedContent">Add</button>
+                    <button class="btn btn-primary" type="submit" (click)="isCollapsedContent = !isCollapsedContent">Cancel</button>
             </form>
 
         <div class = "container" *ngFor="let memory of memories">
             <h1 [style.color] = "myColor" class="memoryTitle">{{memory.title}}</h1>
             <div class="row">
                 <div class="col-md-1">
-                    <p [style.color] = "myColor" style="font-size:10px">December 20, 2017</p>
+                    <p [style.color] = "myColor" style="font-size:13px">December 20, 2017</p>
                 </div>
                 <div class="col-md-11 memory">
                     {{memory.content}}

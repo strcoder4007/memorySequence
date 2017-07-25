@@ -20,12 +20,19 @@ export class AppComponent implements OnInit{
     constructor() {
     }
 
+    clear() {
+        this.newMemory = "";
+        this.newTitle = "";
+    }
+
     save() {
-        this.memory = {
-            title: this.newTitle,
-            content: this.newMemory
+        if(this.newMemory.length && this.newTitle.length){
+            this.memory = {
+                title: this.newTitle,
+                content: this.newMemory
+            }
+            this.memories.unshift(this.memory);
         }
-        this.memories.unshift(this.memory);
     }
 
     toggleSide() {
