@@ -34,6 +34,12 @@
     box-shadow: none;
 }
 
+.mybtn {
+    color: white;
+    border-radius: 0px;
+    background-color: #1d1d1d;
+}
+
 .gutter-0.row {
     margin-right: 0;
     margin-left: 0;

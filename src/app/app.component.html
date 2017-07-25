@@ -20,7 +20,7 @@
                                     <li><a (click)="clear(); isCollapsedContent = !isCollapsedContent"><span [style.color] = "myColor" class="group">ADD NEW</span></a></li>
 
 
-                                    <li (click) = "toggleSide(); toggleBg()"><a href="#"><span title = {{seduce}}><img  src={{myImage}} width="25px" ></span></a></li>
+                                    <li (click) = "toggleSide();    "><a href="#"><span title = {{seduce}}><img  src={{myImage}} width="25px" ></span></a></li>
 
 
                                     <li><a href="#"><span [style.color] = "myColor" class="group"><i class="fa fa-search"></i></span></a></li>
@@ -57,8 +57,8 @@
                     <br>
                     <textarea class="form-control inputBackground" rows="10" [(ngModel)]="newMemory" name="newMemory"></textarea>
                     <br>
-                    <button class="btn btn-primary" type="submit" (click)="save(); isCollapsedContent = !isCollapsedContent">Add</button>
-                    <button class="btn btn-primary" type="submit" (click)="isCollapsedContent = !isCollapsedContent">Cancel</button>
+                    <button class="btn mybtn" type="submit" (click)="save(); isCollapsedContent = !isCollapsedContent">Add</button>
+                    <button class="btn mybtn" type="submit" (click)="isCollapsedContent = !isCollapsedContent">Cancel</button>
             </form>
 
         <div class = "container" *ngFor="let memory of memories">
@@ -67,9 +67,7 @@
                 <div class="col-md-1">
                     <p [style.color] = "myColor" style="font-size:13px">December 20, 2017</p>
                 </div>
-                <div class="col-md-11 memory">
-                    {{memory.content}}
-                    </div>
+                <div class="col-md-11 memory" [innerHTML]="memory.content"></div>
             </div>
         </div>
     </div>
