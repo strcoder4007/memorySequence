@@ -17,9 +17,10 @@
                                 <ul class="nav navbar-nav navbar-right">
                                     <li><a href="#"><span [style.color] = "myColor" class="group">ABOUT</span></a></li>
                                     <li><a href="#"><span [style.color] = "myColor" class="group">ALL MEMORIES</span></a></li>
+                                    <li><a (click)="isCollapsedContent = !isCollapsedContent"><span [style.color] = "myColor" class="group">Add New</span></a></li>
 
 
-                                    <li (click) = "toggleSide(); toggleBg()"><a href="#"><span title = {{seduce}}><img  src={{myImage}} width="25px" ></span></a></li>
+                                    <li (click) = "toggleSide(); toggleBg()"><a href="#"><span title = {{seduce}}><img  src={{myImage}} width="20px" ></span></a></li>
 
 
                                     <li><a href="#"><span [style.color] = "myColor" class="group"><i class="fa fa-search"></i></span></a></li>
@@ -50,6 +51,15 @@
     </div>
 
     <div class="container">
+
+            <form [collapse]="!isCollapsedContent" class="card card-block card-header form-group">
+                    <input class="form-control inputBackground" [(ngModel)]="newTitle" name="newTitle">
+                    <br>
+                    <textarea class="form-control inputBackground" rows="10" [(ngModel)]="newMemory" name="newMemory"></textarea>
+                    <br>
+                    <button class="btn btn-primary" type="submit" (click)="save()">Add</button>
+            </form>
+
         <div class = "container" *ngFor="let memory of memories">
             <h1 [style.color] = "myColor" class="memoryTitle">{{memory.title}}</h1>
             <div class="row">
@@ -57,7 +67,7 @@
                     <p [style.color] = "myColor" style="font-size:10px">December 20, 2017</p>
                 </div>
                 <div class="col-md-11 memory">
-                        <p>{{memory.content}}</p>
+                    {{memory.content}}
                     </div>
             </div>
         </div>
