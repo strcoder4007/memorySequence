@@ -65,7 +65,7 @@
             <h1 [style.color] = "myColor" class="memoryTitle" [innerHTML]="memory.title"></h1>
             <div class="row">
                 <div class="col-md-1">
-                    <p [style.color] = "myColor" style="font-size:13px">December 20, 2017</p>
+                    <p [style.color] = "myColor" style="font-size:13px">{{memory.time}}</p>
                 </div>
                 <div class="col-md-11 memory" [innerHTML]="memory.content"></div>
             </div>
