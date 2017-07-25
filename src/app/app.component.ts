@@ -92,13 +92,3 @@ interface Memory {
     title: string;
     content: any;
 }
-/*
-
-interface MyObjLayout {
-    property: string;
-}
-
-var obj: Memory = { title: "a", content: "b"};
-
-var obj: MyObjLayout = { property: "foo" };
-*/
