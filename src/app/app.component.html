@@ -20,7 +20,7 @@
                                     <li><a (click)="clear(); isCollapsedContent = !isCollapsedContent"><span [style.color] = "myColor" class="group">ADD NEW</span></a></li>
 
 
-                                    <li (click) = "toggleSide();    "><a href="#"><span title = {{seduce}}><img  src={{myImage}} width="25px" ></span></a></li>
+                                    <li (click) = "toggleSide()"><a href="#"><span title = {{seduce}}><img  src={{myImage}} width="25px" ></span></a></li>
 
 
                                     <li><a href="#"><span [style.color] = "myColor" class="group"><i class="fa fa-search"></i></span></a></li>
@@ -62,7 +62,7 @@
             </form>
 
         <div class = "container" *ngFor="let memory of memories">
-            <h1 [style.color] = "myColor" class="memoryTitle">{{memory.title}}</h1>
+            <h1 [style.color] = "myColor" class="memoryTitle" [innerHTML]="memory.title"></h1>
             <div class="row">
                 <div class="col-md-1">
                     <p [style.color] = "myColor" style="font-size:13px">December 20, 2017</p>
