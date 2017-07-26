@@ -18,10 +18,17 @@ export class AppComponent implements OnInit{
     memories =[];
     newTitle: string = "";
     newMemory: string = "";
-
+    showSearch: boolean = false;
 
 
     constructor(public http: Http) {
+    }
+
+    toggleMenu() {
+        if(this.showSearch)
+            this.showSearch = false;
+        else
+            this.showSearch = true;
     }
 
     getposts() {

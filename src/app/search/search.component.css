@@ -1,0 +1,26 @@
+.searchBar {
+    z-index: 10000;   
+    padding: 0px !important;
+    margin: 0px !important;
+    border: none;
+}
+.searchInput{
+    z-index: 10000;   
+    padding: 0px !important;
+    margin: 0px !important;
+    height: 70px;
+    width: 100%;
+    font-size: 50px;
+    font-family: "roboto thin";
+    font-style: italic;
+    border: none;    
+}
+.searchRes{
+    border: none;
+    background-color: white;
+    font-size: 40px;
+    font-family: "roboto thin";
+    padding: 0px !important;
+    margin: 0px !important;
+    z-index: 100;
+}

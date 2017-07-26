@@ -1,3 +1,8 @@
+.searchSpace {
+    height: 70px;
+    background-color: white;
+}
+
 .memoryTitle {
     font-weight: bold;
     font-family: "roboto thin";
