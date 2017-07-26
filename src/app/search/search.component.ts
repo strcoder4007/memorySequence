@@ -11,7 +11,7 @@ export class SearchComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.items = [{ name: "archie" }, { name: "jake" }, { name: "richard" }];
+    this.items = [{ name: "MS#1" }, { name: "MS#2" }, { name: "MS#3" }];
   }
 
 }
