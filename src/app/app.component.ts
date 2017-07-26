@@ -21,7 +21,7 @@ export class AppComponent implements OnInit{
     showSearch: boolean = false;
 
 
-    constructor(public http: Http, Collapse: Collapse) {
+    constructor(public http: Http) {
     }
 
     toggleMenu() {
