@@ -1,7 +1,7 @@
 <div>
     <input type="text" [(ngModel)]="term">
     <div *ngFor = "let item of items |filter:term" >
-      <p>
+      <p *ngIf = "term.length != '' ">
         {{item.name}}
       </p>
     </div>
