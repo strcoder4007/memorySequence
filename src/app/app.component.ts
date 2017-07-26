@@ -18,15 +18,7 @@ export class AppComponent implements OnInit{
     memories =[];
     newTitle: string = "";
     newMemory: string = "";
- 
-    /*
-   file: string = 'assets/data.json'
-   obj: any = {name: 'JP'}
-    
-   jsonfile.writeFile(file, obj, {flag: 'a'}, function (err) {
-     console.error(err)
-   })
-*/
+
 
 
     constructor(public http: Http) {

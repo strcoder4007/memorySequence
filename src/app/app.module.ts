@@ -5,17 +5,21 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import {Collapse} from './collapse.component';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { SearchComponent } from './search/search.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    Collapse
+    Collapse,
+    SearchComponent
   ],
   imports: [
       FormsModule,
     BrowserModule, 
     ReactiveFormsModule,
-    HttpModule
+    HttpModule,
+    Ng2SearchPipeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

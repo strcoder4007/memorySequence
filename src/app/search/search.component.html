@@ -1,0 +1,8 @@
+<div>
+    <input type="text" [(ngModel)]="term">
+    <div *ngFor = "let item of items |filter:term" >
+      <p>
+        {{item.name}}
+      </p>
+    </div>
+</div>  
