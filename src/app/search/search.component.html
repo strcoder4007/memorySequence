@@ -1,7 +1,7 @@
 <div class="container-fluid searchBar">
     <input type="text" [(ngModel)]="term" class="searchInput" placeholder="Search Memories">
     <div *ngFor = "let item of items |filter:term">
-      <a href="google.co.in" style="text-decoration: none">
+      <a href="#" style="text-decoration: none">
           <p *ngIf = "term.length != '' " class="searchRes">&nbsp;{{item.name}}</p>
       </a>
     </div>
