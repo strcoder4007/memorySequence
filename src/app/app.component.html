@@ -9,12 +9,12 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" href="#"><span [style.color] = "myColor" class="group">MEMORY SEQUENCE</span></a>
+                        <a class="navbar-brand" routerLink="/"><span [style.color] = "myColor" class="group">MEMORY SEQUENCES</span></a>
                     </div>
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"  >        
                         <ul class="nav navbar-nav navbar-right">
                             <li><a href="#"><span [style.color] = "myColor" class="group">ABOUT</span></a></li>
-                            <li><a href="#"><span [style.color] = "myColor" class="group">ALL MEMORIES</span></a></li>
+                            <li><a routerLink="/memories"><span [style.color] = "myColor" class="group">ALL MEMORIES</span></a></li>
                             <li><a (click)="clear(); isCollapsedContent = !isCollapsedContent"><span [style.color] = "myColor" class="group">ADD NEW</span></a></li>
                             <li (click) = "toggleSide()"><a href="#"><span title = {{seduce}}><img  src={{myImage}} width="25px" ></span></a></li>
                             <li><a><span [style.color] = "myColor" class="group" (click)="toggleMenu()"><i class="fa fa-search"></i></span></a></li>
@@ -36,23 +36,23 @@
     </div>
 
     <div class="container">
-        <form [collapse]="!isCollapsedContent" class="card card-block card-header form-group">
-            <input class="form-control inputBackground" [(ngModel)]="newTitle" name="newTitle">
-            <br>
-            <textarea class="form-control inputBackground" rows="10" [(ngModel)]="newMemory" name="newMemory"></textarea>
-            <br>
-            <button class="btn mybtn" type="submit" (click)="save(); isCollapsedContent = !isCollapsedContent">Add</button>
-            <button class="btn mybtn" type="submit" (click)="isCollapsedContent = !isCollapsedContent">Cancel</button>
-        </form>
-        <div class = "container" *ngFor="let memory of memories">
-            <h1 [style.color] = "myColor" class="memoryTitle" [innerHTML]="memory.title"></h1>
-            <div class="row">
-                <div class="col-md-1">
-                    <p [style.color] = "myColor" style="font-size:13px">{{memory.time}}</p>
+            <form [collapse]="!isCollapsedContent" class="card card-block card-header form-group">
+                <input class="form-control inputBackground" [(ngModel)]="newTitle" name="newTitle">
+                <br>
+                <textarea class="form-control inputBackground" rows="10" [(ngModel)]="newMemory" name="newMemory"></textarea>
+                <br>
+                <button class="btn mybtn" type="submit" (click)="save(); isCollapsedContent = !isCollapsedContent">Add</button>
+                <button class="btn mybtn" type="submit" (click)="isCollapsedContent = !isCollapsedContent">Cancel</button>
+            </form>
+            <div class = "container" *ngFor="let memory of memories">
+                <h1 [style.color] = "myColor" class="memoryTitle" [innerHTML]="memory.title"></h1>
+                <div class="row">
+                    <div class="col-md-1">
+                        <p [style.color] = "myColor" style="font-size:13px">{{memory.time}}</p>
+                    </div>
+                    <div class="col-md-11 memory" [style.color] = "memColor" [innerHTML]="memory.content"></div>
                 </div>
-                <div class="col-md-11 memory" [innerHTML]="memory.content"></div>
             </div>
         </div>
-    </div>
 
 </div>

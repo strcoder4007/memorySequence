@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import {Collapse} from './collapse.component';
@@ -19,7 +20,9 @@ import { SearchComponent } from './search/search.component';
       BrowserModule, 
       ReactiveFormsModule,
       HttpModule,
-      Ng2SearchPipeModule
+      Ng2SearchPipeModule,
+      RouterModule.forRoot([
+      ])
   ],
   providers: [],
   bootstrap: [AppComponent]

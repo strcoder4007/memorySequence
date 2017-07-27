@@ -30,12 +30,11 @@
 }
 .memory {
     font-size: 17px;
-    color: gray;
     text-align: justify;
     font-family: "roboto regular";
 }
 .header {
-    padding-bottom: 20px;
+    padding-bottom: 17px;
 }
 .navbar {
     background-color: transparent;

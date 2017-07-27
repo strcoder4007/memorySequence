@@ -12,6 +12,7 @@ export class AppComponent implements OnInit{
     mySide: string;
     seduce: string;
     myColor: string;
+    memColor: string;
     myImage: string;
     memory: Memory;
     memories =[];
@@ -26,15 +27,15 @@ export class AppComponent implements OnInit{
 
     }
 
+    getposts() {
+        return this.http.get("assets/data.json").map(res => res.json());
+    }
+
     toggleMenu() {
         if(this.showSearch)
             this.showSearch = false;
         else
             this.showSearch = true;
-    }
-
-    getposts() {
-        return this.http.get("assets/data.json").map(res => res.json());
     }
 
     clear() {
@@ -70,6 +71,7 @@ export class AppComponent implements OnInit{
             this.myBgColor = '#222222';
             this.seduce = "turn to light side";
             this.myColor = 'white';
+            this.memColor = 'gray';
             this.myImage = 'assets/img/yoda.png';
         }
         else if(this.mySide == 'dark')
@@ -78,6 +80,7 @@ export class AppComponent implements OnInit{
             this.myBgColor = 'white';
             this.seduce = "turn to dark side";
             this.myColor = 'black';
+            this.memColor = '#565656';
             this.myImage = 'assets/img/darthVader.png';
         }
     }
@@ -86,6 +89,7 @@ export class AppComponent implements OnInit{
         this.myBgColor = '#222222';
         this.mySide = 'dark';
         this.myColor = 'white';
+        this.memColor = 'gray';
         this.seduce = "turn to light side";
         this.myImage = 'assets/img/yoda.png';
         this.memory = {
@@ -104,9 +108,6 @@ export class AppComponent implements OnInit{
                 this.memories.unshift(this.memory);
             }
         })
-
-        console.log("from AppComponent: "+this.myTags);
-
     }
 
 }
