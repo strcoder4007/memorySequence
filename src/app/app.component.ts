@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {Collapse} from './collapse.component';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map'; 
 
@@ -19,9 +18,12 @@ export class AppComponent implements OnInit{
     newTitle: string = "";
     newMemory: string = "";
     showSearch: boolean = false;
+    myTags = [];
+    tags: Tags;
 
 
     constructor(public http: Http) {
+
     }
 
     toggleMenu() {
@@ -53,6 +55,10 @@ export class AppComponent implements OnInit{
                 content: this.newMemory,
                 time: mytime
             }
+            this.tags = {
+                name: this.memory.title
+            }
+            this.myTags.push(this.tags.name);
             this.memories.unshift(this.memory);
         }
     }
@@ -91,10 +97,15 @@ export class AppComponent implements OnInit{
         this.getposts().subscribe((posts) => {
             for(var i = 0; i < posts.length; i++){
                 this.memory = posts[i];
+                this.tags = {
+                    name: this.memory.title
+                }
+                this.myTags.push(this.tags.name);    
                 this.memories.unshift(this.memory);
             }
         })
 
+        console.log("from AppComponent: "+this.myTags);
 
     }
 
@@ -103,4 +114,7 @@ interface Memory {
     title: string;
     content: any;
     time: string;
+}
+interface Tags {
+    name: string;
 }

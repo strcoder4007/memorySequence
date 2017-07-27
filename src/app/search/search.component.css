@@ -24,4 +24,20 @@
     margin: 0px !important;
     z-index: 100;
     width: calc(100vw - 7px);
+    color: black;
+}
+
+
+@media (min-width: 768px) {
+    .searchRes {
+        border: none;
+        background-color: white;
+        font-size: 40px;
+        font-family: "roboto thin";
+        padding: 0px !important;
+        margin: 0px !important;
+        z-index: 100;
+        color: black;
+        width: 100vw;
+    }
 }

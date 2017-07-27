@@ -1,4 +1,4 @@
-<div class = "row gutter-0" [style.background-color] = "myBgColor" style="min-height: 100vh">
+<div class = "row gutter-0" [style.background-color] = "myBgColor" style="min-height: 100vh; padding-bottom: 6em">
     <div class="header" style="z-index: 10000">
             <nav class="navbar navbar-default" role="navigation" *ngIf = "!showSearch; else elseBlock">
                     <div class="container-fluid">
@@ -52,10 +52,9 @@
                 <div class="col-md-1">
                     <p [style.color] = "myColor" style="font-size:13px">{{memory.time}}</p>
                 </div>
-                <div class="col-md-11 memory" [innerHTML]="memory.content" style="padding-bottom: 4em"></div>
+                <div class="col-md-11 memory" [innerHTML]="memory.content"></div>
             </div>
         </div>
     </div>
-
 
 </div>

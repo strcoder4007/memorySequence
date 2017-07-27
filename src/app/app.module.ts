@@ -16,10 +16,10 @@ import { SearchComponent } from './search/search.component';
   ],
   imports: [
       FormsModule,
-    BrowserModule, 
-    ReactiveFormsModule,
-    HttpModule,
-    Ng2SearchPipeModule
+      BrowserModule, 
+      ReactiveFormsModule,
+      HttpModule,
+      Ng2SearchPipeModule
   ],
   providers: [],
   bootstrap: [AppComponent]
