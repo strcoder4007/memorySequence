@@ -1,3 +1,22 @@
+.elementToFadeIn {
+    -webkit-animation: fadeinout 1s linear forwards;
+    animation: fadeinout 1s linear forwards;
+}
+
+@-webkit-keyframes fadeinout {
+  0% { opacity: 0; }
+  50% { opacity: .5; }
+  100% { opacity: 1; }
+}
+
+@keyframes fadeinout {
+    0% { opacity: 0; }
+    50% { opacity: .5; }
+    100% { opacity: 1; }
+}
+
+
+
 .searchSpace {
     height: 70px;
     background-color: white;

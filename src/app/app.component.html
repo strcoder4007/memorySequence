@@ -1,51 +1,49 @@
 <div class = "row gutter-0" [style.background-color] = "myBgColor" style="min-height: 100vh; padding-bottom: 6em">
     <div class="header" style="z-index: 10000">
-            <nav class="navbar navbar-default" role="navigation" *ngIf = "!showSearch; else elseBlock">
-                    <div class="container-fluid">
-                        <div class="navbar-header">
-                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                                    <span class="sr-only">Toggle navigation</span>
-                                    <span class="icon-bar"></span>
-                                    <span class="icon-bar"></span>
-                                    <span class="icon-bar"></span>
-                                </button>
-                                <a class="navbar-brand" href="#"><span [style.color] = "myColor" class="group">MEMORY SEQUENCE</span></a>
-                            </div>
-                            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"  >        
-                                <ul class="nav navbar-nav navbar-right">
-                                    <li><a href="#"><span [style.color] = "myColor" class="group">ABOUT</span></a></li>
-                                    <li><a href="#"><span [style.color] = "myColor" class="group">ALL MEMORIES</span></a></li>
-                                    <li><a (click)="clear(); isCollapsedContent = !isCollapsedContent"><span [style.color] = "myColor" class="group">ADD NEW</span></a></li>
-                                    <li (click) = "toggleSide()"><a href="#"><span title = {{seduce}}><img  src={{myImage}} width="25px" ></span></a></li>
-                                    <li><a><span [style.color] = "myColor" class="group" (click)="toggleMenu()"><i class="fa fa-search"></i></span></a></li>
-                                </ul>                
-                        </div>
+        <nav class="navbar navbar-default elementToFadeIn" role="navigation" *ngIf = "!showSearch; else elseBlock">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="#"><span [style.color] = "myColor" class="group">MEMORY SEQUENCE</span></a>
                     </div>
-                </nav>
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"  >        
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a href="#"><span [style.color] = "myColor" class="group">ABOUT</span></a></li>
+                            <li><a href="#"><span [style.color] = "myColor" class="group">ALL MEMORIES</span></a></li>
+                            <li><a (click)="clear(); isCollapsedContent = !isCollapsedContent"><span [style.color] = "myColor" class="group">ADD NEW</span></a></li>
+                            <li (click) = "toggleSide()"><a href="#"><span title = {{seduce}}><img  src={{myImage}} width="25px" ></span></a></li>
+                            <li><a><span [style.color] = "myColor" class="group" (click)="toggleMenu()"><i class="fa fa-search"></i></span></a></li>
+                        </ul>                
+                </div>
+            </div>
+        </nav>
 
-                <ng-template #elseBlock>
-                    <div class="row gutter-0 searchSpace">
-                        <div class="col-md-11">
-                            <app-search></app-search>
-                        </div>
-                        <div class="col-md-1" (click)="toggleMenu()">
-                                <span [style.color] = "myColor" style="padding:3px 2px 0px 0px;" class="group pull-right" (click)="toggleMenu()"><img src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAABHNCSVQICAgIfAhkiAAAAnBJREFUeF7l20tOwlAUgOF7ChMn7kAKwoJ0C4qPOHDgQnRkjEYNcapLEgV3YDTO7LVFQF6l93Ee7bUTkqah/T9oOzgttBuNXqLVbi2Cs+fh8E79g2W72TwGrc6V0k/Q2mq8R1G0OerWcNR/e70J2aATxydawWXWmOjkA9IV++mK22l0wAiz8dnPrUDtQRbebrQOFejrkBEW47XS3Zfh8H4EEDpCXnzWPQUIFWFd/BJAaAhF8SsBQkEwic8FqDqCafxagKoi2MQXAlQNwTbeCKAqCC7xxgBlR3CNtwIoK4JPvDVA2RB8450AyoKAEe8MII2AFe8FIIWAGe8NwI2AHY8CwIVAEY8GQI1AFY8KQIVAGY8OgI1AHU8CgIXAEU8G4IvAFU8K4IrAGU8OYIvAHc8CYIogEc8GUIQgFc8KkIcAkNQns7p0Gz2Z2GTbcyxzgxGOHS6N4f52yh7P/g+YtK5AEIkXA1g4539dhKbS7KfA0oh6dj4pgMAKsOpqDzqqS47m2QDW3eokn09gATC5z0shkAOYxOfeHRiuCaQANvFSCGQALvESCCQAPvHcCOgAGPGcCKgAmPFcCGgAFPEcCCgAlPHUCN4AHPGUCF4AnPFUCM4AEvEUCE4AkvHYCNYAZYjHRLACKFM8FoIxQBnjMRCMAMoc74tQCFCFeB+EtQBVindFyAWoYrwLwkqAKsfbIiwBhBBvgzAHEFK8KcIUIMR4E4QRQMjxRQgwfpH4aryh2JR2cqCUn4vDF1BwAO24+ZXudCObz3I/nEAZm/fdswiJ0p8pQPyQaL2TvkF+2h8MehIHxb3PTtzqfqvkoqbg8QcUycKevOMFZgAAAABJRU5ErkJggg=="></span>
-                        </div>
-                    </div>
-                    </ng-template>           
+        <ng-template #elseBlock>
+            <div class="row gutter-0 searchSpace elementToFadeIn">
+                <div class="col-md-11">
+                    <app-search></app-search>
+                </div>
+                <div class="col-md-1" (click)="toggleMenu()">
+                        <span [style.color] = "myColor" style="padding:3px 2px 0px 0px;" class="group pull-right" (click)="toggleMenu()"><img src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAABHNCSVQICAgIfAhkiAAAAnBJREFUeF7l20tOwlAUgOF7ChMn7kAKwoJ0C4qPOHDgQnRkjEYNcapLEgV3YDTO7LVFQF6l93Ee7bUTkqah/T9oOzgttBuNXqLVbi2Cs+fh8E79g2W72TwGrc6V0k/Q2mq8R1G0OerWcNR/e70J2aATxydawWXWmOjkA9IV++mK22l0wAiz8dnPrUDtQRbebrQOFejrkBEW47XS3Zfh8H4EEDpCXnzWPQUIFWFd/BJAaAhF8SsBQkEwic8FqDqCafxagKoi2MQXAlQNwTbeCKAqCC7xxgBlR3CNtwIoK4JPvDVA2RB8450AyoKAEe8MII2AFe8FIIWAGe8NwI2AHY8CwIVAEY8GQI1AFY8KQIVAGY8OgI1AHU8CgIXAEU8G4IvAFU8K4IrAGU8OYIvAHc8CYIogEc8GUIQgFc8KkIcAkNQns7p0Gz2Z2GTbcyxzgxGOHS6N4f52yh7P/g+YtK5AEIkXA1g4539dhKbS7KfA0oh6dj4pgMAKsOpqDzqqS47m2QDW3eokn09gATC5z0shkAOYxOfeHRiuCaQANvFSCGQALvESCCQAPvHcCOgAGPGcCKgAmPFcCGgAFPEcCCgAlPHUCN4AHPGUCF4AnPFUCM4AEvEUCE4AkvHYCNYAZYjHRLACKFM8FoIxQBnjMRCMAMoc74tQCFCFeB+EtQBVindFyAWoYrwLwkqAKsfbIiwBhBBvgzAHEFK8KcIUIMR4E4QRQMjxRQgwfpH4aryh2JR2cqCUn4vDF1BwAO24+ZXudCObz3I/nEAZm/fdswiJ0p8pQPyQaL2TvkF+2h8MehIHxb3PTtzqfqvkoqbg8QcUycKevOMFZgAAAABJRU5ErkJggg=="></span>
+                </div>
+            </div>
+        </ng-template>           
     </div>
 
     <div class="container">
-
-            <form [collapse]="!isCollapsedContent" class="card card-block card-header form-group">
-                    <input class="form-control inputBackground" [(ngModel)]="newTitle" name="newTitle">
-                    <br>
-                    <textarea class="form-control inputBackground" rows="10" [(ngModel)]="newMemory" name="newMemory"></textarea>
-                    <br>
-                    <button class="btn mybtn" type="submit" (click)="save(); isCollapsedContent = !isCollapsedContent">Add</button>
-                    <button class="btn mybtn" type="submit" (click)="isCollapsedContent = !isCollapsedContent">Cancel</button>
-            </form>
-
+        <form [collapse]="!isCollapsedContent" class="card card-block card-header form-group">
+            <input class="form-control inputBackground" [(ngModel)]="newTitle" name="newTitle">
+            <br>
+            <textarea class="form-control inputBackground" rows="10" [(ngModel)]="newMemory" name="newMemory"></textarea>
+            <br>
+            <button class="btn mybtn" type="submit" (click)="save(); isCollapsedContent = !isCollapsedContent">Add</button>
+            <button class="btn mybtn" type="submit" (click)="isCollapsedContent = !isCollapsedContent">Cancel</button>
+        </form>
         <div class = "container" *ngFor="let memory of memories">
             <h1 [style.color] = "myColor" class="memoryTitle" [innerHTML]="memory.title"></h1>
             <div class="row">
