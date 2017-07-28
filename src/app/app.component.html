@@ -44,6 +44,7 @@
                 <button class="btn mybtn" type="submit" (click)="save(); isCollapsedContent = !isCollapsedContent">Add</button>
                 <button class="btn mybtn" type="submit" (click)="isCollapsedContent = !isCollapsedContent">Cancel</button>
             </form>
+
             <div class = "container" *ngFor="let memory of memories">
                 <h1 [style.color] = "myColor" class="memoryTitle" [innerHTML]="memory.title"></h1>
                 <div class="row">
