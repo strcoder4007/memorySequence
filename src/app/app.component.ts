@@ -22,10 +22,10 @@ export class AppComponent implements OnInit{
     showSearch: boolean = false;
     myTags = [];
     tags: Tags;
-    public html;
 
+    
     constructor(public http: Http, private sanitizer: DomSanitizer) {
-
+        
     }
 
     getposts() {

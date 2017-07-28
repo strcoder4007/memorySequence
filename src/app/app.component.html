@@ -43,6 +43,7 @@
                 <br>
                 <button class="btn mybtn" type="submit" (click)="save(); isCollapsedContent = !isCollapsedContent">Add</button>
                 <button class="btn mybtn" type="submit" (click)="isCollapsedContent = !isCollapsedContent">Cancel</button>
+                <span class="btn btn-danger mybtn">You are not logged in!</span>
             </form>
 
             <div class = "container" *ngFor="let memory of memories">
