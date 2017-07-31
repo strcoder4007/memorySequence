@@ -1,3 +1,8 @@
+.myBrand {
+    background-color:transparent; 
+    border: none
+}
+
 .elementToFadeIn {
     -webkit-animation: fadeinout 1s linear forwards;
     animation: fadeinout 1s linear forwards;

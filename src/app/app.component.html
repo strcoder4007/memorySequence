@@ -9,7 +9,7 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" routerLink="/"><span [style.color] = "myColor" class="group">MEMORY SEQUENCES</span></a>
+                        <a class="navbar-brand"><span [style.color] = "myColor" class="group">MEMORY SEQUENCES</span></a>
                     </div>
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"  >        
                         <ul class="nav navbar-nav navbar-right">
@@ -55,12 +55,10 @@
  
             <div class = "container" *ngFor="let memory of sortedMemories">
                 <h1 [style.color] = "myColor" class="memoryTitle" [innerHTML]="memory.title"></h1>
-                    <div class="row gutter-0" *ngIf="showMemories; else allMemories">
-                        <div class="col-md-1">
-                            <p [style.color] = "myColor" style="font-size:13px">{{memory.time}}</p>
-                        </div>
-                        <div class="col-md-11 memory" [style.color] = "memColor" [innerHTML]="memory.content"></div>
-                    </div>
+                <div class="row gutter-0 center" *ngIf="showMemories; else allMemories" style="width: 95%;">
+                    <div class="col-md-1"><p [style.color] = "myColor" style="font-size:13px">{{memory.time}}</p></div>
+                    <div class="col-md-11 memory" [style.color] = "memColor" [innerHTML]="memory.content"></div>
+                </div>
             </div>
         </div>
 
