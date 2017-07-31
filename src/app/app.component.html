@@ -14,10 +14,17 @@
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"  >        
                         <ul class="nav navbar-nav navbar-right">
                             <li><a href="#"><span [style.color] = "myColor" class="group">ABOUT</span></a></li>
-                            <li><a routerLink="/memories"><span [style.color] = "myColor" class="group">ALL MEMORIES</span></a></li>
+                            <li *ngIf="!showMemories; else allMemories">
+                                <a><span (click)="showMemories = !showMemories" [style.color] = "myColor" class="group">ALL MEMORIES</span>
+                                </a>
+                            </li>
+                            <ng-template #allMemories>
+                                <li><a><span (click)="showMemories = !showMemories" [style.color] = "myColor" class="group">BROWSE MEMORIES</span></a>
+                                </li>
+                            </ng-template>
                             <li><a (click)="clear(); isCollapsedContent = !isCollapsedContent"><span [style.color] = "myColor" class="group">ADD NEW</span></a></li>
                             <li (click) = "toggleSide()"><a href="#"><span title = {{seduce}}><img  src={{myImage}} width="25px" ></span></a></li>
-                            <li><a><span [style.color] = "myColor" class="group" (click)="toggleMenu()"><i class="fa fa-search"></i></span></a></li>
+                            <li><a><span [style.color] = "myColor" class="group" (click)="showSearch = !showSearch"><i class="fa fa-search"></i></span></a></li>
                         </ul>                
                 </div>
             </div>
@@ -45,15 +52,15 @@
                 <button class="btn mybtn" type="submit" (click)="isCollapsedContent = !isCollapsedContent">Cancel</button>
                 <span class="btn btn-danger mybtn">You are not logged in!</span>
             </form>
-
-            <div class = "container" *ngFor="let memory of memories">
+ 
+            <div class = "container" *ngFor="let memory of sortedMemories">
                 <h1 [style.color] = "myColor" class="memoryTitle" [innerHTML]="memory.title"></h1>
-                <div class="row">
-                    <div class="col-md-1">
-                        <p [style.color] = "myColor" style="font-size:13px">{{memory.time}}</p>
+                    <div class="row gutter-0" *ngIf="showMemories; else allMemories">
+                        <div class="col-md-1">
+                            <p [style.color] = "myColor" style="font-size:13px">{{memory.time}}</p>
+                        </div>
+                        <div class="col-md-11 memory" [style.color] = "memColor" [innerHTML]="memory.content"></div>
                     </div>
-                    <div class="col-md-11 memory" [style.color] = "memColor" [innerHTML]="memory.content"></div>
-                </div>
             </div>
         </div>
 

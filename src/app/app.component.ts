@@ -22,6 +22,9 @@ export class AppComponent implements OnInit{
     showSearch: boolean = false;
     myTags = [];
     tags: Tags;
+    months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    sortedMemories = [];
+    showMemories: boolean = true;
 
     
     constructor(public http: Http, private sanitizer: DomSanitizer) {
@@ -47,8 +50,7 @@ export class AppComponent implements OnInit{
     save() {
         var today = new Date();
         var dd = today.getDate();
-        var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-        var mm = months[today.getMonth()];
+        var mm = this.months[today.getMonth()];
         var yyyy = today.getFullYear()
         var mytime = dd + ' ' + mm + ' ' + yyyy;
         if(this.newMemory.length && this.newTitle.length){
@@ -103,6 +105,14 @@ export class AppComponent implements OnInit{
                 this.memory.content = this.sanitizer.bypassSecurityTrustHtml(this.memory.content);
                 this.memories.unshift(this.memory);
             }
+            for(let i = 2015; i < 2064; i++)
+                for(let j = 0; j < 12; j++)
+                    for(let k = 1; k < 32; k++)
+                        for(let x = 0; x < this.memories.length; x++){
+                            let date = this.memories[x].time.split(" ");
+                            if(parseInt(date[0]) == k && date[1] == this.months[j] && parseInt(date[2]) == i)
+                                this.sortedMemories.unshift(this.memories[x]);
+                        }
         })
     }
 

@@ -17,6 +17,7 @@
 
 
 
+
 .searchSpace {
     height: 70px;
     background-color: white;
@@ -29,9 +30,9 @@
     font-size: 45px;
 }
 .memory {
-    font-size: 17px;
-    text-align: justify;
-    font-family: "roboto regular";
+    font-size: 18px;
+    text-align: left;
+    font-family: "roboto";
 }
 .header {
     padding-bottom: 17px;
