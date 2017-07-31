@@ -36,8 +36,8 @@
 }
 .memory {
     font-size: 18px;
-    text-align: left;
-    font-family: "roboto";
+    text-align: justify;
+    font-family: "roboto regular";
 }
 .header {
     padding-bottom: 17px;
