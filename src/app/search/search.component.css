@@ -1,3 +1,18 @@
+a {
+    text-decoration-style: none;
+    cursor: pointer;
+    text-decoration-line: none;
+    color: black;
+}
+
+a:hover {
+    font-weight: bold;
+}
+
+.searchContainer {
+    width: 100vw;
+}
+
 .searchBar {
     z-index: 10000;   
     padding: 0px !important;
@@ -5,43 +20,44 @@
     border: none;
 }
 .searchInput{
-    z-index: 10000;   
-    padding: 0px !important;
-    margin: 0px !important;
     height: 70px;
     width: 100%;
-    font-size: 50px;
+    font-size: 20px;
     font-family: "roboto thin";
     font-style: italic;
     border: none;
 }
 .searchRes{
-    border: none;
-    background-color: white;
-    font-size: 40px;
-    font-family: "roboto thin";
+    opacity: 0.95;
     padding: 0px !important;
     margin: 0px !important;
-    z-index: 100;
-    width: calc(100vw - 7px);
+    background-color: white;
+    font-size: 20px;
+    font-family: "roboto thin";
+    width: 100%;
+    height: 100%;
     color: black;
 }
-
-.searchRes:hover {
-    background-color: #222222;
-    color: white;
+input[type=text] {
+    z-index: 10000;   
+    padding: 0px !important;
+    margin: 0px !important;
+    border: none;
+    outline: none;
+    padding-left: 3px !important;
 }
 
+@media (min-width: 480px) {
+    .searchInput, .searchRes{
+        font-size: 30px;
+    }
+}    
+
 @media (min-width: 768px) {
-    .searchRes {
-        border: none;
-        background-color: white;
+    .searchInput, .searchRes{
         font-size: 40px;
-        font-family: "roboto thin";
-        padding: 0px !important;
-        margin: 0px !important;
-        z-index: 100;
-        color: black;
-        width: 100vw;
+    }
+    .searchContainer {
+        width: calc(100vw - 7px);
     }
 }

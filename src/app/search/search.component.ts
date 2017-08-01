@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output } from '@angular/core';
 import { Http } from '@angular/http';
 
 @Component({
@@ -11,27 +11,22 @@ export class SearchComponent implements OnInit {
     tags: Tags;
     items = [];
 
+    @Input('items') posts;
 
     constructor (public http: Http) { }
 
-    getposts() {
-        return this.http.get("assets/data.json").map(res => res.json());
-    }
-
     ngOnInit() {
-
-        this.getposts().subscribe((posts) => {
-            for(var i = 0; i < posts.length; i++){
-                this.tags = {
-                    name: posts[i].title
-                }
-                this.items.push(this.tags);
-                this.tags = {
-                    name: posts[i].time
-                }
-                this.items.push(this.tags);
+        document.getElementById('focusThis').focus();
+        for(var i = 0; i < this.posts.length; i++){
+            this.tags = {
+                name: this.posts[i].title
             }
-        })
+            this.items.push(this.tags);
+            this.tags = {
+                name: this.posts[i].time
+            }
+            this.items.push(this.tags);
+        }
     }
 }
 

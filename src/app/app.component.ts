@@ -1,4 +1,4 @@
-import { Component, OnInit, SecurityContext } from '@angular/core';
+import { Component, OnInit, SecurityContext, Input } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
@@ -25,8 +25,7 @@ export class AppComponent implements OnInit{
     months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
     sortedMemories = [];
     showMemories: boolean = true;
-
-    
+        
     constructor(public http: Http, private sanitizer: DomSanitizer) {
         
     }
