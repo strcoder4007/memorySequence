@@ -10,6 +10,7 @@ export class MemoryComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+      console.log("reached memory!");
   }
 
 }

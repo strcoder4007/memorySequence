@@ -25,9 +25,16 @@ export class AppComponent implements OnInit{
     months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
     sortedMemories = [];
     showMemories: boolean = true;
+    showAllMemories: boolean;
         
     constructor(public http: Http, private sanitizer: DomSanitizer) {
         
+    }
+
+    memoryView() {
+        if(!this.showAllMemories)            
+            this.showMemories = true;
+        this.showAllMemories = !this.showAllMemories;
     }
 
     getposts() {
@@ -88,6 +95,7 @@ export class AppComponent implements OnInit{
     }
 
     ngOnInit() {
+        this.showAllMemories = true;
         this.myBgColor = '#222222';
         this.mySide = 'dark';
         this.myColor = 'white';

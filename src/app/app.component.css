@@ -4,10 +4,6 @@ a {
     text-decoration-line: none;
 }
 
-.centerMemories{
-    width: 100%;
-}
-
 .myBrand {
     background-color:transparent; 
     border: none
@@ -125,7 +121,7 @@ a {
 
 @media (min-width: 768px) {
     .centerMemories{
-        width: 90%;
+        width: 95%;
     }
     .navbar-collapse {
         padding-top: 0px !important;

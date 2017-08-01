@@ -1,5 +1,4 @@
-import { Component, OnInit, Input, Output } from '@angular/core';
-import { Http } from '@angular/http';
+import { Component, OnInit, Input} from '@angular/core';
 
 @Component({
   selector: 'app-search',
@@ -13,7 +12,7 @@ export class SearchComponent implements OnInit {
 
     @Input('items') posts;
 
-    constructor (public http: Http) { }
+    constructor () { }
 
     ngOnInit() {
         document.getElementById('focusThis').focus();
@@ -27,6 +26,7 @@ export class SearchComponent implements OnInit {
             }
             this.items.push(this.tags);
         }
+
     }
 }
 

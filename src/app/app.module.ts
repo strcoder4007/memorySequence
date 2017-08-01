@@ -2,7 +2,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import { RouterModule, Routes } from '@angular/router';
 
 
 import { AppComponent } from './app.component';
@@ -23,18 +22,7 @@ import { MemoryComponent } from './memory/memory.component';
       BrowserModule, 
       ReactiveFormsModule,
       HttpModule,
-      Ng2SearchPipeModule,
-      RouterModule.forRoot([
-          /*
-        {
-            path: '',
-            redirectTo: '/home',
-            pathMatch: 'full'
-        },
-        {path: 'memories', component: MemoriesComponent},
-        {path: 'home', component: AppComponent}
-        */
-      ])
+      Ng2SearchPipeModule
   ],
   providers: [],
   bootstrap: [AppComponent]
