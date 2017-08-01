@@ -23,7 +23,7 @@
                                 </li>
                             </ng-template>
                             <li><a (click)="clear(); isCollapsedContent = !isCollapsedContent"><span [style.color] = "myColor" class="group">ADD NEW</span></a></li>
-                            <li (click) = "toggleSide()"><a href="#"><span title = {{seduce}}><img  src={{myImage}} width="25px"></span></a></li>
+                            <li (click) = "toggleSide()"><a href="#"><span title = {{seduce}}><img  src={{myImage}} width="30px"></span></a></li>
                             <li (click)="showSearch = !showSearch"><a><span [style.color] = "myColor" class="group"><i class="fa fa-search"></i></span></a></li>
                         </ul>                
                 </div>
@@ -53,7 +53,7 @@
                 <button class="btn mybtn" type="submit" (click)="isCollapsedContent = !isCollapsedContent">Cancel</button>
                 <span class="btn btn-danger mybtn">You are not logged in!</span>
             </form>
- 
+
             <div class = "container" *ngFor="let memory of sortedMemories">
                 <h1 [style.color] = "myColor" class="memoryTitle elementToFadeIn" [innerHTML]="memory.title"></h1>
                 <div class="row gutter-0 center centerMemories elementToFadeIn" *ngIf="showMemories; else allMemories">
