@@ -119,7 +119,7 @@ export class AppComponent implements OnInit{
                 }
                 this.myTags.push(this.tags.name);
                 this.memory.content = this.sanitizer.bypassSecurityTrustHtml(this.memory.content);
-                this.memories.unshift(this.memory);
+                this.memories.push(this.memory);
             }
             for(let i = 2015; i < 2064; i++)
                 for(let j = 0; j < 12; j++)
@@ -129,13 +129,8 @@ export class AppComponent implements OnInit{
                             if(parseInt(date[0]) == k && date[1] == this.months[j] && parseInt(date[2]) == i)
                                 this.sortedMemories.unshift(this.memories[x]);
                         }
-            this.memoryFeeder = {
-                title: this.memories[8].title,
-                content: this.memories[8].content,
-                time: this.memories[8].time,
-                tags: this.memories[8].tags
-            }
-            this.defaultFeed = this.memories[8];
+            this.memoryFeeder = this.memories[1];
+            this.defaultFeed = this.memories[1];
         })
 
     }
