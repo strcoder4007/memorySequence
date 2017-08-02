@@ -1,0 +1,19 @@
+.memoryTitle {
+    font-family: "roboto";
+    color: white;
+    font-size: 60px;
+}
+.memory {
+    font-size: 18px;
+    text-align: justify;
+    font-family: "roboto regular";
+}
+.myTime {
+    font-family: "roboto";
+    font-size: 15px;
+}
+.mybtn {
+    color: white;
+    border-radius: 0px;
+    background-color: #1d1d1d;
+}

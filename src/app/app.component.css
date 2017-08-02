@@ -9,24 +9,6 @@ a {
     border: none
 }
 
-
-
-.elementToFadeIn {
-    -webkit-animation: fadeinout .6s linear forwards;
-    animation: fadeinout .6s linear forwards;
-}
-@-webkit-keyframes fadeinout {
-  0% { opacity: 0; }
-  100% { opacity: 1; }
-}
-@keyframes fadeinout {
-    0% { opacity: 0; }
-    100% { opacity: 1; }
-}
-
-
-
-
 .searchSpace {
     height: 70px;
     background-color: white;
@@ -42,6 +24,10 @@ a {
     font-size: 18px;
     text-align: justify;
     font-family: "roboto regular";
+}
+.myTime {
+    font-family: "roboto";
+    font-size: 13px;
 }
 
 .navbar {
@@ -71,14 +57,6 @@ a {
     background-color: #1d1d1d;
 }
 
-.gutter-0.row {
-    margin-right: 0;
-    margin-left: 0;
-}
-.gutter-0 > [class^="col-"]{
-    padding-right: 0;
-    padding-left: 0;
-}
 
 .input-group-btn {
     background-color: white;

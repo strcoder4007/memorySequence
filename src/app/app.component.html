@@ -55,14 +55,14 @@
         
         <div *ngIf="showAllMemories; then hideMemory; else showMemory"></div>
         <ng-template #showMemory>
-            <app-memory></app-memory>
+            <app-memory [post]="memoryFeeder" [memColor]="memColor" [myColor]="myColor"></app-memory>
         </ng-template>
         <ng-template #hideMemory>
             <div class = "container" *ngFor="let memory of sortedMemories">
                 <h1 [style.color] = "myColor" class="memoryTitle elementToFadeIn" [innerHTML]="memory.title"></h1>
                 <div class="row gutter-0 center centerMemories elementToFadeIn" *ngIf="showMemories; else allMemories">
                     <div class="col-md-1">
-                        <p [style.color] = "myColor" style="font-size:13px">{{memory.time}}</p>
+                        <p [style.color] = "myColor" class="myTime">{{memory.time}}</p>
                     </div>
                     <div class="col-md-11 memory" [style.color] = "memColor" [innerHTML]="memory.content"></div>
                 </div>

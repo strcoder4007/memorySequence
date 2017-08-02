@@ -1,1 +1,11 @@
-<h1>Hello!</h1>
+<div class="container">
+    <p [style.color] = "myColor" class="memoryTitle elementToFadeIn" [innerHTML]="post.title"></p>
+    <p [style.color] = "myColor" class="myTime">Written on {{post.time}}</p>
+    <div class="container-fluid memory elementToFadeIn" [style.color] = "memColor" [innerHTML]="post.content">
+    </div>
+    <span *ngFor="let tag of post.tags"> 
+        <span class="btn btn-danger mybtn">
+            {{tag}}
+        </span>
+    </span>
+</div>

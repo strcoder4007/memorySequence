@@ -26,6 +26,7 @@ export class AppComponent implements OnInit{
     sortedMemories = [];
     showMemories: boolean = true;
     showAllMemories: boolean;
+    memoryFeeder: Memory;
         
     constructor(public http: Http, private sanitizer: DomSanitizer) {
         
@@ -63,7 +64,8 @@ export class AppComponent implements OnInit{
             this.memory = {
                 title: this.newTitle,
                 content: this.newMemory,
-                time: mytime
+                time: mytime,
+                tags: ["dead code"]
             }
             this.tags = {
                 name: this.memory.title
@@ -120,7 +122,14 @@ export class AppComponent implements OnInit{
                             if(parseInt(date[0]) == k && date[1] == this.months[j] && parseInt(date[2]) == i)
                                 this.sortedMemories.unshift(this.memories[x]);
                         }
+            this.memoryFeeder = {
+                title: this.memories[8].title,
+                content: this.memories[8].content,
+                time: this.memories[8].time,
+                tags: this.memories[8].tags
+            }
         })
+
     }
 
 }
@@ -128,6 +137,7 @@ interface Memory {
     title: string;
     content: any;
     time: string;
+    tags: Array<string>;
 }
 interface Tags {
     name: string;
