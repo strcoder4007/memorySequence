@@ -1,5 +1,4 @@
 a {
-    text-decoration-style: none;
     cursor: pointer;
     text-decoration-line: none;
 }
@@ -19,6 +18,11 @@ a {
     font-family: "roboto thin";
     color: white;
     font-size: 45px;
+}
+.memoryLinkTitle{
+    font-family: "roboto thin";
+    color: white;
+    font-size: 50px;
 }
 .memory {
     font-size: 18px;

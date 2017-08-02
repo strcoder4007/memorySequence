@@ -72,7 +72,7 @@
                 </ng-template>
                 <ng-template #linkBlock>
                     <a (click)="memoryView(memory); inMemory = !inMemory">
-                        <h1 [style.color] = "myColor" class="memoryTitle elementToFadeIn" [innerHTML]="memory.title"></h1>
+                        <h1 [style.color] = "myColor" class="memoryLinkTitle elementToFadeIn" [innerHTML]="memory.title"></h1>
                     </a>
                 </ng-template>
                 <div class="row gutter-0 center centerMemories elementToFadeIn" *ngIf="showMemories; else allMemories">
