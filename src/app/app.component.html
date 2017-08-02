@@ -17,7 +17,7 @@
                                 <a><span [style.color] = "myColor" class="group">BACK</span></a>
                             </li>
                             <ng-template #inAllMemories>
-                                <li (click)="inMemory = !inMemory; memoryView(memoryFeeder)">
+                                <li (click)="inMemory = true; memoryView(memoryFeeder)">
                                     <a><span [style.color] = "myColor" class="group">ABOUT</span></a>
                                 </li>
                             </ng-template>
@@ -25,7 +25,7 @@
                                 <a><span [style.color] = "myColor" class="group">ALL MEMORIES</span></a>
                             </li>
                             <ng-template #allMemories>
-                                <li (click)="showMemories = !showMemories; showAllMemories = true"><a><span [style.color] = "myColor" class="group">BROWSE MEMORIES</span></a>
+                                <li (click)="showMemories = !showMemories; showAllMemories = true; inMemory = true"><a><span [style.color] = "myColor" class="group">BROWSE MEMORIES</span></a>
                                 </li>
                             </ng-template>
                             <li><a (click)="clear(); isCollapsedContent = !isCollapsedContent"><span [style.color] = "myColor" class="group">ADD NEW</span></a></li>
@@ -71,7 +71,7 @@
                     <h1 [style.color] = "myColor" class="memoryTitle elementToFadeIn" [innerHTML]="memory.title"></h1>
                 </ng-template>
                 <ng-template #linkBlock>
-                    <a (click)="memoryView(memory); inMemory = !inMemory">
+                    <a (click)="memoryView(memory); inMemory = true">
                         <h1 [style.color] = "myColor" class="memoryLinkTitle elementToFadeIn" [innerHTML]="memory.title"></h1>
                     </a>
                 </ng-template>
