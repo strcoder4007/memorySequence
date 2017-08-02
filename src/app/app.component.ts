@@ -29,6 +29,7 @@ export class AppComponent implements OnInit{
     memoryFeeder: Memory;
     inMemory: boolean = false;
     defaultFeed: Memory;
+    isLoggedIn: boolean = false;
         
     constructor(public http: Http, private sanitizer: DomSanitizer) {
         

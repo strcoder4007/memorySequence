@@ -3,7 +3,7 @@
     <p [style.color] = "myColor" class="myTime">Written on {{post.time}}</p>
     <div class="container-fluid memory elementToFadeIn" [style.color] = "memColor" [innerHTML]="post.content">
     </div>
-    <hr>
+    <hr style="border: 1px solid" [style.color]="myColor">    
     <span *ngFor="let tag of post.tags"> 
         <span class="btn btn-danger mybtn" [style.background-color]="bgColor" [style.color]="myColor">
             {{tag}}

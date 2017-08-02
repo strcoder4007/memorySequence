@@ -39,8 +39,8 @@ a {
     border: none;
 }
 .navbar-brand {
-    color: white;
     font-size: 13px;
+    cursor: pointer;
 }
 .group {
     font-size: 13px;
