@@ -27,15 +27,22 @@ export class AppComponent implements OnInit{
     showMemories: boolean = true;
     showAllMemories: boolean;
     memoryFeeder: Memory;
+    inMemory: boolean = false;
+    defaultFeed: Memory;
         
     constructor(public http: Http, private sanitizer: DomSanitizer) {
         
     }
 
-    memoryView() {
+    setToDefaultFeed(currentMemory) {
+        this.memoryFeeder = currentMemory;
+    }
+
+    memoryView(currentMemory: Memory) {
         if(!this.showAllMemories)            
             this.showMemories = true;
         this.showAllMemories = !this.showAllMemories;
+        this.setToDefaultFeed(currentMemory);
     }
 
     getposts() {
@@ -128,6 +135,7 @@ export class AppComponent implements OnInit{
                 time: this.memories[8].time,
                 tags: this.memories[8].tags
             }
+            this.defaultFeed = this.memories[8];
         })
 
     }

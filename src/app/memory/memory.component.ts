@@ -9,11 +9,20 @@ export class MemoryComponent implements OnInit {
     @Input() post;
     @Input() memColor;
     @Input() myColor;
-
-    
+    @Input() mySide;
+    bgColor: string;
+    fontColor: string;
     constructor() { }
 
     ngOnInit() {
+        if(this.mySide == "dark"){
+            this.bgColor = "#222222";
+            this.fontColor = "gray";
+        }
+        else{
+            this.bgColor = "white";
+            this.fontColor = "#565656";
+        }
     }
 
 }

@@ -1,7 +1,8 @@
 .memoryTitle {
-    font-family: "roboto";
+    font-family: "roboto black";
+    font-weight: bolder;
     color: white;
-    font-size: 60px;
+    font-size: 70px;
 }
 .memory {
     font-size: 18px;
@@ -13,7 +14,5 @@
     font-size: 15px;
 }
 .mybtn {
-    color: white;
     border-radius: 0px;
-    background-color: #1d1d1d;
 }
