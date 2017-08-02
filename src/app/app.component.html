@@ -62,7 +62,7 @@
         
         <div *ngIf="showAllMemories; then hideMemory; else showMemory"></div>
         <ng-template #showMemory>
-            <app-memory [post]="memoryFeeder" [memColor]="memColor" [myColor]="myColor" [mySide]="mySide"></app-memory>
+            <app-memory [post]="memoryFeeder" [memColor]="memColor" [myColor]="myColor" [mySide]="mySide" [bgColor]="myBgColor"></app-memory>
         </ng-template>
         <ng-template #hideMemory>
             <div class = "container" *ngFor="let memory of sortedMemories">

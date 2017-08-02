@@ -4,7 +4,7 @@
     <div class="container-fluid memory elementToFadeIn" [style.color] = "memColor" [innerHTML]="post.content">
     </div>
     <span *ngFor="let tag of post.tags"> 
-        <span class="btn btn-danger mybtn" [style.background-color]="bgColor" [style.color]="fontColor">
+        <span class="btn btn-danger mybtn" [style.background-color]="bgColor" [style.color]="myColor">
             {{tag}}
         </span>
     </span>
