@@ -15,22 +15,23 @@ a {
 
 .memoryTitle {
     font-weight: bold;
-    font-family: "roboto thin";
+    font-family: "Roboto-Thin";
     color: white;
     font-size: 45px;
 }
 .memoryLinkTitle{
-    font-family: "roboto thin";
+    font-family: "Roboto-Thin";
     color: white;
     font-size: 50px;
+    font-weight: bold;
 }
 .memory {
     font-size: 18px;
     text-align: justify;
-    font-family: "roboto";
+    font-family: "Roboto-Regular";
 }
 .myTime {
-    font-family: "roboto medium";
+    font-family: "Roboto-Medium";
     font-size: 13px;
 }
 
@@ -44,7 +45,7 @@ a {
 }
 .group {
     font-size: 12px;
-    font-family: "roboto medium";
+    font-family: "Roboto-Medium";
     cursor: pointer;
 }
 
