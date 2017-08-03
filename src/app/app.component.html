@@ -28,7 +28,6 @@
                                 <li (click)="showMemories = !showMemories; showAllMemories = true; inMemory = true"><a><span [style.color] = "myColor" class="group">BROWSE MEMORIES</span></a>
                                 </li>
                             </ng-template>
-                            <li *ngIf="isLoggedIn"><a (click)="clear(); isCollapsedContent = !isCollapsedContent"><span [style.color] = "myColor" class="group">ADD</span></a></li>
                             <li (click)="isLoggedIn = true"><a>
                                 <span [style.color] = "myColor" class="group">LOG IN</span>
                             </a></li>
@@ -52,17 +51,7 @@
         </ng-template>           
     </div>
 
-    <div class="container-fluid">
-        <form [collapse]="!isCollapsedContent" class="card card-block card-header form-group">
-            <input class="form-control inputBackground" [(ngModel)]="newTitle" name="newTitle">
-            <br>
-            <textarea class="form-control inputBackground" rows="10" [(ngModel)]="newMemory" name="newMemory"></textarea>
-            <br>
-            <button class="btn mybtn" type="submit" (click)="save(); isCollapsedContent = !isCollapsedContent">Add</button>
-            <button class="btn mybtn" type="submit" (click)="isCollapsedContent = !isCollapsedContent">Cancel</button>
-            <span class="btn btn-danger mybtn">You are not logged in!</span>
-        </form>
-        
+    <div class="container-fluid">        
         <div *ngIf="showAllMemories; then hideMemory; else showMemory"></div>
         <ng-template #showMemory>
             <app-memory [post]="memoryFeeder" [memColor]="memColor" [myColor]="myColor" [mySide]="mySide" [bgColor]="myBgColor"></app-memory>

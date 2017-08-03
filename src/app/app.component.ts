@@ -130,8 +130,8 @@ export class AppComponent implements OnInit{
                             if(parseInt(date[0]) == k && date[1] == this.months[j] && parseInt(date[2]) == i)
                                 this.sortedMemories.unshift(this.memories[x]);
                         }
-            this.memoryFeeder = this.memories[1];
-            this.defaultFeed = this.memories[1];
+            this.memoryFeeder = this.memories[0];
+            this.defaultFeed = this.memories[0];
         })
 
     }
