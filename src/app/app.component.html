@@ -50,8 +50,8 @@
             </div>
         </ng-template>           
     </div>
-
-    <div class="container-fluid">        
+    
+    <div class="container-fluid" style="padding-top: 30px">        
         <div *ngIf="showAllMemories; then hideMemory; else showMemory"></div>
         <ng-template #showMemory>
             <app-memory [post]="memoryFeeder" [memColor]="memColor" [myColor]="myColor" [mySide]="mySide" [bgColor]="myBgColor"></app-memory>
@@ -74,7 +74,6 @@
                     <div class="col-md-11 memory" [style.color] = "memColor" [innerHTML]="memory.content"></div>
                 </div>
             </div>    
-            <hr style="border: 1px solid" [style.color]="myColor">        
         </ng-template>
     </div>
 </div>

@@ -62,27 +62,6 @@ export class AppComponent implements OnInit{
         this.newTitle = "";
     }
 
-    save() {
-        var today = new Date();
-        var dd = today.getDate();
-        var mm = this.months[today.getMonth()];
-        var yyyy = today.getFullYear()
-        var mytime = dd + ' ' + mm + ' ' + yyyy;
-        if(this.newMemory.length && this.newTitle.length){
-            this.memory = {
-                title: this.newTitle,
-                content: this.newMemory,
-                time: mytime,
-                tags: ["dead code"]
-            }
-            this.tags = {
-                name: this.memory.title
-            }
-            this.myTags.push(this.tags.name);
-            this.memories.unshift(this.memory);
-        }
-    }
-
     toggleSide() {
         if(this.mySide == 'light')
         {
