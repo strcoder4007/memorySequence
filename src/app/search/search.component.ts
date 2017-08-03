@@ -11,8 +11,23 @@ export class SearchComponent implements OnInit {
     items = [];
 
     @Input('items') posts;
+    @Input('inMemory') inMemory;
+    @Input ('showSearch') showSearch;
+    @Input ('memoryFeeder') memoryFeeder;
+    @Input ('showAllMemories') showAllMemories;
 
-    constructor () { }
+    constructor () {
+    }
+
+    testing(cur: string) {
+        this.inMemory = !this.inMemory;
+        this.showSearch = false;
+        for(let i = 0; i < this.posts.length; i++)
+            if(this.posts[i].title == cur)
+                this.memoryFeeder = this.posts[i];
+        this.showAllMemories = false;
+    }
+
 
     ngOnInit() {
         document.getElementById('focusThis').focus();
@@ -22,7 +37,6 @@ export class SearchComponent implements OnInit {
             }
             this.items.push(this.tags);
         }
-
     }
 }
 

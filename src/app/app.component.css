@@ -27,10 +27,10 @@ a {
 .memory {
     font-size: 18px;
     text-align: justify;
-    font-family: "roboto regular";
+    font-family: "roboto";
 }
 .myTime {
-    font-family: "roboto";
+    font-family: "roboto medium";
     font-size: 13px;
 }
 

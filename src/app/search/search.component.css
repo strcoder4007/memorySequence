@@ -14,7 +14,6 @@ a:hover {
 }
 
 .searchBar {
-    z-index: 10000;   
     padding: 0px !important;
     margin: 0px !important;
     border: none;
@@ -28,7 +27,7 @@ a:hover {
     border: none;
 }
 .searchRes{
-    opacity: 0.95;
+    opacity: 1;
     padding: 0px !important;
     margin: 0px !important;
     background-color: white;
@@ -38,8 +37,10 @@ a:hover {
     height: 100%;
     color: black;
 }
+.searchRes:hover {
+    opacity: 0.9;
+}
 input[type=text] {
-    z-index: 10000;   
     padding: 0px !important;
     margin: 0px !important;
     border: none;

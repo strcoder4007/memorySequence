@@ -43,7 +43,7 @@
             <div class="row gutter-0" style="height:70px"></div>
             <div class="row gutter-0 searchSpace elementToFadeIn navbar-fixed-top">
                 <div class="col-md-11 col-sm-10 col-xs-9">
-                    <app-search [items]="this.sortedMemories"></app-search>
+                    <app-search [items]="this.sortedMemories" [inMemory]="inMemory" [showSearch]="showSearch" [memoryFeeder]="memoryFeeder" [showAllMemories]="showAllMemories"></app-search>
                 </div>
                 <div class="col-md-1 col-sm-2 col-xs-3" (click)="toggleMenu()">
                         <span [style.color] = "myColor" style="padding:3px 2px 0px 0px;" class="group pull-right" (click)="toggleMenu()"><img src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAABHNCSVQICAgIfAhkiAAAAnBJREFUeF7l20tOwlAUgOF7ChMn7kAKwoJ0C4qPOHDgQnRkjEYNcapLEgV3YDTO7LVFQF6l93Ee7bUTkqah/T9oOzgttBuNXqLVbi2Cs+fh8E79g2W72TwGrc6V0k/Q2mq8R1G0OerWcNR/e70J2aATxydawWXWmOjkA9IV++mK22l0wAiz8dnPrUDtQRbebrQOFejrkBEW47XS3Zfh8H4EEDpCXnzWPQUIFWFd/BJAaAhF8SsBQkEwic8FqDqCafxagKoi2MQXAlQNwTbeCKAqCC7xxgBlR3CNtwIoK4JPvDVA2RB8450AyoKAEe8MII2AFe8FIIWAGe8NwI2AHY8CwIVAEY8GQI1AFY8KQIVAGY8OgI1AHU8CgIXAEU8G4IvAFU8K4IrAGU8OYIvAHc8CYIogEc8GUIQgFc8KkIcAkNQns7p0Gz2Z2GTbcyxzgxGOHS6N4f52yh7P/g+YtK5AEIkXA1g4539dhKbS7KfA0oh6dj4pgMAKsOpqDzqqS47m2QDW3eokn09gATC5z0shkAOYxOfeHRiuCaQANvFSCGQALvESCCQAPvHcCOgAGPGcCKgAmPFcCGgAFPEcCCgAlPHUCN4AHPGUCF4AnPFUCM4AEvEUCE4AkvHYCNYAZYjHRLACKFM8FoIxQBnjMRCMAMoc74tQCFCFeB+EtQBVindFyAWoYrwLwkqAKsfbIiwBhBBvgzAHEFK8KcIUIMR4E4QRQMjxRQgwfpH4aryh2JR2cqCUn4vDF1BwAO24+ZXudCObz3I/nEAZm/fdswiJ0p8pQPyQaL2TvkF+2h8MehIHxb3PTtzqfqvkoqbg8QcUycKevOMFZgAAAABJRU5ErkJggg=="></span>
@@ -80,7 +80,7 @@
                 </ng-template>
                 <div class="row gutter-0 center centerMemories elementToFadeIn" *ngIf="showMemories; else allMemories">
                     <div class="col-md-1">
-                        <p [style.color] = "myColor" class="myTime">{{memory.time}}</p>
+                        <span [style.color] = "myColor" class="myTime">{{memory.time}}</span>
                     </div>
                     <div class="col-md-11 memory" [style.color] = "memColor" [innerHTML]="memory.content"></div>
                 </div>

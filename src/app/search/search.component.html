@@ -1,6 +1,11 @@
 <input id="focusThis" type="text" [(ngModel)]="term" class="searchInput" placeholder="Search memories...">
 <div *ngFor = "let item of items |filter:term" class="searchContainer">
-    <p *ngIf = "term.length != '' " class="searchRes">
-        <a style="padding-left:3px;">{{item.name}}</a>
-    </p>
+    <a *ngIf = "term.length != '' " (click)="testing(item.name);"><p class="searchRes">{{item.name}}</p></a>
 </div>
+
+
+<!--
+<a (click)="memoryView(memory); inMemory = true" style="padding-left:3px;">
+    <h1 class="memoryLinkTitle elementToFadeIn" [innerHTML]="memory.title"></h1>
+</a>
+-->

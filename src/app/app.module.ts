@@ -10,6 +10,7 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { SearchComponent } from './search/search.component';
 import { MemoryComponent } from './memory/memory.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
