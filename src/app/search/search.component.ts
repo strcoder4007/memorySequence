@@ -21,10 +21,6 @@ export class SearchComponent implements OnInit {
                 name: this.posts[i].title
             }
             this.items.push(this.tags);
-            this.tags = {
-                name: this.posts[i].time
-            }
-            this.items.push(this.tags);
         }
 
     }
