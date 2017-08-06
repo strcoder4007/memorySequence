@@ -30,6 +30,7 @@ export class AppComponent implements OnInit{
     inMemory: boolean = false;
     defaultFeed: Memory;
     isLoggedIn: boolean = false;
+    inLogin: boolean = false;
         
     constructor(public http: Http, private sanitizer: DomSanitizer) {
         
@@ -121,7 +122,7 @@ export class AppComponent implements OnInit{
                             if(parseInt(date[0]) == k && date[1] == this.months[j] && parseInt(date[2]) == i){
                                 let hide = false;
                                 for(let y = 0; y < this.memories[x].tags.length; y++)
-                                    if(this.memories[x].tags[y] == "personal")
+                                    if(this.memories[x].tags[y] == "personal" && !this.isLoggedIn)
                                         hide = true;
                                 if(!hide)
                                     this.sortedMemories.unshift(this.memories[x]);

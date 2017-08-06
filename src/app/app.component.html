@@ -1,5 +1,6 @@
-<div class = "row gutter-0 easeBgChange" [style.background-color] = "myBgColor" style="min-height: 100vh; padding-bottom: 6em">
+<div class = "row gutter-0 easeBgChange1" [style.background-color] = "myBgColor" style="min-height: 100vh; padding-bottom: 6em">
     <div class="header" style="z-index: 10000">
+        <div *ngIf="!inLogin; else loginBlock">
         <nav class="navbar navbar-default elementToFadeIn" role="navigation" *ngIf = "!showSearch; else elseBlock">
             <div class="container-fluid">
                 <div class="navbar-header">
@@ -25,30 +26,38 @@
                                 <a><span [style.color] = "myColor" class="group">ALL MEMORIES</span></a>
                             </li>
                             <ng-template #allMemories>
-                                <li (click)="showMemories = !showMemories; showAllMemories = true; inMemory = true"><a><span [style.color] = "myColor" class="group">BROWSE MEMORIES</span></a>
+                                <li (click)="showMemories = !showMemories; showAllMemories = true; inMemory = true">
+                                    <a><span [style.color] = "myColor" class="group">BROWSE MEMORIES</span></a>
                                 </li>
                             </ng-template>
-                            <li (click)="isLoggedIn = true"><a>
-                                <span [style.color] = "myColor" class="group">LOG IN</span>
-                            </a></li>
-                            <li (click) = "toggleSide()"><a href="#"><span title = {{seduce}}><img  src={{myImage}} width="30px"></span></a></li>
+                            <li (click)="inLogin = true"><a><span [style.color] = "myColor" class="group">LOG IN</span></a></li>
+                            <li (click) = "toggleSide()"><a><span title = {{seduce}}><img  src={{myImage}} width="30px"></span></a></li>
                             <li (click)="showSearch = !showSearch"><a><span [style.color] = "myColor" class="group"><i class="fa fa-search"></i></span></a></li>
                         </ul>                
                 </div>
             </div>
         </nav>
+        </div>
 
         <ng-template #elseBlock>
             <div class="row gutter-0" style="height:70px"></div>
             <div class="row gutter-0 searchSpace elementToFadeIn navbar-fixed-top">
-                <div class="col-md-11 col-sm-10 col-xs-9">
+                <div class="col-md-11 col-sm-10 col-xs-9" style="border-bottom: 1px solid #222">
                     <app-search [items]="this.sortedMemories" [inMemory]="inMemory" [showSearch]="showSearch" [memoryFeeder]="memoryFeeder" [showAllMemories]="showAllMemories"></app-search>
                 </div>
-                <div class="col-md-1 col-sm-2 col-xs-3" (click)="toggleMenu()">
-                        <span [style.color] = "myColor" style="padding:3px 2px 0px 0px;" class="group pull-right" (click)="toggleMenu()"><img src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAABHNCSVQICAgIfAhkiAAAAnBJREFUeF7l20tOwlAUgOF7ChMn7kAKwoJ0C4qPOHDgQnRkjEYNcapLEgV3YDTO7LVFQF6l93Ee7bUTkqah/T9oOzgttBuNXqLVbi2Cs+fh8E79g2W72TwGrc6V0k/Q2mq8R1G0OerWcNR/e70J2aATxydawWXWmOjkA9IV++mK22l0wAiz8dnPrUDtQRbebrQOFejrkBEW47XS3Zfh8H4EEDpCXnzWPQUIFWFd/BJAaAhF8SsBQkEwic8FqDqCafxagKoi2MQXAlQNwTbeCKAqCC7xxgBlR3CNtwIoK4JPvDVA2RB8450AyoKAEe8MII2AFe8FIIWAGe8NwI2AHY8CwIVAEY8GQI1AFY8KQIVAGY8OgI1AHU8CgIXAEU8G4IvAFU8K4IrAGU8OYIvAHc8CYIogEc8GUIQgFc8KkIcAkNQns7p0Gz2Z2GTbcyxzgxGOHS6N4f52yh7P/g+YtK5AEIkXA1g4539dhKbS7KfA0oh6dj4pgMAKsOpqDzqqS47m2QDW3eokn09gATC5z0shkAOYxOfeHRiuCaQANvFSCGQALvESCCQAPvHcCOgAGPGcCKgAmPFcCGgAFPEcCCgAlPHUCN4AHPGUCF4AnPFUCM4AEvEUCE4AkvHYCNYAZYjHRLACKFM8FoIxQBnjMRCMAMoc74tQCFCFeB+EtQBVindFyAWoYrwLwkqAKsfbIiwBhBBvgzAHEFK8KcIUIMR4E4QRQMjxRQgwfpH4aryh2JR2cqCUn4vDF1BwAO24+ZXudCObz3I/nEAZm/fdswiJ0p8pQPyQaL2TvkF+2h8MehIHxb3PTtzqfqvkoqbg8QcUycKevOMFZgAAAABJRU5ErkJggg=="></span>
+                <div class="col-md-1 col-sm-2 col-xs-3" (click)="toggleMenu()" style="border-bottom: 1px solid #222">
+                        <span [style.color] = "myColor" style="padding:3px 2px 3px 0px;" class="group pull-right" (click)="toggleMenu()"><img src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAABHNCSVQICAgIfAhkiAAAAnBJREFUeF7l20tOwlAUgOF7ChMn7kAKwoJ0C4qPOHDgQnRkjEYNcapLEgV3YDTO7LVFQF6l93Ee7bUTkqah/T9oOzgttBuNXqLVbi2Cs+fh8E79g2W72TwGrc6V0k/Q2mq8R1G0OerWcNR/e70J2aATxydawWXWmOjkA9IV++mK22l0wAiz8dnPrUDtQRbebrQOFejrkBEW47XS3Zfh8H4EEDpCXnzWPQUIFWFd/BJAaAhF8SsBQkEwic8FqDqCafxagKoi2MQXAlQNwTbeCKAqCC7xxgBlR3CNtwIoK4JPvDVA2RB8450AyoKAEe8MII2AFe8FIIWAGe8NwI2AHY8CwIVAEY8GQI1AFY8KQIVAGY8OgI1AHU8CgIXAEU8G4IvAFU8K4IrAGU8OYIvAHc8CYIogEc8GUIQgFc8KkIcAkNQns7p0Gz2Z2GTbcyxzgxGOHS6N4f52yh7P/g+YtK5AEIkXA1g4539dhKbS7KfA0oh6dj4pgMAKsOpqDzqqS47m2QDW3eokn09gATC5z0shkAOYxOfeHRiuCaQANvFSCGQALvESCCQAPvHcCOgAGPGcCKgAmPFcCGgAFPEcCCgAlPHUCN4AHPGUCF4AnPFUCM4AEvEUCE4AkvHYCNYAZYjHRLACKFM8FoIxQBnjMRCMAMoc74tQCFCFeB+EtQBVindFyAWoYrwLwkqAKsfbIiwBhBBvgzAHEFK8KcIUIMR4E4QRQMjxRQgwfpH4aryh2JR2cqCUn4vDF1BwAO24+ZXudCObz3I/nEAZm/fdswiJ0p8pQPyQaL2TvkF+2h8MehIHxb3PTtzqfqvkoqbg8QcUycKevOMFZgAAAABJRU5ErkJggg=="></span>
                 </div>
             </div>
-        </ng-template>           
+        </ng-template>
+
+        <ng-template #loginBlock>
+            <div class="row gutter-0" style="min-height: 70px"></div>
+            <div class="row gutter-0 searchSpace elementToFadeIn navbar-fixed-top">
+                <app-login [isLoggedIn]="isLoggedIn" [inLogin]="inLogin"></app-login>
+            </div>
+        </ng-template>
+
     </div>
     
     <div class="container-fluid" style="padding-top: 30px">        
@@ -64,7 +73,7 @@
                 </ng-template>
                 <ng-template #linkBlock>
                     <a (click)="memoryView(memory); inMemory = true">
-                        <span id="{{i}}" (mouseenter)="hoverIn(i)" (mouseleave)="hoverOut(i)" [style.color] = "myColor" [style.background-color] = "myBgColor" class="easeBgChange memoryLinkTitle elementToFadeIn" [innerHTML]="memory.title"></span>
+                        <span id="{{i}}" (mouseenter)="hoverIn(i)" (mouseleave)="hoverOut(i)" [style.color] = "myColor" [style.background-color] = "myBgColor" class="easeBgChange3 memoryLinkTitle elementToFadeIn" [innerHTML]="memory.title"></span>
                     </a>
                 </ng-template>
                 <div class="row gutter-0 center centerMemories elementToFadeIn" *ngIf="showMemories; else allMemories">

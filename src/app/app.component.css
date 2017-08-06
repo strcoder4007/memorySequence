@@ -1,4 +1,10 @@
-.easeBgChange {
+.easeBgChange1 {
+    -webkit-transition: background-color 0.1s ease-in;
+    -moz-transition: background-color 0.1s ease-in;
+    -o-transition: background-color 0.1s ease-in;
+    transition: background-color 0.1s ease-in;
+  }
+  .easeBgChange3 {
     -webkit-transition: background-color 0.3s ease-in;
     -moz-transition: background-color 0.3s ease-in;
     -o-transition: background-color 0.3s ease-in;

@@ -1,0 +1,22 @@
+.loginInput {
+    height: 70px;
+    width: 100%;
+    font-size: 45px;
+    font-family: "Roboto-Thin";
+    border: none;
+}
+
+.loginBtn {
+    height: 71px;
+    width: 100%;
+    font-size: 25px;
+    font-family: "Roboto-Thin";
+    border: none;
+}
+
+input[type=text] {
+    padding: 0px !important;
+    margin: 0px !important;
+    border: none;
+    outline: none;
+}
