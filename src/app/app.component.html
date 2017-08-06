@@ -30,7 +30,10 @@
                                     <a><span [style.color] = "myColor" class="group">BROWSE MEMORIES</span></a>
                                 </li>
                             </ng-template>
-                            <li (click)="inLogin = true"><a><span [style.color] = "myColor" class="group">LOG IN</span></a></li>
+                            <li *ngIf="!isLoggedIn; else logoutBlock" (click)="inLogin = true"><a><span [style.color] = "myColor" class="group">LOG IN</span></a></li>
+                            <ng-template #logoutBlock>
+                                <li><a><span [style.color] = "myColor" class="group">LOG OUT</span></a></li>                                 
+                            </ng-template>
                             <li (click) = "toggleSide()"><a><span title = {{seduce}}><img  src={{myImage}} width="30px"></span></a></li>
                             <li (click)="showSearch = !showSearch"><a><span [style.color] = "myColor" class="group"><i class="fa fa-search"></i></span></a></li>
                         </ul>                
@@ -54,7 +57,15 @@
         <ng-template #loginBlock>
             <div class="row gutter-0" style="min-height: 70px"></div>
             <div class="row gutter-0 searchSpace elementToFadeIn navbar-fixed-top">
-                <app-login [isLoggedIn]="isLoggedIn" [inLogin]="inLogin"></app-login>
+                <div class="col-md-10 col-sm-8">
+                    <app-login [isLoggedIn]="isLoggedIn" [inLogin]="inLogin" [username]="username" [password]="password"></app-login>
+                </div>
+                <div class="col-md-1 col-sm-2">
+                    <button [style.color] = "myColor" class="pull-right loginBtn" (click)="login(username, password)">LOG IN</button>
+                </div>
+                <div class="col-md-1 col-sm-2">
+                    <button [style.color] = "myColor" class="pull-right loginBtn" (click)="inLogin = false">CANCEL</button>
+                </div>
             </div>
         </ng-template>
 

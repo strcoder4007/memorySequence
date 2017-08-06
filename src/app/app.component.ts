@@ -31,9 +31,19 @@ export class AppComponent implements OnInit{
     defaultFeed: Memory;
     isLoggedIn: boolean = false;
     inLogin: boolean = false;
+    username: string;
+    password: string;
         
     constructor(public http: Http, private sanitizer: DomSanitizer) {
         
+    }
+
+    login(uname: string, pword: string) {
+        alert(uname+" "+pword);
+        if(uname == "str" && pword == "3yt8y98y5t394u20409g3h82g3") {
+            this.isLoggedIn = true;
+            this.inLogin = false;
+        }
     }
 
     hoverIn(index: any) {

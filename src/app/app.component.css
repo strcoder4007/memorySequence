@@ -1,3 +1,11 @@
+.loginBtn {
+    height: 70px;
+    width: 100%;
+    font-size: 25px;
+    font-family: "Roboto-Thin";
+}
+
+
 .easeBgChange1 {
     -webkit-transition: background-color 0.1s ease-in;
     -moz-transition: background-color 0.1s ease-in;
