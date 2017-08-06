@@ -118,8 +118,14 @@ export class AppComponent implements OnInit{
                     for(let k = 1; k < 32; k++)
                         for(let x = 0; x < this.memories.length; x++){
                             let date = this.memories[x].time.split(" ");
-                            if(parseInt(date[0]) == k && date[1] == this.months[j] && parseInt(date[2]) == i)
-                                this.sortedMemories.unshift(this.memories[x]);
+                            if(parseInt(date[0]) == k && date[1] == this.months[j] && parseInt(date[2]) == i){
+                                let hide = false;
+                                for(let y = 0; y < this.memories[x].tags.length; y++)
+                                    if(this.memories[x].tags[y] == "personal")
+                                        hide = true;
+                                if(!hide)
+                                    this.sortedMemories.unshift(this.memories[x]);
+                            }
                         }
             this.memoryFeeder = this.memories[0];
             this.defaultFeed = this.memories[0];
