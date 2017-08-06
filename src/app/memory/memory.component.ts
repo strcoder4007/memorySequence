@@ -14,6 +14,18 @@ export class MemoryComponent implements OnInit {
     fontColor: string;
     constructor() { }
 
+
+    hoverIn(index: any) {
+        let junk = document.getElementById(index);
+        document.getElementById(junk.id).style.color = this.bgColor;
+        document.getElementById(junk.id).style.background = this.myColor;            
+    }
+    hoverOut(index: any) {
+        let junk = document.getElementById(index);
+        document.getElementById(junk.id).style.color = this.myColor;
+        document.getElementById(junk.id).style.background = this.bgColor;
+    }
+
     ngOnInit() {
         if(this.mySide == "dark"){
             this.bgColor = "#222222";

@@ -35,6 +35,17 @@ export class AppComponent implements OnInit{
         
     }
 
+    hoverIn(index: any) {
+        let junk = document.getElementById(index);
+        document.getElementById(junk.id).style.color = this.myBgColor;
+        document.getElementById(junk.id).style.background = this.myColor;            
+    }
+    hoverOut(index: any) {
+        let junk = document.getElementById(index);
+        document.getElementById(junk.id).style.color = this.myColor;
+        document.getElementById(junk.id).style.background = this.myBgColor;
+    }
+
     setToDefaultFeed(currentMemory) {
         this.memoryFeeder = currentMemory;
     }
@@ -101,6 +112,7 @@ export class AppComponent implements OnInit{
                 this.memory.content = this.sanitizer.bypassSecurityTrustHtml(this.memory.content);
                 this.memories.push(this.memory);
             }
+            let cnt = 0;
             for(let i = 2015; i < 2064; i++)
                 for(let j = 0; j < 12; j++)
                     for(let k = 1; k < 32; k++)
@@ -112,7 +124,6 @@ export class AppComponent implements OnInit{
             this.memoryFeeder = this.memories[0];
             this.defaultFeed = this.memories[0];
         })
-
     }
 
 }

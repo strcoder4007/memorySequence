@@ -57,14 +57,14 @@
             <app-memory [post]="memoryFeeder" [memColor]="memColor" [myColor]="myColor" [mySide]="mySide" [bgColor]="myBgColor"></app-memory>
         </ng-template>
         <ng-template #hideMemory>
-            <div class = "container" *ngFor="let memory of sortedMemories">
+            <div class = "container" *ngFor="let memory of sortedMemories; let i = index">
                 <div *ngIf="showMemories; then normalBlock; else linkBlock"></div>
                 <ng-template #normalBlock>
                     <h1 [style.color] = "myColor" class="memoryTitle elementToFadeIn" [innerHTML]="memory.title"></h1>
                 </ng-template>
                 <ng-template #linkBlock>
                     <a (click)="memoryView(memory); inMemory = true">
-                        <h1 [style.color] = "myColor" class="memoryLinkTitle elementToFadeIn" [innerHTML]="memory.title"></h1>
+                        <span id="{{i}}" (mouseenter)="hoverIn(i)" (mouseleave)="hoverOut(i)" [style.color] = "myColor" [style.background-color] = "myBgColor" class="easeBgChange memoryLinkTitle elementToFadeIn" [innerHTML]="memory.title"></span>
                     </a>
                 </ng-template>
                 <div class="row gutter-0 center centerMemories elementToFadeIn" *ngIf="showMemories; else allMemories">

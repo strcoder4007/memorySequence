@@ -1,7 +1,7 @@
 .memoryTitle {
     font-family: "Roboto-Black";
     color: white;
-    font-size: 70px;
+    font-size: 80px;
 }
 .memory {
     font-size: 18px;
@@ -14,4 +14,20 @@
 }
 .mybtn {
     border-radius: 0px;
+    border: 2px solid;
+    border-color: myColor;
+    font-family: "Roboto";
 }
+
+.easeBgChange {
+    -webkit-transition: background-color 0.3s ease-in;
+    -moz-transition: background-color 0.3s ease-in;
+    -o-transition: background-color 0.3s ease-in;
+    transition: background-color 0.3s ease-in;
+  }
+  .easeColorChange {
+    -webkit-transition: color 0.3s ease-in;
+    -moz-transition: color 0.3s ease-in;
+    -o-transition: color 0.3s ease-in;
+    transition: color 0.3s ease-in;
+  }

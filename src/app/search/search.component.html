@@ -2,10 +2,3 @@
 <div *ngFor = "let item of items |filter:term" class="searchContainer">
     <a *ngIf = "term.length != '' " (click)="testing(item.name);"><p class="searchRes">{{item.name}}</p></a>
 </div>
-
-
-<!--
-<a (click)="memoryView(memory); inMemory = true" style="padding-left:3px;">
-    <h1 class="memoryLinkTitle elementToFadeIn" [innerHTML]="memory.title"></h1>
-</a>
--->
