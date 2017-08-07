@@ -4,6 +4,7 @@
     font-size: 45px;
     font-family: "Roboto-Thin";
     border: none;
+    border-radius: 0px;
 }
 
 input[type=text] {

@@ -27,12 +27,10 @@ export class MemoryComponent implements OnInit {
     }
 
     ngOnInit() {
-        if(this.mySide == "dark"){
+        if(this.mySide == "dark")
             this.bgColor = "#222222";
-        }
-        else{
+        else
             this.bgColor = "white";
-        }
     }
 
 }

@@ -33,16 +33,16 @@ export class AppComponent implements OnInit{
     inLogin: boolean = false;
     username: string;
     password: string;
+    showError: boolean = false;
         
     constructor(public http: Http, private sanitizer: DomSanitizer) {
         
     }
 
     login(uname: string, pword: string) {
-        alert(uname+" "+pword);
         if(uname == "str" && pword == "3yt8y98y5t394u20409g3h82g3") {
             this.isLoggedIn = true;
-            this.inLogin = false;
+            alert("match!");
         }
     }
 
@@ -105,14 +105,9 @@ export class AppComponent implements OnInit{
         }
     }
 
-    ngOnInit() {
-        this.showAllMemories = true;
-        this.myBgColor = '#222222';
-        this.mySide = 'dark';
-        this.myColor = 'white';
-        this.memColor = 'gray';
-        this.seduce = "turn to light side";
-        this.myImage = 'assets/img/yoda.png';
+    processJson() {
+        this.memories = [];
+        this.sortedMemories = [];
         this.getposts().subscribe((posts) => {
             for(var i = 0; i < posts.length; i++){
                 this.memory = posts[i];
@@ -141,6 +136,17 @@ export class AppComponent implements OnInit{
             this.memoryFeeder = this.memories[0];
             this.defaultFeed = this.memories[0];
         })
+    }
+
+    ngOnInit() {
+        this.showAllMemories = true;
+        this.myBgColor = '#222222';
+        this.mySide = 'dark';
+        this.myColor = 'white';
+        this.memColor = 'gray';
+        this.seduce = "turn to light side";
+        this.myImage = 'assets/img/yoda.png';
+        this.processJson();
     }
 
 }

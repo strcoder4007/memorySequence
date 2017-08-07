@@ -1,8 +1,6 @@
 .loginBtn {
-    height: 70px;
-    width: 100%;
-    font-size: 25px;
-    font-family: "Roboto-Thin";
+    padding:3px 2px 3px 0px;
+    cursor: pointer;
 }
 
 
@@ -43,7 +41,7 @@ a {
 .memoryTitle {
     font-family: "Roboto";
     color: white;
-    font-size: 45px;
+    font-size: 50px;
 }
 .memoryLinkTitle{
     font-family: "Roboto";

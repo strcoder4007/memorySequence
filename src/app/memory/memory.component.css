@@ -14,7 +14,6 @@
 }
 .mybtn {
     border-radius: 0px;
-    border: 2px solid;
-    border-color: myColor;
     font-family: "Roboto";
+    border: 2px solid;
 }
