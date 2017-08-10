@@ -29,7 +29,7 @@
                                     <a><span [style.color] = "myColor" class="group">BROWSE MEMORIES</span></a>
                                 </li>
                             </ng-template>
-                            <li *ngIf="!isLoggedIn; else logoutBlock" (click)="login('3yt8y98y5t394u20409g3h82g3', '3yt8y98y5t394u20409g3h82g3sdsydhs');inLogin = true"><a><span [style.color] = "myColor" class="group">LOG IN</span></a></li>
+                            <li *ngIf="!isLoggedIn; else logoutBlock" (click)="inLogin = true"><a><span [style.color] = "myColor" class="group">LOG IN</span></a></li>
                             <ng-template #logoutBlock>
                                 <li (click)="isLoggedIn = false; processJson()" ><a><span [style.color] = "myColor" class="group">LOG OUT</span></a></li>                                 
                             </ng-template>
@@ -57,19 +57,7 @@
 
         <ng-template [ngIf]="inLogin">
             <div class="row gutter-0 searchSpace elementToFadeIn navbar-fixed-top">
-                <div class="col-md-10 col-sm-8">
-                    <app-login [isLoggedIn]="isLoggedIn" [inLogin]="inLogin" [username]="username" [password]="password"></app-login>
-                </div>
-                <div class="col-md-1 col-sm-2" style="background-color: #e8e8e8">
-                    <span [style.color] = "myColor" (click)="login('sakdsu', 'sfhsu'); inLogin=false; processJson()" class="pull-right" style="cursor: pointer;">
-                        <img class="icon icons8-Long-Arrow-Right" width="70" height="70" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAABHNCSVQICAgIfAhkiAAAA+BJREFUeF7tnE+oTVEUxt9DMlBKydhAMjExoEgJ+TdgoKSYMSAGZM7cgKL8iUIRMmCAiSJRJiYmZMDAgFJKSRLxrd57Onc779699vLVGny7Vu/t+9b33d3vs++599xzjI9ppCIwnmo1WsyYAkn2j0CBKJBkBJItRztEgSQjkGw52iEKJBmBZMvRDlEgyQgkW452iAJJRiDZcrRDFEgyAsmWox2iQJIRSLYc7RAFkoxAsuVohyiQZASSLUc7RIEkI5BsOdohCiQZgWTL0Q5RIMkIJFuOdogCSUagfjlb0XoL9QF1AnW+XlrfqR1Sz+otWhd12g/j91P18rpOBVLHybo+ohYW7fswv1hvMbpTgYxmNNWxB79c7Wnfjceu1dsM71QgPpIH0X66kPzCfAfqjs+qv1uB+CkehcQO6t3xE5PNqId+u0GFAmkjeAyy44X0O+YbUU/aLCdUCqSdnu0S2y3d8Q2TNagXrbYKpJXchM6OJ3Zc6Y4vk6G8bLFWIC3UBjUXMLW3v93xGZPVqFdeewXiJfZvvzG8grK3xd3xCZMVqHeep1AgHlrT987An66jdhYt7zFfhbKfVUOBVGGqapqJrtuo7UW37RDbKbZjRg4FMhKRq2EWuu+ithQqO5bYMcWOLUOHAhlFyP/32ZDcQ60vpPauy16+vg6zVCB+4DWKOWh6hFpZND/HfB3KPq/0DgVSg7etZy5kj1HLC7l9kt+A+tFnq0DaYNeq5qHRAlhWCO5jvg1l58AGhgKpRdveNx/Sp6ilhYWdHbazxHa2+O9QIO2gPcoFaH6GWlyIbmK+C/V76vFuIGvx4CVU92tKz5Oqt43AOcj29wXyGg8uafOUKkjgDPSHzKO7QxRIkGpA3huInce/rJesANY26VnIDvS9ZLXZSVVDoOmgXmOsHj8Bve31M6Mp9MGQhtZvrFMnfmY0hU4u0tD6jXX63c+MptAXVDS0fmN9hetnRlPoIgcaWr+xLgPyM6MqdKEcFa/PXJeS+nhRu3WxNRWvz1y3I/h4Ubt1ww4Vr89ct7T5eFG77ULqGz3PoJs+qdinNy/vU7fOvSi7MOS/DV0GVI/yDVq7l/HoPw6oZ0fp3ATXB5POR/DzJONZtEMYVAOeCiQAjyFVIAyqAU8FEoDHkCoQBtWApwIJwGNIFQiDasBTgQTgMaQKhEE14KlAAvAYUgXCoBrwVCABeAypAmFQDXgqkAA8hlSBMKgGPBVIAB5DqkAYVAOeCiQAjyFVIAyqAU8FEoDHkCoQBtWApwIJwGNIFQiDasBTgQTgMaQKhEE14KlAAvAYUgXCoBrwVCABeAzpH3IieWW/aeOhAAAAAElFTkSuQmCC">
-                    </span>
-                </div>
-                <div class="col-md-1 col-sm-2">
-                    <span class="pull-right loginBtn" (click)="inLogin=false">
-                            <img src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAABHNCSVQICAgIfAhkiAAAAnBJREFUeF7l20tOwlAUgOF7ChMn7kAKwoJ0C4qPOHDgQnRkjEYNcapLEgV3YDTO7LVFQF6l93Ee7bUTkqah/T9oOzgttBuNXqLVbi2Cs+fh8E79g2W72TwGrc6V0k/Q2mq8R1G0OerWcNR/e70J2aATxydawWXWmOjkA9IV++mK22l0wAiz8dnPrUDtQRbebrQOFejrkBEW47XS3Zfh8H4EEDpCXnzWPQUIFWFd/BJAaAhF8SsBQkEwic8FqDqCafxagKoi2MQXAlQNwTbeCKAqCC7xxgBlR3CNtwIoK4JPvDVA2RB8450AyoKAEe8MII2AFe8FIIWAGe8NwI2AHY8CwIVAEY8GQI1AFY8KQIVAGY8OgI1AHU8CgIXAEU8G4IvAFU8K4IrAGU8OYIvAHc8CYIogEc8GUIQgFc8KkIcAkNQns7p0Gz2Z2GTbcyxzgxGOHS6N4f52yh7P/g+YtK5AEIkXA1g4539dhKbS7KfA0oh6dj4pgMAKsOpqDzqqS47m2QDW3eokn09gATC5z0shkAOYxOfeHRiuCaQANvFSCGQALvESCCQAPvHcCOgAGPGcCKgAmPFcCGgAFPEcCCgAlPHUCN4AHPGUCF4AnPFUCM4AEvEUCE4AkvHYCNYAZYjHRLACKFM8FoIxQBnjMRCMAMoc74tQCFCFeB+EtQBVindFyAWoYrwLwkqAKsfbIiwBhBBvgzAHEFK8KcIUIMR4E4QRQMjxRQgwfpH4aryh2JR2cqCUn4vDF1BwAO24+ZXudCObz3I/nEAZm/fdswiJ0p8pQPyQaL2TvkF+2h8MehIHxb3PTtzqfqvkoqbg8QcUycKevOMFZgAAAABJRU5ErkJggg==">
-                    </span>
-                </div>
+                <app-login (flogin)="toggleLogin($event)" (loginData)="receivingLoginData($event)"></app-login>
             </div>
         </ng-template>
 

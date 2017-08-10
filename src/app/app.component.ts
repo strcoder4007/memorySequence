@@ -39,10 +39,15 @@ export class AppComponent implements OnInit{
         
     }
 
-    login(uname: string, pword: string) {
-        if(uname == "str" && pword == "3yt8y98y5t394u20409g3h82g3") {
+    toggleLogin(ev) {
+        this.inLogin = ev;
+    }
+
+    receivingLoginData(ev) {
+        this.inLogin = ev[2];
+        if(ev[0] == "str" && ev[1] == "3yt8y98y5t394u20409g3h82g3") {
             this.isLoggedIn = true;
-            alert("match!");
+            this.processJson();
         }
     }
 

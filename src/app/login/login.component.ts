@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
     selector: 'app-login',
@@ -6,13 +6,19 @@ import { Component, OnInit, Input } from '@angular/core';
     styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-    @Input ('isLoggedIn') isLoggedIn;
-    @Input ('inLogin') inLogin;
-    @Input ('username') username;
-    @Input ('password') password;
+    @Output() loginData = new EventEmitter();
+    @Output() flogin = new EventEmitter();
 
+    constructor() {
+     }
 
-    constructor() { }
+    login(username: string, password: string) {
+        this.loginData.emit([username, password, false]);        
+    }
+
+    emitFalseLogin() {
+        this.flogin.emit(false);
+    }
 
     ngOnInit() {
         document.getElementById('focusThis').focus();

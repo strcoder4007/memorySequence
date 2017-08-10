@@ -1,9 +1,3 @@
-.loginBtn {
-    padding:3px 2px 3px 0px;
-    cursor: pointer;
-}
-
-
 .easeBgChange1 {
     -webkit-transition: background-color 0.1s ease-in;
     -moz-transition: background-color 0.1s ease-in;
