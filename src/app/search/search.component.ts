@@ -19,15 +19,6 @@ export class SearchComponent implements OnInit {
     constructor () {
     }
 
-    testing(cur: string) {
-        this.inMemory = !this.inMemory;
-        this.showSearch = false;
-        for(let i = 0; i < this.posts.length; i++)
-            if(this.posts[i].title == cur)
-                this.memoryFeeder = this.posts[i];
-        this.showAllMemories = false;
-    }
-
 
     ngOnInit() {
         document.getElementById('focusThis').focus();
