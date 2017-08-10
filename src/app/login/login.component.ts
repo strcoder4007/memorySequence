@@ -6,6 +6,8 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
     styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+    username: string;
+    password: string;
     @Output() loginData = new EventEmitter();
     @Output() flogin = new EventEmitter();
 
