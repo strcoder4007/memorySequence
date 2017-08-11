@@ -38,8 +38,8 @@ a {
     font-size: 50px;
 }
 .memoryLinkTitle{
-    font-family: "Roboto";
-    font-size: 60px;
+    font-family: "Roboto-Bold";
+    font-size: 45px;
 }
 .memory {
     font-size: 18px;
@@ -119,6 +119,9 @@ a {
 }
 
 @media (min-width: 768px) {
+    .memoryLinkTitle{
+        font-size: 60px;
+    }
     .centerMemories{
         width: 95%;
     }

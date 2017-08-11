@@ -34,6 +34,7 @@ export class AppComponent implements OnInit{
     username: string;
     password: string;
     showError: boolean = false;
+    screenWidth: any;
         
     constructor(public http: Http, private sanitizer: DomSanitizer) {
         
@@ -152,6 +153,7 @@ export class AppComponent implements OnInit{
         this.seduce = "turn to light side";
         this.myImage = 'assets/img/yoda.png';
         this.processJson();
+        this.screenWidth = window.screen.width;
     }
 
 }
