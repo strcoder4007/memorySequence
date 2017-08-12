@@ -20,17 +20,17 @@
                                     <a><span [style.color] = "myColor" class="group">ABOUT</span></a>
                                 </li>
                             </ng-template>
-                            <li *ngIf="!showMemories; else allMemories" (click)="showMemories = !showMemories; showAllMemories = true; inMemory = false; setToDefaultFeed(defaultFeed);">
-                                <a><span [style.color] = "myColor" class="group">ALL MEMORIES</span></a>
+                            <li *ngIf="hideOptions; else allMemories" (click)="hideOptions = false">
+                                <a><span [style.color] = "myColor" class="group">BROWSE MEMORIES</span></a>
                             </li>
                             <ng-template #allMemories>
-                                <li (click)="showMemories = !showMemories; showAllMemories = true; inMemory = true">
-                                    <a><span [style.color] = "myColor" class="group">BROWSE MEMORIES</span></a>
+                                <li (click)="hideOptions = true">
+                                    <a><span [style.color] = "myColor" class="group">READ ALL MEMORIES</span></a>
                                 </li>
                             </ng-template>
                             <li *ngIf="!isLoggedIn; else logoutBlock" (click)="inLogin = true"><a><span [style.color] = "myColor" class="group">LOG IN</span></a></li>
                             <ng-template #logoutBlock>
-                                <li (click)="isLoggedIn = false; processJson()" ><a><span [style.color] = "myColor" class="group">LOG OUT</span></a></li>                                 
+                                <li (click)="isLoggedIn = false" ><a><span [style.color] = "myColor" class="group">LOG OUT</span></a></li>                                 
                             </ng-template>
                             <li (click) = "toggleSide()"><a><span title = {{seduce}}><img  src={{myImage}} width="30px"></span></a></li>
                             <li (click)="showSearch = !showSearch"><a><span [style.color] = "myColor" class="group"><i class="fa fa-search"></i></span></a></li>
@@ -56,7 +56,7 @@
 
         <ng-template [ngIf]="inLogin">
             <div class="row gutter-0 searchSpace elementToFadeIn navbar-fixed-top">
-                <app-login (flogin)="toggleLogin($event)" (loginData)="receivingLoginData($event)"></app-login>
+                    <app-login (emitLoginStatus)="loggedIn($event)" (flogin)="toggleLogin($event)" [isLoggedIn]="isLoggedIn"></app-login>
             </div>
         </ng-template>
 
@@ -67,31 +67,14 @@
         </ng-template>
 
     </div>
-    
-    <div class="container-fluid" style="padding-top: 30px">        
-        <div *ngIf="showAllMemories; then hideMemory; else showMemory"></div>
-        <ng-template #showMemory>
-            <app-memory [post]="memoryFeeder" [memColor]="memColor" [myColor]="myColor" [mySide]="mySide" [bgColor]="myBgColor"></app-memory>
-        </ng-template>
-        <ng-template #hideMemory>
-            <div class = "container" *ngFor="let memory of sortedMemories; let i = index">
-                <div *ngIf="showMemories; then normalBlock; else linkBlock"></div>
-                <ng-template #normalBlock>
-                    <h1 id="{{sortedMemories.length-i}}" [style.color] = "myColor" class="memoryTitle elementToFadeIn" [innerHTML]="memory.title" title="memory {{sortedMemories.length-i}}"></h1>
-                </ng-template>
-                <ng-template #linkBlock>
-                    <a (click)="memoryView(memory); inMemory = true">
-                        <span id="{{i}}" (mouseenter)="hoverIn(i)" (mouseleave)="hoverOut(i)" [style.color] = "myColor" [style.background-color] = "myBgColor" class="easeBgChange3 memoryLinkTitle elementToFadeIn" [innerHTML]="memory.title"></span>
-                    </a>
-                    <hr *ngIf="this.screenWidth <= 768" style="border: 1px solid" [style.color]="myBgColor">
-                </ng-template>
-                <div class="row gutter-0 center centerMemories elementToFadeIn" *ngIf="showMemories; else allMemories">
-                    <div class="col-md-1">
-                        <span [style.color] = "myColor" class="myTime">{{memory.time}}</span>
-                    </div>
-                    <div class="col-md-11 memory" [style.color] = "memColor" [innerHTML]="memory.content"></div>
-                </div>
-            </div>    
-        </ng-template>
-    </div>
+
+    <div *ngIf="inMemory; then memoryBlock; else memoriesBlock;"></div>
+    <ng-template #memoryBlock>
+        <app-memory [sortedMemories]="sortedMemories" [memColor]="memColor" [myColor]="myColor" [mySide]="mySide" [myBgColor]="myBgColor"></app-memory>
+    </ng-template>
+    <ng-template #memoriesBlock>
+        <app-memories [myColor]="myColor" [myBgColor]="myBgColor"  [inLogin]="inLogin"  [isLoggedIn]="isLoggedIn" [memColor]="memColor" [hideOptions]="hideOptions"></app-memories>
+    </ng-template>
+
+
 </div>

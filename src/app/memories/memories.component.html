@@ -1,0 +1,19 @@
+<div class="container-fluid" style="padding-top: 30px">        
+    <div class = "container" *ngFor="let memory of sortedMemories; let i = index">
+        <div *ngIf="hideOptions; then normalBlock; else linkBlock"></div>
+        <ng-template #normalBlock>
+            <h1 id="{{sortedMemories.length-i}}" [style.color] = "myColor" class="memoryTitle elementToFadeIn"[innerHTML]="memory.title" title="memory {{sortedMemories.length-i}}"></h1>
+        </ng-template>
+        <ng-template #linkBlock>
+            <a (click)="gotomem();"><span id="{{i}}" (mouseenter)="hoverIn(i)" (mouseleave)="hoverOut(i)" [style.color] = "myColor" [style.background-color] = "myBgColor" class="easeBgChange3 memoryLinkTitle elementToFadeIn"[innerHTML]="memory.title"></span>
+            </a>
+            <hr *ngIf="this.screenWidth <= 768" style="border: 1px solid" [style.color]="myBgColor">
+        </ng-template>
+        <div class="row gutter-0 center centerMemories elementToFadeIn" *ngIf="hideOptions">
+            <div class="col-md-1">
+                <span [style.color] = "myColor" class="myTime">{{memory.time}}</span>
+            </div>
+            <div class="col-md-11 memory" [style.color] = "memColor" [innerHTML]="memory.content"></div>
+        </div>
+    </div>    
+</div>
