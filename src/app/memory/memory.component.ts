@@ -11,13 +11,23 @@ export class MemoryComponent implements OnInit, OnDestroy {
     @Input() myColor;
     @Input() mySide;
     @Input() myBgColor;
-    @Input() sortedMemories;
     fontColor: string;
     private id;
     sub: any;
     post: any;
+    sortedMemories = [];
 
     constructor(private route: ActivatedRoute) { }
+
+    updateSortedMemories(ev) {
+        this.sortedMemories = ev;
+        console.log(this.sortedMemories);
+        this.sub = this.route.params.subscribe(params => {
+            this.id = +params['id'];
+            this.post = this.sortedMemories[this.id];
+            alert(this.post.title);
+        });
+    }
 
     hoverIn(index: any) {
         let junk = document.getElementById(index);
@@ -31,11 +41,6 @@ export class MemoryComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.sub = this.route.params.subscribe(params => {
-            this.id = +params['id'];
-            alert(this.id);
-        });
-        this.post = this.sortedMemories[this.id];
         if(this.mySide == "dark")
             this.myBgColor = "#222222";
         else

@@ -12,11 +12,11 @@
                     </div>
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"  >        
                         <ul class="nav navbar-nav navbar-right">
-                            <li *ngIf="inMemory; else inAllMemories" (click)="inMemory = !inMemory; memoryView(defaultFeed)">
+                            <li *ngIf="inMemory; else inAllMemories" (click)="inMemory = false">
                                 <a><span [style.color] = "myColor" class="group">BACK</span></a>
                             </li>
                             <ng-template #inAllMemories>
-                                <li (click)="inMemory = true; memoryView(memoryFeeder)">
+                                <li (click)="inMemory = true">
                                     <a><span [style.color] = "myColor" class="group">ABOUT</span></a>
                                 </li>
                             </ng-template>
@@ -30,7 +30,7 @@
                             </ng-template>
                             <li *ngIf="!isLoggedIn; else logoutBlock" (click)="inLogin = true"><a><span [style.color] = "myColor" class="group">LOG IN</span></a></li>
                             <ng-template #logoutBlock>
-                                <li (click)="isLoggedIn = false" ><a><span [style.color] = "myColor" class="group">LOG OUT</span></a></li>                                 
+                                <li (click)="loggedIn(false)" ><a><span [style.color] = "myColor" class="group">LOG OUT</span></a></li>                                 
                             </ng-template>
                             <li (click) = "toggleSide()"><a><span title = {{seduce}}><img  src={{myImage}} width="30px"></span></a></li>
                             <li (click)="showSearch = !showSearch"><a><span [style.color] = "myColor" class="group"><i class="fa fa-search"></i></span></a></li>
@@ -43,7 +43,7 @@
             <div class="row gutter-0" style="height:70px"></div>
             <div class="row gutter-0 searchSpace elementToFadeIn navbar-fixed-top">
                 <div class="col-md-11 col-sm-10 col-xs-9" style="border-bottom: 1px solid #222">
-                    <app-search [items]="this.sortedMemories" [inMemory]="inMemory" [showSearch]="showSearch" [memoryFeeder]="memoryFeeder" [showAllMemories]="showAllMemories"></app-search>
+                    <app-search [items]="sortedMemories" [inMemory]="inMemory" [showSearch]="showSearch"></app-search>
                 </div>
                 <div class="col-md-1 col-sm-2 col-xs-3" (click)="toggleMenu()" style="border-bottom: 1px solid #222">
                         <span [style.color] = "myColor" class="group pull-right" (click)="toggleMenu()"><img width="70em" height="70em" src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAABHNCSVQICAgIfAhkiAAAAnBJREFUeF7l20tOwlAUgOF7ChMn7kAKwoJ0C4qPOHDgQnRkjEYNcapLEgV3YDTO7LVFQF6l93Ee7bUTkqah/T9oOzgttBuNXqLVbi2Cs+fh8E79g2W72TwGrc6V0k/Q2mq8R1G0OerWcNR/e70J2aATxydawWXWmOjkA9IV++mK22l0wAiz8dnPrUDtQRbebrQOFejrkBEW47XS3Zfh8H4EEDpCXnzWPQUIFWFd/BJAaAhF8SsBQkEwic8FqDqCafxagKoi2MQXAlQNwTbeCKAqCC7xxgBlR3CNtwIoK4JPvDVA2RB8450AyoKAEe8MII2AFe8FIIWAGe8NwI2AHY8CwIVAEY8GQI1AFY8KQIVAGY8OgI1AHU8CgIXAEU8G4IvAFU8K4IrAGU8OYIvAHc8CYIogEc8GUIQgFc8KkIcAkNQns7p0Gz2Z2GTbcyxzgxGOHS6N4f52yh7P/g+YtK5AEIkXA1g4539dhKbS7KfA0oh6dj4pgMAKsOpqDzqqS47m2QDW3eokn09gATC5z0shkAOYxOfeHRiuCaQANvFSCGQALvESCCQAPvHcCOgAGPGcCKgAmPFcCGgAFPEcCCgAlPHUCN4AHPGUCF4AnPFUCM4AEvEUCE4AkvHYCNYAZYjHRLACKFM8FoIxQBnjMRCMAMoc74tQCFCFeB+EtQBVindFyAWoYrwLwkqAKsfbIiwBhBBvgzAHEFK8KcIUIMR4E4QRQMjxRQgwfpH4aryh2JR2cqCUn4vDF1BwAO24+ZXudCObz3I/nEAZm/fdswiJ0p8pQPyQaL2TvkF+2h8MehIHxb3PTtzqfqvkoqbg8QcUycKevOMFZgAAAABJRU5ErkJggg=="></span>
@@ -70,10 +70,10 @@
 
     <div *ngIf="inMemory; then memoryBlock; else memoriesBlock;"></div>
     <ng-template #memoryBlock>
-        <app-memory [sortedMemories]="sortedMemories" [memColor]="memColor" [myColor]="myColor" [mySide]="mySide" [myBgColor]="myBgColor"></app-memory>
+        <app-memory [memColor]="memColor" [myColor]="myColor" [mySide]="mySide" [myBgColor]="myBgColor"></app-memory>
     </ng-template>
     <ng-template #memoriesBlock>
-        <app-memories [myColor]="myColor" [myBgColor]="myBgColor"  [inLogin]="inLogin"  [isLoggedIn]="isLoggedIn" [memColor]="memColor" [hideOptions]="hideOptions"></app-memories>
+        <app-memories (emitMemories)="getSortedMemories($event)" [myColor]="myColor" [myBgColor]="myBgColor"  [inLogin]="inLogin"  [isLoggedIn]="isLoggedIn" [memColor]="memColor" [hideOptions]="hideOptions"></app-memories>
     </ng-template>
 
 

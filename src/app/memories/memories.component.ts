@@ -1,4 +1,4 @@
-import { Component, OnInit, SecurityContext, Input } from '@angular/core';
+import { Component, OnInit, SecurityContext, Input, Output, EventEmitter } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
@@ -16,7 +16,7 @@ export class MemoriesComponent implements OnInit {
     @Input() isLoggedIn;
     @Input() memColor;
     @Input() hideOptions;
-    
+    @Output() emitMemories = new EventEmitter();
 
     memory: Memory;
     memories =[];
@@ -25,19 +25,18 @@ export class MemoriesComponent implements OnInit {
     months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
     sortedMemories = [];
     screenWidth: any;
+    
         
     constructor(public http: Http, private sanitizer: DomSanitizer, private router: Router) {
         
     }
 
     refreshData(ev) {
-        alert("success!");
-        if(ev == true)
           this.processJson();
     }
 
-    gotomem() {
-        this.router.navigate(['/memory', 1]);
+    gotomem(idx: number) {
+        this.router.navigate(['/memory', idx]);
     }
 
     hoverIn(index: any) {
@@ -87,6 +86,7 @@ export class MemoriesComponent implements OnInit {
     }
     ngOnInit() {
         this.processJson();
+        this.emitMemories.emit(this.sortedMemories);
         this.screenWidth = window.screen.width;
     }
 }

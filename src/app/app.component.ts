@@ -4,6 +4,7 @@ import 'rxjs/add/operator/map';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { Router} from '@angular/router';
 import { MemoriesComponent } from './memories/memories.component';
+import { MemoryComponent } from './memory/memory.component';
 
 @Component({
   selector: 'app-root',
@@ -27,14 +28,18 @@ export class AppComponent implements OnInit{
     screenWidth: any;
     inMemory: boolean = false;
     hideOptions: boolean = true;
+    sortedMemories = [];
     @ViewChild(MemoriesComponent) private memoriesComponent:MemoriesComponent;
+    @ViewChild(MemoryComponent) private memoryComponent:MemoryComponent;
 
     constructor(public http: Http, private sanitizer: DomSanitizer, private router: Router) {
         
     }
 
-    gotomem() {
-        this.router.navigate(['/memory', 1]);
+    getSortedMemories(ev) {
+        this.sortedMemories = ev;
+        this.memoryComponent.updateSortedMemories(ev);
+        //this.memoryComponent.sortedMemories = ev;
     }
 
     toggleLogin(ev) {
@@ -42,10 +47,8 @@ export class AppComponent implements OnInit{
     }
 
     loggedIn(ev) {
-        if(ev == true){
-            this.isLoggedIn = true;
-            this.memoriesComponent.refreshData(ev);
-        }
+        this.isLoggedIn = ev;
+        this.memoriesComponent.refreshData(ev);
     }
 
     getposts() {
