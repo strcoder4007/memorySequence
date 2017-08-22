@@ -38,7 +38,7 @@ export class AppComponent implements OnInit{
 
     getSortedMemories(ev) {
         this.sortedMemories = ev;
-        this.memoryComponent.updateSortedMemories(ev);
+        //this.memoryComponent.updateSortedMemories(ev);
         //this.memoryComponent.sortedMemories = ev;
     }
 
