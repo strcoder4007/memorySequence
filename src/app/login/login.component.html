@@ -1,9 +1,9 @@
-<div *ngIf="!showError; else wrongBlock" class="row gutter-0 elementToFadeIn">
-    <div class="col-md-5 col-sm-5 col-xs-4" style="background-color: #adadad">
-        <input id="focusThis" type="text" placeholder="username" [(ngModel)]="username" class="loginInput" style="background-color: transparent">
+<div *ngIf="!showError; else wrongBlock" class="row gutter-0 elementToFadeIn1">
+    <div class="col-md-5 col-sm-5 col-xs-4" style="background-color: #adadad !important">
+        <input id="focusThis" type="text" placeholder="username" [(ngModel)]="username" class="loginInput" style="background-color: transparent" autocomplete="on" autofocus (keypress)="eventHandler($event)">
     </div>
     <div class="col-md-5 col-sm-5 col-xs-4" style="background-color: #cccccc">
-        <input type="password" placeholder="password" [(ngModel)]="password" class="loginInput" style="background-color: transparent">
+        <input id="focusPass" type="password" placeholder="password" [(ngModel)]="password" class="loginInput" style="background-color: transparent" autocomplete="on" (keypress)="eventHandler($event)">
     </div>
     <div class="col-md-2 col-sm-2 col-xs-4">
         <div class="row gutter-0">
@@ -22,6 +22,6 @@
 </div>
 <ng-template #wrongBlock>
     <div class="row gutter-0 wrong">
-        Wrong credentials
+        Wrong credentials!
     </div>
 </ng-template>

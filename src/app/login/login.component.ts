@@ -14,7 +14,12 @@ export class LoginComponent implements OnInit {
     @Output() emitLoginStatus = new EventEmitter();
 
     constructor() {
-     }
+    }
+
+    eventHandler(ev) {
+        if(ev.keyCode == 13)
+            this.login(this.username, this.password);
+    }
 
     login(username: string, password: string) {
         if(username == "str" && password == "programming!0!") {
@@ -28,6 +33,7 @@ export class LoginComponent implements OnInit {
                 this.showError = false;
             }, 1000);
             this.password = "";
+            document.getElementById('focusPass').focus();            
         }
     }
     emitFalseLogin() {
