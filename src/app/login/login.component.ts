@@ -17,16 +17,16 @@ export class LoginComponent implements OnInit {
      }
 
     login(username: string, password: string) {
-        if(username == "str" && password == "3yt8y98y5t394u20409g3h82g3") {      
+        if(username == "str" && password == "programming!0!") {
             this.isLoggedIn = true;
             this.emitLoginStatus.emit(true);
+            this.emitFalseLogin();
         }
         else {
             this.showError = true;
             setTimeout(() => {
                 this.showError = false;
             }, 1000);
-            this.username = "";
             this.password = "";
         }
     }
@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
     }
 
     ngOnInit() {
-        //document.getElementById('focusThis').focus();
+        //document.getElementById('focusThis').focus();            
     }
 
 }

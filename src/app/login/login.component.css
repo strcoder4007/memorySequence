@@ -1,9 +1,12 @@
 .wrong {
     text-align: center; 
-    background-color: red; 
+    background-color:crimson; 
     color: white;
     height: 70px;
+    font-size: 45px;
+    font-family: "Roboto-Thin";
 }
+
 .loginInput {
     height: 70px;
     width: 100%;

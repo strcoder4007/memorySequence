@@ -1,4 +1,4 @@
-<div *ngIf="!showError; else wrongBlock" class="row gutter-0">
+<div *ngIf="!showError; else wrongBlock" class="row gutter-0 elementToFadeIn">
     <div class="col-md-5 col-sm-5 col-xs-4" style="background-color: #adadad">
         <input id="focusThis" type="text" placeholder="username" [(ngModel)]="username" class="loginInput" style="background-color: transparent">
     </div>
@@ -19,7 +19,6 @@
                 </div>
         </div>
     </div>
-    
 </div>
 <ng-template #wrongBlock>
     <div class="row gutter-0 wrong">

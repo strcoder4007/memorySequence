@@ -55,7 +55,7 @@
 
 
         <ng-template [ngIf]="inLogin">
-            <div class="row gutter-0 searchSpace elementToFadeIn navbar-fixed-top">
+            <div class="row gutter-0 searchSpace navbar-fixed-top">
                     <app-login (emitLoginStatus)="loggedIn($event)" (flogin)="toggleLogin($event)" [isLoggedIn]="isLoggedIn"></app-login>
             </div>
         </ng-template>
