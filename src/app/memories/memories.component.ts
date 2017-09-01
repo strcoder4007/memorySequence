@@ -59,8 +59,6 @@ export class MemoriesComponent implements OnInit {
         this.memories = [];
         this.sortedMemories = [];
         this.getposts().subscribe((posts) => {
-            //posts = posts.children[0].content.downloadUrl;
-            console.log(posts);
             for(var i = 0; i < posts.length; i++){
                 this.memory = posts[i];
                 this.tags = {
