@@ -19,6 +19,8 @@ export class LoginComponent implements OnInit {
     eventHandler(ev) {
         if(ev.keyCode == 13)
             this.login(this.username, this.password);
+        else if(ev.keyCode == 27)
+            this.emitFalseLogin();
     }
 
     login(username: string, password: string) {

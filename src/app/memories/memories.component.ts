@@ -22,6 +22,7 @@ export class MemoriesComponent implements OnInit {
     memories =[];
     myTags = [];
     tags: Tags;
+    dataUrl: string;
     months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
     sortedMemories = [];
     screenWidth: any;
@@ -51,13 +52,15 @@ export class MemoriesComponent implements OnInit {
     }
 
     getposts() {
-        return this.http.get("assets/data.json").map(res => res.json());
+        return this.http.get(this.dataUrl).map(res => res.json());
     }
 
     processJson() {
         this.memories = [];
         this.sortedMemories = [];
         this.getposts().subscribe((posts) => {
+            //posts = posts.children[0].content.downloadUrl;
+            console.log(posts);
             for(var i = 0; i < posts.length; i++){
                 this.memory = posts[i];
                 this.tags = {
@@ -85,6 +88,8 @@ export class MemoriesComponent implements OnInit {
         })
     }
     ngOnInit() {
+        //this.dataUrl = "https://api.onedrive.com/v1.0/shares/u!" + btoa("https://1drv.ms/u/s!AmQasIRCiDf9vD-2TelhqjKMwd1N")+"/root?expand=children";
+        this.dataUrl = "https://ccipua.bn1301.livefilestore.com/y4m6NaOCIeoFWT-R9MUfH4UAK5AcSqGhfOw8ggqW9g_xDbhzhxDeo11JUvzbJerUHSSRl7cyY1g1w3nRe54B77cZXEZPJo3Cc-0S0mqOvJNKVABHqIESnipWKKkSajJcr4Og0KxPV0fSGk6IX7Ug6O07SrpSBG-LA-5vXtRxlTe-i5Pgd06wV3Aa-R_v5NQ05KBGyLkAb9lmqzEwunX3Lyksw";
         this.processJson();
         this.emitMemories.emit(this.sortedMemories);
         this.screenWidth = window.screen.width;
