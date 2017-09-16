@@ -1,4 +1,4 @@
-import { Component, OnInit, SecurityContext, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, SecurityContext, Input, ViewChild, AfterViewInit } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
@@ -11,7 +11,7 @@ import { MemoryComponent } from './memory/memory.component';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit, AfterViewInit{
     myBgColor: string;
     mySide: string;
     seduce: string;
@@ -32,14 +32,14 @@ export class AppComponent implements OnInit{
     @ViewChild(MemoriesComponent) private memoriesComponent:MemoriesComponent;
     @ViewChild(MemoryComponent) private memoryComponent:MemoryComponent;
 
-    constructor(public http: Http, private sanitizer: DomSanitizer, private router: Router) {
-        
+    constructor(public http: Http, private sanitizer: DomSanitizer, private router: Router) {}
+
+    gotoMemory() {
+        this.inMemory = true;
     }
 
     getSortedMemories(ev) {
         this.sortedMemories = ev;
-        //this.memoryComponent.updateSortedMemories(ev);
-        //this.memoryComponent.sortedMemories = ev;
     }
 
     toggleLogin(ev) {
@@ -49,10 +49,6 @@ export class AppComponent implements OnInit{
     loggedIn(ev) {
         this.isLoggedIn = ev;
         this.memoriesComponent.refreshData(ev);
-    }
-
-    getposts() {
-        return this.http.get("assets/data.json").map(res => res.json());
     }
 
     toggleMenu() {
@@ -83,12 +79,22 @@ export class AppComponent implements OnInit{
         }
     }
 
+
+    
+
     ngOnInit() {
+        let curUrl = (window.location+'').split('/');
+        if(curUrl.length == 5) {
+
+        }
         this.myBgColor = '#222222';
         this.mySide = 'dark';
         this.myColor = 'white';
         this.memColor = 'gray';
         this.seduce = "turn to light side";
         this.myImage = 'assets/img/yoda.png';
+    }
+    ngAfterViewInit() {
+        //this.inMemory = false;
     }
 }
