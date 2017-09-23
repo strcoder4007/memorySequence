@@ -38,8 +38,7 @@ export class MemoriesComponent implements OnInit {
     }
 
     gotomem(idx: number) {
-        this.router.navigate(['/memory', idx]);
-        this.emitMemory.emit();
+        this.emitMemory.emit(idx);
     }
 
     hoverIn(index: any) {

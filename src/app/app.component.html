@@ -16,15 +16,15 @@
                                 <a><span [style.color] = "myColor" class="group">BACK</span></a>
                             </li>
                             <ng-template #inAllMemories>
-                                <li (click)="inMemory = true;">
+                                <li (click)="gotoMemory(15)">
                                     <a><span [style.color] = "myColor" class="group">ABOUT</span></a>
                                 </li>
                             </ng-template>
-                            <li *ngIf="hideOptions; else allMemories" (click)="hideOptions = false">
+                            <li *ngIf="hideOptions; else allMemories" (click)="hideOptions = false; inMemory = false;">
                                 <a><span [style.color] = "myColor" class="group">BROWSE MEMORIES</span></a>
                             </li>
                             <ng-template #allMemories>
-                                <li (click)="hideOptions = true; inMemory = false;">
+                                <li (click)="hideOptions = true; inMemory = false; goBack()">
                                     <a><span [style.color] = "myColor" class="group">READ ALL MEMORIES</span></a>
                                 </li>
                             </ng-template>
@@ -73,7 +73,7 @@
         <app-memory [sortedMemories]="sortedMemories" [memColor]="memColor" [myColor]="myColor" [mySide]="mySide" [myBgColor]="myBgColor"></app-memory>
     </ng-template>
     <ng-template #memoriesBlock>
-        <app-memories (emitMemory)="gotoMemory()" (emitMemories)="getSortedMemories($event)" [myColor]="myColor" [myBgColor]="myBgColor"  [inLogin]="inLogin"  [isLoggedIn]="isLoggedIn" [memColor]="memColor" [hideOptions]="hideOptions"></app-memories>
+        <app-memories (emitMemory)="gotoMemory($event)" (emitMemories)="getSortedMemories($event)" [myColor]="myColor" [myBgColor]="myBgColor"  [inLogin]="inLogin"  [isLoggedIn]="isLoggedIn" [memColor]="memColor" [hideOptions]="hideOptions"></app-memories>
     </ng-template>
 
 </div>

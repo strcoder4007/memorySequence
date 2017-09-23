@@ -45,7 +45,8 @@ export class AppComponent implements OnInit, AfterViewInit{
         }
     }
 
-    gotoMemory() {
+    gotoMemory(ev) {
+        this.router.navigate(['/memory', ev]);
         this.inMemory = true;
     }
 
@@ -102,6 +103,7 @@ export class AppComponent implements OnInit, AfterViewInit{
         let curUrl = (window.location+'').split('/');
         if(curUrl.length >= 5) {
             this.memoriesComponent.processJson();
+            this.hideOptions = false;
         }
     }
 }
