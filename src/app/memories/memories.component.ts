@@ -53,6 +53,9 @@ export class MemoriesComponent implements OnInit {
         document.getElementById(junk.id).style.background = this.myBgColor;
     }
 
+    //when direct link is given to a memory then we need to come directly to this place and the click automatic
+    //therefore here the address should be the direct
+
     getposts() {
         return this.http.get('assets/data.json').map(res => res.json());
     }
@@ -86,11 +89,15 @@ export class MemoriesComponent implements OnInit {
                             }
                         }
             this.emitMemories.emit(this.sortedMemories);
+            let curUrl = (window.location+'').split('/');
+            let idx = parseInt(curUrl[curUrl.length-1]);
+            if(curUrl.length >= 5)
+                this.gotomem(idx);
         })
     }
     ngOnInit() {
         //this.dataUrl = "https://api.onedrive.com/v1.0/shares/u!" + btoa("https://1drv.ms/u/s!AmQasIRCiDf9vD-2TelhqjKMwd1N")+"/root?expand=children";
-        this.dataUrl = "https://ccipua.bn1301.livefilestore.com/y4m6NaOCIeoFWT-R9MUfH4UAK5AcSqGhfOw8ggqW9g_xDbhzhxDeo11JUvzbJerUHSSRl7cyY1g1w3nRe54B77cZXEZPJo3Cc-0S0mqOvJNKVABHqIESnipWKKkSajJcr4Og0KxPV0fSGk6IX7Ug6O07SrpSBG-LA-5vXtRxlTe-i5Pgd06wV3Aa-R_v5NQ05KBGyLkAb9lmqzEwunX3Lyksw";
+        //this.dataUrl = "https://ccipua.bn1301.livefilestore.com/y4m6NaOCIeoFWT-R9MUfH4UAK5AcSqGhfOw8ggqW9g_xDbhzhxDeo11JUvzbJerUHSSRl7cyY1g1w3nRe54B77cZXEZPJo3Cc-0S0mqOvJNKVABHqIESnipWKKkSajJcr4Og0KxPV0fSGk6IX7Ug6O07SrpSBG-LA-5vXtRxlTe-i5Pgd06wV3Aa-R_v5NQ05KBGyLkAb9lmqzEwunX3Lyksw";
         this.processJson();
         this.screenWidth = window.screen.width;
     }

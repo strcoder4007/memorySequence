@@ -34,6 +34,17 @@ export class AppComponent implements OnInit, AfterViewInit{
 
     constructor(public http: Http, private sanitizer: DomSanitizer, private router: Router) {}
 
+    ngOnChanges() {
+
+    }
+
+    goBack() {
+        let curUrl = (window.location+'').split('/');
+        if(curUrl.length >= 5) {
+            this.router.navigate(['']);
+        }
+    }
+
     gotoMemory() {
         this.inMemory = true;
     }
@@ -79,14 +90,7 @@ export class AppComponent implements OnInit, AfterViewInit{
         }
     }
 
-
-    
-
     ngOnInit() {
-        let curUrl = (window.location+'').split('/');
-        if(curUrl.length == 5) {
-
-        }
         this.myBgColor = '#222222';
         this.mySide = 'dark';
         this.myColor = 'white';
@@ -95,6 +99,9 @@ export class AppComponent implements OnInit, AfterViewInit{
         this.myImage = 'assets/img/yoda.png';
     }
     ngAfterViewInit() {
-        //this.inMemory = false;
+        let curUrl = (window.location+'').split('/');
+        if(curUrl.length >= 5) {
+            this.memoriesComponent.processJson();
+        }
     }
 }
