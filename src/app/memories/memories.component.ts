@@ -28,6 +28,7 @@ export class MemoriesComponent implements OnInit {
     months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
     sortedMemories = [];
     screenWidth: any;
+    finalUrl: string;
     
         
     constructor(public http: Http, private sanitizer: DomSanitizer, private router: Router) {
@@ -55,36 +56,24 @@ export class MemoriesComponent implements OnInit {
 
     getposts() {
         this.dataUrl = "https://api.onedrive.com/v1.0/shares/u!" + btoa("https://1drv.ms/u/s!AmQasIRCiDf9vTVJ0_dCvaClKKxy?v="+Math.random())+"/root?expand=children";
-        console.log("first: "+this.dataUrl);
-        //open the above link and copy the token url from there.
-
-
-        // FOR PRODUCTION
-        //this.dataUrl = "https://ccipua.bn1301.livefilestore.com/y4m4OT3IWZ1c_X434Cbn1Si4hVwmspmqHXwHJshlw1tEzR77XT4CQgw6esmptEfWc6ubDvOeYEK8Rh5-DJw67AioJ2zvCIYWYUqaeyjv4xPCLkfrpGunqL7kzwb3pQT4CRvHSCmQAyEc_sQPuLhmh1SKAMojy-ROxb_n0mFy1wR6Y2hF0FVVCXGAmmaGiQZmksCjKVEx_ObT4tQN8YOVymzbQ";
-
-
-
-        //FOR LOCAL
-        this.dataUrl = "https://hmulza.bn1301.livefilestore.com/y4mlmlKyZB5vhhXOGrUqXnyDLAOeT3pIl8dwcTzO6fTvwnZD_3QmdRv65XDLqUkNroyNDl8sHgOvDoLsmhtGjtElxjFO0vdfy0JbyaypXxZ8aH8PCFUMAYDrk_5jASxMjg9Z9FJIG3KCs2S0jqXwg1JtfY_qYPny7ypeQW1CEjFQDVIC3mwXKe2Vgc8LZfSZjW220OhOj2n5-j94Ll3bhbc5g";
-
-        //WORKING ONE; just need to calculate random value online; need to generate this url automatically everytime;
-        //this.dataUrl = "https://hmulza.bn1301.livefilestore.com/y4mYs5TXoSjm5MzPcgpfq3PfWhaY34tB3Phb5ozTGzXUvaEL3rWSDa-rb-xLLcSqLAbv6L5YUXQ-cGP2dZiaHRY43QNXd-WvAKZV0qT4yhTTyFyz8IpU_v-atyXml1kunX7lDPTDb8ZJXvDDGDPP5ojS7IjAbFKwb8pTZEah81COoWuRCY4zAVCOAzTBRHMR7juP3hjN7cDZaBZoYsa4iGBnw";
-        
+        console.log(this.http.get(this.dataUrl).map(res => res.json()));
         return this.http.get(this.dataUrl).map(res => res.json());
     }
 
-    preprocessJson() {
-        this.getposts().subscribe((genUrl) => {
-            console.log(genUrl);
-        })
+    getfinalposts() {
+        return this.http.get(this.finalUrl).map(res => res.json());
     }
 
     processJson() {
-        //this.preprocessJson();
-        //this.dataUrl = "https://hmulza.bn1301.livefilestore.com/y4mlmlKyZB5vhhXOGrUqXnyDLAOeT3pIl8dwcTzO6fTvwnZD_3QmdRv65XDLqUkNroyNDl8sHgOvDoLsmhtGjtElxjFO0vdfy0JbyaypXxZ8aH8PCFUMAYDrk_5jASxMjg9Z9FJIG3KCs2S0jqXwg1JtfY_qYPny7ypeQW1CEjFQDVIC3mwXKe2Vgc8LZfSZjW220OhOj2n5-j94Ll3bhbc5g";
+        this.getposts().subscribe((metaJson) => {
+            let myString = JSON.stringify(metaJson);
+            let myIdx = myString.search("createdBy");
+            this.finalUrl = myString.substring(25, myIdx-3);
+            console.log(this.finalUrl);
+        })
         this.memories = [];
         this.sortedMemories = [];
-        this.getposts().subscribe((posts) => {
+        this.getfinalposts().subscribe((posts) => {
             for(var i = 0; i < posts.length; i++){
                 this.memory = posts[i];
                 this.tags = {
