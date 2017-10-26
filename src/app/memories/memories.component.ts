@@ -4,6 +4,9 @@ import 'rxjs/add/operator/map';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { Router} from '@angular/router';
 
+import { ISubscription } from "rxjs/Subscription";
+import 'rxjs/Rx';
+
 @Component({
   selector: 'app-memories',
   templateUrl: './memories.component.html',
@@ -60,20 +63,21 @@ export class MemoriesComponent implements OnInit {
         return this.http.get(this.dataUrl).map(res => res.json());
     }
 
-    getfinalposts() {
-        return this.http.get(this.finalUrl).map(res => res.json());
+    getfinalposts(myLink: string) {
+        return this.http.get(myLink).map(res => res.json());
     }
 
     processJson() {
-        this.getposts().subscribe((metaJson) => {
+        this.memories = [];
+        this.sortedMemories = [];
+        this.getposts().flatMap(metaJson => {
             let myString = JSON.stringify(metaJson);
             let myIdx = myString.search("createdBy");
             this.finalUrl = myString.substring(25, myIdx-3);
-            console.log(this.finalUrl);
-        })
-        this.memories = [];
-        this.sortedMemories = [];
-        this.getfinalposts().subscribe((posts) => {
+            let myLink = this.finalUrl;
+            console.log("this is inside: " + this.finalUrl);
+            return this.getfinalposts(myLink);
+        }).subscribe(posts => {
             for(var i = 0; i < posts.length; i++){
                 this.memory = posts[i];
                 this.tags = {
