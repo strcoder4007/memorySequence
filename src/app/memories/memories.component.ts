@@ -9,6 +9,7 @@ import { Router} from '@angular/router';
   templateUrl: './memories.component.html',
   styleUrls: ['./memories.component.css']
 })
+
 export class MemoriesComponent implements OnInit {
     @Input() myColor;
     @Input() myBgColor;
@@ -53,13 +54,34 @@ export class MemoriesComponent implements OnInit {
     }
 
     getposts() {
-        //this.dataUrl = "https://api.onedrive.com/v1.0/shares/u!" + btoa("https://1drv.ms/u/s!AmQasIRCiDf9vD-2TelhqjKMwd1N")+"/root?expand=children";
-        //this.dataUrl = "https://ccipua.bn1301.livefilestore.com/y4m6NaOCIeoFWT-R9MUfH4UAK5AcSqGhfOw8ggqW9g_xDbhzhxDeo11JUvzbJerUHSSRl7cyY1g1w3nRe54B77cZXEZPJo3Cc-0S0mqOvJNKVABHqIESnipWKKkSajJcr4Og0KxPV0fSGk6IX7Ug6O07SrpSBG-LA-5vXtRxlTe-i5Pgd06wV3Aa-R_v5NQ05KBGyLkAb9lmqzEwunX3Lyksw";
-        this.dataUrl = "assets/data.json";
+        this.dataUrl = "https://api.onedrive.com/v1.0/shares/u!" + btoa("https://1drv.ms/u/s!AmQasIRCiDf9vTVJ0_dCvaClKKxy?v="+Math.random())+"/root?expand=children";
+        console.log("first: "+this.dataUrl);
+        //open the above link and copy the token url from there.
+
+
+        // FOR PRODUCTION
+        //this.dataUrl = "https://ccipua.bn1301.livefilestore.com/y4m4OT3IWZ1c_X434Cbn1Si4hVwmspmqHXwHJshlw1tEzR77XT4CQgw6esmptEfWc6ubDvOeYEK8Rh5-DJw67AioJ2zvCIYWYUqaeyjv4xPCLkfrpGunqL7kzwb3pQT4CRvHSCmQAyEc_sQPuLhmh1SKAMojy-ROxb_n0mFy1wR6Y2hF0FVVCXGAmmaGiQZmksCjKVEx_ObT4tQN8YOVymzbQ";
+
+
+
+        //FOR LOCAL
+        this.dataUrl = "https://hmulza.bn1301.livefilestore.com/y4mlmlKyZB5vhhXOGrUqXnyDLAOeT3pIl8dwcTzO6fTvwnZD_3QmdRv65XDLqUkNroyNDl8sHgOvDoLsmhtGjtElxjFO0vdfy0JbyaypXxZ8aH8PCFUMAYDrk_5jASxMjg9Z9FJIG3KCs2S0jqXwg1JtfY_qYPny7ypeQW1CEjFQDVIC3mwXKe2Vgc8LZfSZjW220OhOj2n5-j94Ll3bhbc5g";
+
+        //WORKING ONE; just need to calculate random value online; need to generate this url automatically everytime;
+        //this.dataUrl = "https://hmulza.bn1301.livefilestore.com/y4mYs5TXoSjm5MzPcgpfq3PfWhaY34tB3Phb5ozTGzXUvaEL3rWSDa-rb-xLLcSqLAbv6L5YUXQ-cGP2dZiaHRY43QNXd-WvAKZV0qT4yhTTyFyz8IpU_v-atyXml1kunX7lDPTDb8ZJXvDDGDPP5ojS7IjAbFKwb8pTZEah81COoWuRCY4zAVCOAzTBRHMR7juP3hjN7cDZaBZoYsa4iGBnw";
+        
         return this.http.get(this.dataUrl).map(res => res.json());
     }
 
+    preprocessJson() {
+        this.getposts().subscribe((genUrl) => {
+            console.log(genUrl);
+        })
+    }
+
     processJson() {
+        //this.preprocessJson();
+        //this.dataUrl = "https://hmulza.bn1301.livefilestore.com/y4mlmlKyZB5vhhXOGrUqXnyDLAOeT3pIl8dwcTzO6fTvwnZD_3QmdRv65XDLqUkNroyNDl8sHgOvDoLsmhtGjtElxjFO0vdfy0JbyaypXxZ8aH8PCFUMAYDrk_5jASxMjg9Z9FJIG3KCs2S0jqXwg1JtfY_qYPny7ypeQW1CEjFQDVIC3mwXKe2Vgc8LZfSZjW220OhOj2n5-j94Ll3bhbc5g";
         this.memories = [];
         this.sortedMemories = [];
         this.getposts().subscribe((posts) => {
