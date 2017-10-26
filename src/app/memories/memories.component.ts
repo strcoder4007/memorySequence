@@ -3,8 +3,6 @@ import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { Router} from '@angular/router';
-
-import { ISubscription } from "rxjs/Subscription";
 import 'rxjs/Rx';
 
 @Component({
@@ -58,7 +56,9 @@ export class MemoriesComponent implements OnInit {
     }
 
     getposts() {
-        this.dataUrl = "https://api.onedrive.com/v1.0/shares/u!" + btoa("https://1drv.ms/u/s!AmQasIRCiDf9vTVJ0_dCvaClKKxy?v="+Math.random())+"/root?expand=children";
+        let prod = "https://1drv.ms/u/s!AmQasIRCiDf9vD_XTXVm105j48xp";
+        let local = "https://1drv.ms/u/s!AmQasIRCiDf9vTVJ0_dCvaClKKxy";
+        this.dataUrl = "https://api.onedrive.com/v1.0/shares/u!" + btoa(local+"?v="+Math.random())+"/root?expand=children";
         console.log(this.http.get(this.dataUrl).map(res => res.json()));
         return this.http.get(this.dataUrl).map(res => res.json());
     }
