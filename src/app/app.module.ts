@@ -15,6 +15,7 @@ import { MemoriesComponent } from './memories/memories.component';
 const appRoutes: Routes = [
     { path:'', component: MemoriesComponent},    
     { path:'memory/:id', component: MemoryComponent},
+    { path:'memseq/memory/:id', component: MemoryComponent},
     {   path: '**',
         redirectTo: '',
         pathMatch: 'full'
