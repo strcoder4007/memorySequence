@@ -153,3 +153,11 @@ a {
         width: 100%;
     }
 }
+@media (max-width: 584px) {
+    .memoryTitle {
+        font-size: 30px;
+    }
+    .memory {
+        font-size: 14px;
+    }
+}    

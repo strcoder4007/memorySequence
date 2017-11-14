@@ -2,7 +2,7 @@
     <div class = "container" *ngFor="let memory of sortedMemories; let i = index">
         <div *ngIf="hideOptions; then normalBlock; else linkBlock"></div>
         <ng-template #normalBlock>
-            <h1 id="{{sortedMemories.length-i}}" [style.color] = "myColor" class="memoryTitle elementToFadeIn"[innerHTML]="memory.title" title="memory {{sortedMemories.length-i}}"></h1>
+            <span id="{{sortedMemories.length-i}}" [style.color] = "myColor" class="memoryTitle elementToFadeIn"[innerHTML]="memory.title" title="memory {{sortedMemories.length-i}}"></span>
         </ng-template>
         <ng-template #linkBlock>
             <a (click)="gotomem(i);"><span id="{{i}}" (mouseenter)="hoverIn(i)" (mouseleave)="hoverOut(i)" [style.color] = "myColor" [style.background-color] = "myBgColor" class="easeBgChange3 memoryLinkTitle elementToFadeIn"[innerHTML]="memory.title"></span>

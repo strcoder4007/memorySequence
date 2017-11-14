@@ -67,11 +67,13 @@
         </ng-template>
 
     </div>
-
+    <!-- Single memory -->
     <div *ngIf="inMemory; then memoryBlock; else memoriesBlock;"></div>
     <ng-template #memoryBlock>
         <app-memory [sortedMemories]="sortedMemories" [memColor]="memColor" [myColor]="myColor" [mySide]="mySide" [myBgColor]="myBgColor"></app-memory>
     </ng-template>
+
+    <!-- Home page with the conversion to title structure--> 
     <ng-template #memoriesBlock>
         <app-memories (emitMemory)="gotoMemory($event)" (emitMemories)="getSortedMemories($event)" [myColor]="myColor" [myBgColor]="myBgColor"  [inLogin]="inLogin"  [isLoggedIn]="isLoggedIn" [memColor]="memColor" [hideOptions]="hideOptions"></app-memories>
     </ng-template>
