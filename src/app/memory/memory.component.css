@@ -15,10 +15,22 @@
     border-radius: 0px;
     font-family: "Roboto";
     border: 2px solid;
+    margin-bottom: 3px;
 }
 
 @media (min-width: 768px) {
     .memoryTitle {
-        font-size: 80px;
+        font-size: 70px;
     }
 }
+@media (max-width: 584px) {
+    .memoryTitle {
+        font-size: 30px;
+    }
+    .memory {
+        font-size: 13px;
+    }
+    .myTime {
+        font-size: 11px;
+    }
+}    

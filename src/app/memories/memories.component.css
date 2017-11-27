@@ -158,6 +158,9 @@ a {
         font-size: 30px;
     }
     .memory {
-        font-size: 14px;
+        font-size: 13px;
+    }
+    .myTime {
+        font-size: 11px;
     }
 }    
