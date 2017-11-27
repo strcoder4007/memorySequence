@@ -75,7 +75,7 @@ export class MemoriesComponent implements OnInit {
             let myIdx = myString.search("createdBy");
             this.finalUrl = myString.substring(25, myIdx-3);
             let myLink = this.finalUrl;
-            console.log("this is inside: " + this.finalUrl);
+            //console.log("this is inside: " + this.finalUrl);
             return this.getfinalposts(myLink);
         }).subscribe(posts => {
             for(var i = 0; i < posts.length; i++){

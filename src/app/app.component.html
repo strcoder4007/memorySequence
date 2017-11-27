@@ -16,7 +16,7 @@
                                 <a><span [style.color] = "myColor" class="group">BACK</span></a>
                             </li>
                             <ng-template #inAllMemories>
-                                <li (click)="gotoMemory(15)">
+                                <li (click)="gotoMemory(this.sortedMemories.length-1)">
                                     <a><span [style.color] = "myColor" class="group">ABOUT</span></a>
                                 </li>
                             </ng-template>
