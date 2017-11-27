@@ -34,16 +34,17 @@ a {
 
 .memoryTitle {
     font-family: "Roboto-Medium";
-    font-size: 60px;
+    font-size: 50px;
 }
 .memoryLinkTitle{
     font-family: "Roboto-Medium";
-    font-size: 45px;
+    font-size: 40px;
 }
 .memory {
-    font-size: 18px;
+    font-size: 16px;
     text-align: justify;
     font-family: "Roboto-Regular";
+    padding-bottom: 30px;
 }
 .myTime {
     font-family: "Roboto-Medium";
@@ -117,12 +118,16 @@ a {
     display: none;
 }
 
+.memoriesPage {
+    padding-top: 30px;
+}
+
 @media (min-width: 768px) {
     .memoryLinkTitle{
         font-size: 60px;
     }
     .centerMemories{
-        width: 95%;
+        width: 100%;
     }
     .navbar-collapse {
         padding-top: 0px !important;
@@ -162,5 +167,8 @@ a {
     }
     .myTime {
         font-size: 11px;
+    }
+    .memoriesPage {
+        padding-top: 0px;
     }
 }    

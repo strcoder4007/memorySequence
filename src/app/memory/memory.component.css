@@ -1,22 +1,22 @@
 .memoryTitle {
     font-family: "Roboto-Black";
-    font-size: 60px;
+    font-size: 50px;
 }
 .memory {
-    font-size: 18px;
+    font-size: 16px;
     text-align: justify;
     font-family: "Roboto-Regular";
 }
 .myTime {
     font-family: "Roboto";
-    font-size: 15px;
+    font-size: 14px;
 }
 .mybtn {
     border-radius: 0px;
     font-family: "Roboto";
     border: 2px solid;
     margin-bottom: 3px;
-    font-size: 15px;
+    font-size: 14px;
 }
 
 @media (min-width: 768px) {
