@@ -5,7 +5,7 @@
     </div>
     <hr style="border: 1px solid" [style.color]="myColor">    
     <span *ngFor="let tag of post.tags; let i = index;"> 
-        <span id="{{i}}" (mouseenter)="hoverIn(i)" (mouseleave)="hoverOut(i)" class=" btn mybtn" [style.background-color]="myBgColor" [style.color]="myColor" [style.border-color]="myColor">
+        <span id="{{i}}" (mouseenter)="hoverIn(i)" (mouseleave)="hoverOut(i)" class="btn mybtn" [style.background-color]="myBgColor" [style.color]="myColor" [style.border-color]="myColor">
             {{tag}}
         </span>
     </span>

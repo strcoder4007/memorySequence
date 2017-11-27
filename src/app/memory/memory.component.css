@@ -16,6 +16,7 @@
     font-family: "Roboto";
     border: 2px solid;
     margin-bottom: 3px;
+    font-size: 15px;
 }
 
 @media (min-width: 768px) {
@@ -31,6 +32,9 @@
         font-size: 13px;
     }
     .myTime {
+        font-size: 11px;
+    }
+    .mybtn {
         font-size: 11px;
     }
 }    
