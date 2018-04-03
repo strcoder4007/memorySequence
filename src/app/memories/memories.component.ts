@@ -57,7 +57,7 @@ export class MemoriesComponent implements OnInit {
 
     getposts() {
         let prod = "https://1drv.ms/u/s!AmQasIRCiDf9vVBQ--3w2STYkPo8";
-        let local = "https://1drv.ms/u/s!AmQasIRCiDf9vTVJ0_dCvaClKKxy";
+        let local = "https://1drv.ms/u/s!AmQasIRCiDf9vg-uuspbdj0x8Fi9";
         this.dataUrl = "https://api.onedrive.com/v1.0/shares/u!" + btoa(local+"?v="+Math.random())+"/root?expand=children";
         //console.log(this.http.get(this.dataUrl).map(res => res.json()));
         return this.http.get(this.dataUrl).map(res => res.json());

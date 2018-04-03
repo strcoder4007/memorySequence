@@ -25,6 +25,7 @@ export class LoginComponent implements OnInit {
 
     login(username: string, password: string) {
         if(username == "str" && password == "programming!0!") {
+            localStorage.setItem("loggedIn", "xyufsvt");
             this.isLoggedIn = true;
             this.emitLoginStatus.emit(true);
             this.emitFalseLogin();

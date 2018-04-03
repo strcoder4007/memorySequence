@@ -59,6 +59,8 @@ export class AppComponent implements OnInit, AfterViewInit{
     }
 
     loggedIn(ev) {
+        if(ev == false)
+            localStorage.setItem("loggedIn", "sjmdo");
         this.isLoggedIn = ev;
         this.memoriesComponent.refreshData(ev);
     }
@@ -100,6 +102,11 @@ export class AppComponent implements OnInit, AfterViewInit{
         this.myImage = 'assets/img/yoda.png';
     }
     ngAfterViewInit() {
+        if(localStorage.getItem("loggedIn") == undefined)
+            localStorage.setItem("loggedIn", "");
+        else if(localStorage.getItem("loggedIn") == "xyufsvt") {
+            this.loggedIn(true);
+        }
         let curUrl = (window.location+'').split('/');
         if(curUrl.length >= 5) {
             this.memoriesComponent.processJson();
