@@ -42,6 +42,7 @@ export class MemoriesComponent implements OnInit {
     refreshData(ev) {
         if(!ev)
             this.level = 1;
+        this.isLoggedIn = ev;
         this.processJson();
     }
 
@@ -73,6 +74,17 @@ export class MemoriesComponent implements OnInit {
     }
 
     processJson() {
+        if(localStorage.getItem("sortedMemoriesPrivate") != "")
+            this.allMemories = JSON.parse(localStorage.getItem("sortedMemoriesPrivate"));
+        if(localStorage.getItem("sortedMemoriesPublic") != "")
+            this.someMemories = JSON.parse(localStorage.getItem("sortedMemoriesPublic"));
+        this.isLoggedIn ? this.sortedMemories = this.allMemories : this.sortedMemories = this.someMemories;
+        if(!this.isLoggedIn && localStorage.getItem("sortedMemoriesPublic") != "")
+            return;
+        if(localStorage.getItem("sortedMemoriesPublic") != "" && localStorage.getItem("sortedMemoriesPrivate") != "")
+            return;
+
+        
         this.memories = [];
         this.someMemories = [];
         this.sortedMemories = [];
