@@ -59,8 +59,10 @@ export class AppComponent implements OnInit, AfterViewInit{
     }
 
     loggedIn(ev) {
-        if(!ev)
-            localStorage.setItem("loggedIn", "sjmdo");
+        if(!ev) {
+            localStorage.setItem("loggedIn", "");
+            localStorage.setItem("sortedMemoriesPrivate", "");
+        }
         this.isLoggedIn = ev;
         this.memoriesComponent.refreshData(ev);
     }
@@ -105,6 +107,12 @@ export class AppComponent implements OnInit, AfterViewInit{
         else if(localStorage.getItem("loggedIn") == "xyufsvt") {
             this.loggedIn(true);
         }
+        if(localStorage.getItem("lastModified") == undefined)
+            localStorage.setItem("lastModified", "");
+        if(localStorage.getItem("sortedMemoriesPrivate") == undefined)
+            localStorage.setItem("sortedMemoriesPrivate", "");
+        if(localStorage.getItem("sortedMemoriesPublic") == undefined)
+            localStorage.setItem("sortedMemoriesPublic", "");
     }
     ngAfterViewInit() {
         let curUrl = (window.location+'').split('/');

@@ -28,8 +28,11 @@ export class MemoriesComponent implements OnInit {
     dataUrl: string;
     months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
     sortedMemories = [];
+    allMemories = [];
+    someMemories = [];
     screenWidth: any;
     finalUrl: string;
+    level = 0;
     
         
     constructor(public http: Http, private sanitizer: DomSanitizer, private router: Router) {
@@ -37,7 +40,9 @@ export class MemoriesComponent implements OnInit {
     }
 
     refreshData(ev) {
-          this.processJson();
+        if(!ev)
+            this.level = 1;
+        this.processJson();
     }
 
     gotomem(idx: number) {
@@ -69,13 +74,29 @@ export class MemoriesComponent implements OnInit {
 
     processJson() {
         this.memories = [];
+        this.someMemories = [];
         this.sortedMemories = [];
+        this.allMemories = [];
         this.getposts().flatMap(metaJson => {
+            if(localStorage.getItem("lastModified") == metaJson['lastModifiedDateTime']) {
+                if(this.isLoggedIn && this.level == 2) {
+                    this.sortedMemories = JSON.parse(localStorage.getItem("sortedMemoriesPrivate"));
+                    return;
+                }
+                else if(this.isLoggedIn && this.level == 1) {
+                    console.log("should continue to populate private list");
+                }
+                else if(!this.isLoggedIn) {
+                    this.sortedMemories = JSON.parse(localStorage.getItem("sortedMemoriesPublic"));
+                    return;
+                }
+            }
+            ++this.level;
+            localStorage.setItem("lastModified", metaJson['lastModifiedDateTime']);
             let myString = JSON.stringify(metaJson);
             let myIdx = myString.search("createdBy");
             this.finalUrl = myString.substring(25, myIdx-3);
             let myLink = this.finalUrl;
-            //console.log("this is inside: " + this.finalUrl);
             return this.getfinalposts(myLink);
         }).subscribe(posts => {
             for(var i = 0; i < posts.length; i++){
@@ -96,12 +117,17 @@ export class MemoriesComponent implements OnInit {
                             if(parseInt(date[0]) == k && date[1] == this.months[j] && parseInt(date[2]) == i){
                                 let hide = false;
                                 for(let y = 0; y < this.memories[x].tags.length; y++)
-                                    if(this.memories[x].tags[y] == "personal" && !this.isLoggedIn)
+                                    if(this.memories[x].tags[y] == "personal")
                                         hide = true;
                                 if(!hide)
-                                    this.sortedMemories.unshift(this.memories[x]);
+                                    this.someMemories.unshift(this.memories[x]);   
+                                this.allMemories.unshift(this.memories[x]);
                             }
                         }
+            if(this.isLoggedIn)
+                localStorage.setItem("sortedMemoriesPrivate", JSON.stringify(this.allMemories));
+            localStorage.setItem("sortedMemoriesPublic", JSON.stringify(this.someMemories));
+            this.isLoggedIn ? this.sortedMemories = this.allMemories : this.sortedMemories = this.someMemories;
             this.emitMemories.emit(this.sortedMemories);
             let curUrl = (window.location+'').split('/');
             let idx = parseInt(curUrl[curUrl.length-1]);
