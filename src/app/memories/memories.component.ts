@@ -74,6 +74,11 @@ export class MemoriesComponent implements OnInit {
     }
 
     processJson() {
+
+        /*
+
+        Sheer stupidity below.
+
         if(localStorage.getItem("sortedMemoriesPrivate") != "")
             this.allMemories = JSON.parse(localStorage.getItem("sortedMemoriesPrivate"));
         if(localStorage.getItem("sortedMemoriesPublic") != "")
@@ -84,6 +89,7 @@ export class MemoriesComponent implements OnInit {
         if(localStorage.getItem("sortedMemoriesPublic") != "" && localStorage.getItem("sortedMemoriesPrivate") != "")
             return;
 
+        */
         
         this.memories = [];
         this.someMemories = [];
