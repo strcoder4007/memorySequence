@@ -53,19 +53,23 @@ export class MemoriesComponent implements OnInit {
     hoverIn(index: any) {
         let junk = document.getElementById(index);
         document.getElementById(junk.id).style.color = this.myBgColor;
-        document.getElementById(junk.id).style.background = this.myColor;            
+        document.getElementById(junk.id).style.background = this.myColor;
+        //changing style of the tinyDate
+        document.getElementById("tinyDate"+junk.id).style.color = this.myColor;
+        document.getElementById("tinyDate"+junk.id).style.background = this.myBgColor;
+        document.getElementById("tinyDate"+junk.id).style.display = "inherit";
     }
     hoverOut(index: any) {
         let junk = document.getElementById(index);
         document.getElementById(junk.id).style.color = this.myColor;
         document.getElementById(junk.id).style.background = this.myBgColor;
+        document.getElementById("tinyDate"+junk.id).style.display = "none";
     }
 
     getposts() {
         let prod = "https://1drv.ms/u/s!AmQasIRCiDf9vVBQ--3w2STYkPo8";
         let local = "https://1drv.ms/u/s!AmQasIRCiDf9vg-uuspbdj0x8Fi9";
         this.dataUrl = "https://api.onedrive.com/v1.0/shares/u!" + btoa(local+"?v="+Math.random())+"/root?expand=children";
-        //console.log(this.http.get(this.dataUrl).map(res => res.json()));
         return this.http.get(this.dataUrl).map(res => res.json());
     }
 
@@ -74,23 +78,6 @@ export class MemoriesComponent implements OnInit {
     }
 
     processJson() {
-
-        /*
-
-        Sheer stupidity below.
-
-        if(localStorage.getItem("sortedMemoriesPrivate") != "")
-            this.allMemories = JSON.parse(localStorage.getItem("sortedMemoriesPrivate"));
-        if(localStorage.getItem("sortedMemoriesPublic") != "")
-            this.someMemories = JSON.parse(localStorage.getItem("sortedMemoriesPublic"));
-        this.isLoggedIn ? this.sortedMemories = this.allMemories : this.sortedMemories = this.someMemories;
-        if(!this.isLoggedIn && localStorage.getItem("sortedMemoriesPublic") != "")
-            return;
-        if(localStorage.getItem("sortedMemoriesPublic") != "" && localStorage.getItem("sortedMemoriesPrivate") != "")
-            return;
-
-        */
-        
         this.memories = [];
         this.someMemories = [];
         this.sortedMemories = [];
