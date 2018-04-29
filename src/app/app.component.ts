@@ -16,13 +16,13 @@ import {MemoryComponent} from './memory/memory.component';
 @Component({selector: 'app-root', templateUrl: './app.component.html', styleUrls: ['./app.component.css']})
 export class AppComponent implements OnInit,
 AfterViewInit {
-    myBgColor : string;
-    mySide : string;
-    seduce : string;
-    myColor : string;
-    memColor : string;
-    myImage : string;
-    showSearch : boolean = false;
+    myBgColor: string;
+    mySide: string;
+    seduce: string;
+    myColor: string;
+    memColor: string;
+    myImage: string;
+    showSearch: Boolean = false;
     months = [
         'January',
         'February',
@@ -37,24 +37,22 @@ AfterViewInit {
         'November',
         'December'
     ];
-    isLoggedIn : boolean = false;
-    inLogin : boolean = false;
-    username : string;
-    password : string;
-    showError : boolean = false;
-    screenWidth : any;
-    inMemory : boolean = false;
-    hideOptions : boolean = true;
+    isLoggedIn: Boolean = false;
+    inLogin: Boolean = false;
+    username: string;
+    password: string;
+    showError: Boolean = false;
+    screenWidth: any;
+    inMemory: Boolean = false;
+    hideOptions: Boolean = true;
     sortedMemories = [];
-    @ViewChild(MemoriesComponent)private memoriesComponent : MemoriesComponent;
-    @ViewChild(MemoryComponent)private memoryComponent : MemoryComponent;
+    @ViewChild(MemoriesComponent)private memoriesComponent: MemoriesComponent;
+    @ViewChild(MemoryComponent)private memoryComponent: MemoryComponent;
 
-    constructor(public http : Http, private sanitizer : DomSanitizer, private router : Router) {}
-
-    ngOnChanges() {}
+    constructor(public http: Http, private sanitizer: DomSanitizer, private router: Router) {}
 
     goBack() {
-        let curUrl = (window.location + '').split('/');
+        const curUrl = (window.location + '').split('/');
         if (curUrl.length >= 5) {
             this
                 .router
@@ -79,8 +77,8 @@ AfterViewInit {
 
     loggedIn(ev) {
         if (!ev) {
-            localStorage.setItem("loggedIn", "");
-            localStorage.setItem("sortedMemoriesPrivate", "");
+            localStorage.setItem('loggedIn', '');
+            localStorage.setItem('sortedMemoriesPrivate', '');
         }
         this.isLoggedIn = ev;
         this
@@ -89,24 +87,24 @@ AfterViewInit {
     }
 
     toggleMenu() {
-        if (this.showSearch) 
+        if (this.showSearch) {
             this.showSearch = false;
-        else 
+        }else {
             this.showSearch = true;
         }
-    
+    }
     toggleSide() {
-        if (this.mySide == 'light') {
+        if (this.mySide === 'light') {
             this.mySide = 'dark';
             this.myBgColor = '#222222';
-            this.seduce = "turn to light side";
+            this.seduce = 'turn to light side';
             this.myColor = 'white';
             this.memColor = 'gray';
             this.myImage = 'assets/img/yoda.png';
-        } else if (this.mySide == 'dark') {
+        } else if (this.mySide === 'dark') {
             this.mySide = 'light';
             this.myBgColor = 'white';
-            this.seduce = "turn to dark side";
+            this.seduce = 'turn to dark side';
             this.myColor = 'black';
             this.memColor = '#565656';
             this.myImage = 'assets/img/darthVader.png';
@@ -118,22 +116,25 @@ AfterViewInit {
         this.mySide = 'dark';
         this.myColor = 'white';
         this.memColor = 'gray';
-        this.seduce = "turn to light side";
+        this.seduce = 'turn to light side';
         this.myImage = 'assets/img/yoda.png';
-        if (localStorage.getItem("loggedIn") == undefined) 
-            localStorage.setItem("loggedIn", "");
-        else if (localStorage.getItem("loggedIn") == "xyufsvt") {
+        if (localStorage.getItem('loggedIn') === undefined) {
+            localStorage.setItem('loggedIn', '');
+        }else if (localStorage.getItem('loggedIn') === 'xyufsvt') {
             this.loggedIn(true);
         }
-        if (localStorage.getItem("lastModified") == undefined) 
-            localStorage.setItem("lastModified", "");
-        if (localStorage.getItem("sortedMemoriesPrivate") == undefined) 
-            localStorage.setItem("sortedMemoriesPrivate", "");
-        if (localStorage.getItem("sortedMemoriesPublic") == undefined) 
-            localStorage.setItem("sortedMemoriesPublic", "");
+        if (localStorage.getItem('lastModified') === undefined) {
+            localStorage.setItem('lastModified', '');
         }
+        if (localStorage.getItem('sortedMemoriesPrivate') === undefined) {
+            localStorage.setItem('sortedMemoriesPrivate', '');
+        }
+        if (localStorage.getItem('sortedMemoriesPublic') === undefined) {
+            localStorage.setItem('sortedMemoriesPublic', '');
+        }
+    }
     ngAfterViewInit() {
-        let curUrl = (window.location + '').split('/');
+        const curUrl = (window.location + '').split('/');
         if (curUrl.length >= 5) {
             this
                 .memoriesComponent
