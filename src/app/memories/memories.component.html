@@ -1,8 +1,8 @@
 <div class="container-fluid memoriesPage">        
-    <div class = "container fucker" *ngFor="let memory of sortedMemories; let i = index">
+    <div class = "container" *ngFor="let memory of sortedMemories; let i = index">
         <div *ngIf="hideOptions; then normalBlock; else linkBlock"></div>
         <ng-template #normalBlock>
-            <span id="{{sortedMemories.length-i}}" [style.color] = "myColor" class="memoryTitle elementToFadeIn"[innerHTML]="memory.title" title="memory {{sortedMemories.length-i}}"></span>
+            <span id="{{sortedMemories.length-i}}" [style.color] = "myColor" class="memoryTitle elementToFadeIn"[innerHTML]="memory.title" title="Memory {{sortedMemories.length-i}} [{{memory.content.changingThisBreaksApplicationSecurity.split(' ').length}} words]"></span>
         </ng-template>
         <ng-template #linkBlock>
             <a (click)="gotomem(i);"><span id="{{i}}" (mouseenter)="hoverIn(i)" (mouseleave)="hoverOut(i)" [style.color] = "myColor" [style.background-color] = "myBgColor" class="easeBgChange3 memoryLinkTitle elementToFadeIn"[innerHTML]="memory.title"></span>&nbsp;<span id="{{'tinyDate'+i}}" class="tinyDate" hidden>{{memory.time}}&nbsp;[{{memory.content.changingThisBreaksApplicationSecurity.split(' ').length}} words]</span>
