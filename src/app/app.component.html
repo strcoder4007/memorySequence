@@ -75,7 +75,7 @@
     <!-- Home page with the conversion to title structure--> 
     <app-memories *ngIf="inMemory == 'memories'" (emitMemory)="gotoMemory($event)" (emitMemories)="getSortedMemories($event)" [myColor]="myColor" [myBgColor]="myBgColor"  [inLogin]="inLogin"  [isLoggedIn]="isLoggedIn" [memColor]="memColor" [hideOptions]="hideOptions"></app-memories>
 
-    <app-books *ngIf="inMemory == 'books'"></app-books>
+    <app-books *ngIf="inMemory == 'books'" [myColor]="myColor" [myBgColor]="myBgColor"  [inLogin]="inLogin"  [isLoggedIn]="isLoggedIn" [memColor]="memColor" [hideOptions]="hideOptions"></app-books>
 
 </div>
 

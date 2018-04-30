@@ -84,7 +84,7 @@ a {
 .navbar-collapse {
     position: relative;
     padding-top: 30px !important;
-    max-height: 270px;
+    max-height: 300px;
 }
 .navbar-collapse form[role="search"] {
     position: absolute;
@@ -117,7 +117,14 @@ a {
     display: none;
 }
 
+.header {
+    margin-top: 15px;
+}
+
 @media (min-width: 768px) {
+    .header {
+        margin-top: none;
+    }
     .memoryLinkTitle{
         font-size: 60px;
     }

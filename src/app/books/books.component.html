@@ -1,3 +1,10 @@
-<p>
-  books works!
-</p>
+<div class="container elementToFadeIn">
+    <div class="row gutter-0 header" [style.color]="myColor">Book List</div>
+    <p class="book" [style.color]="memColor">You can use this word document to write an excellent essay from beginning to end, using a ten-step process. Most of the time, students or would-be essay writers are provided only with basic information about how to write, and most of that information concentrates on the details of formatting. These are necessary details, but writing is obviously far more than mere formatting. If you write your essay according to this plan, and you complete every step, you will produce an essay that is at least very good. You will also learn exactly how to write an essay, which is something very valuable to learn. To start writing your essay, go to the next page, for Part One: Introduction.</p>
+</div>
+
+<span></span>
+
+<div class = "col-md-6 booksPage elementToFadeIn" *ngFor="let book of books; let i = index" [style.color]="memColor">
+    <span class="books" (click)="readBook(i)" id="{{i}}">{{book.book}}</span>
+</div>

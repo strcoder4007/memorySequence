@@ -1,0 +1,61 @@
+.easeBgChange1 {
+    -webkit-transition: background-color 0.1s ease-in;
+    -moz-transition: background-color 0.1s ease-in;
+    -o-transition: background-color 0.1s ease-in;
+    transition: background-color 0.1s ease-in;
+  }
+  .easeBgChange3 {
+    -webkit-transition: background-color 0.3s ease-in;
+    -moz-transition: background-color 0.3s ease-in;
+    -o-transition: background-color 0.3s ease-in;
+    transition: background-color 0.3s ease-in;
+  }
+  .easeColorChange {
+    -webkit-transition: color 0.3s ease-in;
+    -moz-transition: color 0.3s ease-in;
+    -o-transition: color 0.3s ease-in;
+    transition: color 0.3s ease-in;
+  }
+
+a {
+    cursor: pointer;
+    text-decoration-line: none;
+}
+
+.booksPage {
+    padding-top: 30px;
+    position: relative;
+    text-align: center;
+}
+
+.header {
+    font-family: "Roboto-Regular";
+    font-size: 60px;
+    position: relative;
+    text-align: center;
+}
+
+.book {
+    position: relative;
+    text-align: justify;
+    font-family: "Roboto";
+    font-size: 15px;
+}
+
+.books {
+    font-family: "Roboto";
+    font-size: 20px;
+    cursor: pointer;
+    line-height: 10px;
+}
+@media (max-width: 584px) {
+    .books {
+        font-size: 15px;
+    }
+    .booksPage {
+        padding-top: 0px;
+    }
+    .header {
+        font-size: 30px;
+    }
+}    

@@ -25,7 +25,8 @@ app.get('/', (req, res) => {
          var $ = cheerio.load(body);
          $('.fusion-text ol li').each(function(i, elem) {
              books.push({
-                 "book": $(this).text()
+                 'book': $(this).text(),
+                 'read': '0'
              })
          });
          res.send(books);
@@ -34,4 +35,4 @@ app.get('/', (req, res) => {
 })
 
 
-app.listen(3000, () => console.log('Listening on port 3000...'))
+app.listen(3001, () => console.log('Listening on port 300...'))
