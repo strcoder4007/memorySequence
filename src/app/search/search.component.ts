@@ -6,7 +6,7 @@ import { Component, OnInit, Input} from '@angular/core';
   styleUrls: ['./search.component.css']
 })
 export class SearchComponent implements OnInit {
-    term: string  = '';
+    term: String  = '';
     tags: Tags;
     items = [];
     adj = [];

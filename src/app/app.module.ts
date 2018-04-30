@@ -11,16 +11,17 @@ import { SearchComponent } from './search/search.component';
 import { MemoryComponent } from './memory/memory.component';
 import { LoginComponent } from './login/login.component';
 import { MemoriesComponent } from './memories/memories.component';
+import { BooksComponent } from './books/books.component';
 
 const appRoutes: Routes = [
-    { path:'', component: MemoriesComponent},    
-    { path:'memory/:id', component: MemoryComponent},
-    { path:'memseq/memory/:id', component: MemoryComponent},
+    { path: '', component: MemoriesComponent},
+    { path: 'memory/:id', component: MemoryComponent},
+    { path: 'memseq/memory/:id', component: MemoryComponent},
     {   path: '**',
         redirectTo: '',
         pathMatch: 'full'
     }
-]
+];
 
 @NgModule({
   declarations: [
@@ -28,11 +29,12 @@ const appRoutes: Routes = [
     SearchComponent,
     MemoryComponent,
     LoginComponent,
-    MemoriesComponent
+    MemoriesComponent,
+    BooksComponent
   ],
   imports: [
       FormsModule,
-      BrowserModule, 
+      BrowserModule,
       ReactiveFormsModule,
       HttpModule,
       Ng2SearchPipeModule,

@@ -43,7 +43,7 @@ AfterViewInit {
     password: string;
     showError: Boolean = false;
     screenWidth: any;
-    inMemory: Boolean = false;
+    inMemory: String = 'memories';
     hideOptions: Boolean = true;
     sortedMemories = [];
     @ViewChild(MemoriesComponent)private memoriesComponent: MemoriesComponent;
@@ -64,7 +64,7 @@ AfterViewInit {
         this
             .router
             .navigate(['/memory', ev]);
-        this.inMemory = true;
+        this.inMemory = 'memory';
     }
 
     getSortedMemories(ev) {
