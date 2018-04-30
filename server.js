@@ -13,21 +13,25 @@ app.use(function (req, res, next) {
     next();
 });
 
-app.get('/', (req, response) => {
+app.get('/', (req, res) => {
     var pageToVisit = "https://jordanbpeterson.com/reading-list/great-books/";
     console.log("Visiting page " + pageToVisit);
     request(pageToVisit, function(error, response, body) {
+        var books = [];
        if(error) {
          console.log("Error: " + error);
        }
        if(response.statusCode === 200) {
          var $ = cheerio.load(body);
-         console.log("Page title:  " + $('title').text());  
+         $('.fusion-text ol li').each(function(i, elem) {
+             books.push({
+                 "book": $(this).text()
+             })
+         });
+         res.send(books);
        }
     });
 })
-
-
 
 
 app.listen(3000, () => console.log('Listening on port 3000...'))
