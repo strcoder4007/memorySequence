@@ -44,7 +44,7 @@ export class SearchComponent implements OnInit {
             for(let j = 0; j < this.posts[i].tags.length; j++) {
                 this.tags = {
                     name: this.posts[i].title
-                }
+                };
                 this.adj[this.posts[i].tags[j]].push(this.tags);
             }
 

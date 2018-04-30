@@ -12,17 +12,24 @@
                     </div>
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"  >        
                         <ul class="nav navbar-nav navbar-right">
-                            <li *ngIf="inMemory == 'memory'" (click)="inMemory = 'memories'; goBack()"><a><span [style.color] = "myColor" class="group">BACK</span></a></li>
-                            <li *ngIf="inMemory == 'memories'" (click)="gotoMemory(this.sortedMemories.length-1)"><a><span [style.color] = "myColor" class="group">ABOUT</span></a></li>
-                            <li *ngIf="hideOptions; else allMemories" (click)="hideOptions = false; inMemory = 'memories';">
-                                <a><span [style.color] = "myColor" class="group">BROWSE MEMORIES</span></a>
+                            <li *ngIf="inMemory == 'memory'" (click)="inMemory = 'memories'; goBack()"><a><span [style.color] = "myColor" class="group">HOME</span></a></li>
+                            <li *ngIf="inMemory != 'memory'" (click)="gotoMemory(this.sortedMemories.length-1)"><a><span [style.color] = "myColor" class="group">ABOUT</span></a></li>
+                            <li *ngIf="hideOptions; else allMemories1" (click)="hideOptions = false; inMemory = 'memories';">
+                                <a><span [style.color] = "myColor" class="group">MEMORIES</span></a>
                             </li>
-                            <ng-template #allMemories>
+                            <ng-template #allMemories1>
                                 <li (click)="hideOptions = true; inMemory = 'memories'; goBack()">
-                                    <a><span [style.color] = "myColor" class="group">READ ALL MEMORIES</span></a>
+                                    <a><span [style.color] = "myColor" class="group">HOME</span></a>
                                 </li>
                             </ng-template>
-                            <li (click)="inMemory = 'books'"><a><span [style.color] = "myColor" class="group">BOOKS</span></a></li>
+                            <li *ngIf="inMemory != 'books'; else allMemories2" (click)="inMemory = 'books'">
+                                <a><span [style.color] = "myColor" class="group">BOOKS</span></a>
+                            </li>
+                            <ng-template #allMemories2>
+                                    <li (click)="inMemory = 'memories'; goBack()">
+                                        <a><span [style.color] = "myColor" class="group">HOME</span></a>
+                                    </li>
+                                </ng-template>
                             <li *ngIf="!isLoggedIn; else logoutBlock" (click)="inLogin = true"><a><span [style.color] = "myColor" class="group">LOG IN</span></a></li>
                             <ng-template #logoutBlock>
                                 <li (click)="loggedIn(false)" ><a><span [style.color] = "myColor" class="group">LOG OUT</span></a></li>                                 
