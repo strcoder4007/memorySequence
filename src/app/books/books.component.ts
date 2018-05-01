@@ -33,7 +33,7 @@ export class BooksComponent implements OnInit {
 
     processJson() {
         this
-            .getPosts('http://localhost:3000')
+            .getPosts('http://localhost:3001')
             .subscribe(data => {
                 this.books = data;
                 let junkBooks = '', junkRead = '';
@@ -51,8 +51,7 @@ export class BooksComponent implements OnInit {
     }
 
     ngOnInit() {
-        if (localStorage.getItem('books') === undefined) {
-            alert('sf');
+        if (localStorage.getItem('books') == undefined) {
             localStorage.setItem('books', '');
             localStorage.setItem('read', '');
         } else {
