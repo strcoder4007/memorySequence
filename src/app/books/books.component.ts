@@ -12,6 +12,11 @@ export class BooksComponent implements OnInit {
     @Input()memColor;
     @Input()hideOptions;
     books = [];
+    readBooks = 0;
+    dostoevsky = [];
+    nietzsche = [];
+    jung = [];
+    hemingway = [];
 
     constructor(public http: Http) {}
 
@@ -37,34 +42,57 @@ export class BooksComponent implements OnInit {
             .subscribe(data => {
                 this.books = data;
                 let junkBooks = '', junkRead = '';
-                for (let i = 0; i < this.books.length; i++) {
+                for (let i = 0; i < data.length; i++) {
                     if (i) {
                         junkBooks += '$';
                         junkRead += '$';
                     }
-                    junkBooks += this.books[i].book;
-                    junkRead += this.books[i].read;
+                    junkBooks += data[i].book;
+                    junkRead += data[i].read;
                 }
                 localStorage.setItem('books', junkBooks);
                 localStorage.setItem('read', junkRead);
+                this.filterBooks();
             });
     }
 
+    filterBooks() {
+        for (let i = 0; i < this.books.length; i++) {
+            const curBook = this.books[i].book.toLowerCase();
+            if (curBook.indexOf('dosto') !== -1) {
+                this.dostoevsky.push(this.books[i]);
+            }
+            if (curBook.indexOf('nietzsche') !== -1) {
+                this.nietzsche.push(this.books[i]);
+            }
+            if (curBook.indexOf('jung') !== -1) {
+                this.jung.push(this.books[i]);
+            }
+            if (curBook.indexOf('hemingway') !== -1) {
+                this.hemingway.push(this.books[i]);
+            }
+        }
+    }
+
     ngOnInit() {
-        if (localStorage.getItem('books') == undefined) {
+        if (localStorage.getItem('books') == undefined || localStorage.getItem('read') == undefined) {
             localStorage.setItem('books', '');
             localStorage.setItem('read', '');
+            this.processJson();
         } else {
             const junkBooks = localStorage.getItem('books').split('$');
             const junkRead = localStorage.getItem('read').split('$');
             for (let i = 0; i < junkBooks.length; i++) {
+                if (junkRead[i] !== '0') {
+                        ++this.readBooks;
+                }
                 this.books.push({
                     'book': junkBooks[i],
                     'read': junkRead[i]
                 });
             }
+            this.filterBooks();
         }
-        this.processJson();
     }
 
 }

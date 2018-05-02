@@ -89,7 +89,7 @@ AfterViewInit {
     toggleMenu() {
         if (this.showSearch) {
             this.showSearch = false;
-        }else {
+        } else {
             this.showSearch = true;
         }
     }
@@ -99,7 +99,7 @@ AfterViewInit {
             this.myBgColor = '#222222';
             this.seduce = 'turn to light side';
             this.myColor = 'white';
-            this.memColor = 'gray';
+            this.memColor = 'white';
             this.myImage = 'assets/img/yoda.png';
         } else if (this.mySide === 'dark') {
             this.mySide = 'light';
@@ -120,7 +120,7 @@ AfterViewInit {
         this.myImage = 'assets/img/yoda.png';
         if (localStorage.getItem('loggedIn') === undefined) {
             localStorage.setItem('loggedIn', '');
-        }else if (localStorage.getItem('loggedIn') === 'xyufsvt') {
+        } else if (localStorage.getItem('loggedIn') === 'xyufsvt') {
             this.loggedIn(true);
         }
         if (localStorage.getItem('lastModified') === undefined) {

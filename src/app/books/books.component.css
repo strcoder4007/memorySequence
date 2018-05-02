@@ -22,17 +22,31 @@ a {
     text-decoration-line: none;
 }
 
+.authors {
+    font-family: "Roboto-Black";
+    font-size: 40px;
+    position: relative;
+    text-align: left;
+    text-decoration: underline;
+    padding-top: 20px;
+}
+
 .booksPage {
     padding-top: 30px;
     position: relative;
-    text-align: center;
+    text-align: left;
+}
+
+.favBooks {
+    font-family: "Roboto";
+    font-size: 17px;
 }
 
 .header {
-    font-family: "Roboto-Regular";
+    font-family: "Roboto-Black";
     font-size: 60px;
     position: relative;
-    text-align: center;
+    text-align: left;
 }
 
 .book {
@@ -44,9 +58,11 @@ a {
 
 .books {
     font-family: "Roboto";
-    font-size: 20px;
+    font-size: 15px;
     cursor: pointer;
     line-height: 10px;
+    position: relative;
+    text-align: center;
 }
 @media (max-width: 584px) {
     .books {
