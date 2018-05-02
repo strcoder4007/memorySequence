@@ -17,6 +17,14 @@ export class BooksComponent implements OnInit {
     nietzsche = [];
     jung = [];
     hemingway = [];
+    readBooksList = [
+        'Jack London: The Call of the Wild',
+        'J.D. Salinger: The Catcher in the Rye',
+        'Mark Manson: The Subtle Art of Not Giving a Fuck',
+        'R.L. Stevenson: Strange Case of Dr Jekyll and Mr Hyde',
+        'Fyodor Dostoevsky: Notes from the Underground',
+        'Ernest Hemingway: The Old Man and the Sea'
+    ];
 
     constructor(public http: Http) {}
 
