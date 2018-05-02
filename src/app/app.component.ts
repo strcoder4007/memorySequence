@@ -99,7 +99,7 @@ AfterViewInit {
             this.myBgColor = '#222222';
             this.seduce = 'turn to light side';
             this.myColor = 'white';
-            this.memColor = 'white';
+            this.memColor = 'gray';
             this.myImage = 'assets/img/yoda.png';
         } else if (this.mySide === 'dark') {
             this.mySide = 'light';
