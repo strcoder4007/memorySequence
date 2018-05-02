@@ -65,6 +65,7 @@ export class BooksComponent implements OnInit {
     }
 
     filterBooks() {
+        this.dostoevsky = [], this.nietzsche = [], this.jung = [], this.hemingway = [];
         for (let i = 0; i < this.books.length; i++) {
             const curBook = this.books[i].book.toLowerCase();
             if (curBook.indexOf('dosto') !== -1) {

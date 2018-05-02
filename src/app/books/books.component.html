@@ -7,7 +7,7 @@
 
 
 <div class="container elementToFadeIn spacer">
-    <div class="row gutter-0 header" [style.color]="myColor">Book List ({{books.length}}):</div>
+    <div class="row gutter-0 header" (click)="processJson()" [style.color]="myColor" style="cursor: pointer;" title="refresh book list">Book List ({{books.length}}):</div>
     <p class="book" [style.color]="memColor">If you sharpen your capacity to think and to communicate as a consequence of writing, you are better armed. The pen is mightier than the sword, as the saying goes. This is no cheap cliché. Ideas change the world, particularly when they are written. The Romans built buildings, and the Romans and the buildings are both gone. The Jews wrote a book, and they are still here, and so is the book. So it turns out that words may well last longer than stone, and have more impact than whole empires.</p>
     <p class="book" [style.color]="memColor">If you learn to write and to edit, you will also be able to tell the difference between good ideas, intelligently presented, and bad ideas put forth by murky and unskilled thinkers. That means that you will be able to separate the wheat from the chaff (look it up). Then you can be properly influenced by profound and solid ideas instead of falling prey to foolish fads and whims and ideologies, which can range in their danger from trivial to mortal.</p>
 </div>

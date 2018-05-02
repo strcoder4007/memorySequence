@@ -42,7 +42,7 @@ a {
 
 .favBooks {
     font-family: "Roboto";
-    font-size: 17px;
+    font-size: 16px;
 }
 
 .header {
@@ -56,12 +56,12 @@ a {
     position: relative;
     text-align: justify;
     font-family: "Roboto";
-    font-size: 17px;
+    font-size: 16px;
 }
 
 .books {
     font-family: "Roboto";
-    font-size: 17px;
+    font-size: 16px;
     cursor: pointer;
     position: relative;
     text-align: center;
