@@ -25,6 +25,13 @@ export class BooksComponent implements OnInit {
         'Fyodor Dostoevsky: Notes from the Underground',
         'Ernest Hemingway: The Old Man and the Sea'
     ];
+    readingBooksList = [
+        'Dr. Robert A. Glover: No More Mr. Nice Guy',
+        'Jack London: Sea Wolf',
+        'George Orwell: Down and Out in Paris and London',
+        'Fyodor Dostoevsky: Crime and Punishment',
+        'Friedrich Nietzsche: On the Genealogy of Morals'
+    ];
 
     constructor(public http: Http) {}
 

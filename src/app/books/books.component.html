@@ -3,6 +3,10 @@
     <div *ngFor="let book of readBooksList; let i = index">
         <div class="favBooks" [style.color]="memColor"><strong>{{i+1}}</strong>. {{book}}</div>
     </div>
+    <div class="row gutter-0 header" [style.color]="myColor">Reading:</div>
+    <div *ngFor="let book of readingBooksList; let i = index">
+        <div class="favBooks" [style.color]="memColor">{{book}}</div>
+    </div>
 </div>
 
 

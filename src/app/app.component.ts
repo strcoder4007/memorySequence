@@ -4,7 +4,8 @@ import {
     SecurityContext,
     Input,
     ViewChild,
-    AfterViewInit
+    AfterViewInit,
+    isDevMode
 } from '@angular/core';
 import {Http} from '@angular/http';
 import 'rxjs/add/operator/map';
@@ -45,6 +46,7 @@ AfterViewInit {
     screenWidth: any;
     inMemory: String = 'memories';
     hideOptions: Boolean = true;
+    urlArgslen: Number = 5;
     sortedMemories = [];
     @ViewChild(MemoriesComponent)private memoriesComponent: MemoriesComponent;
     @ViewChild(MemoryComponent)private memoryComponent: MemoryComponent;
@@ -112,6 +114,9 @@ AfterViewInit {
     }
 
     ngOnInit() {
+        if (isDevMode()) {
+            this.urlArgslen = 6;
+        }
         this.myBgColor = '#222222';
         this.mySide = 'dark';
         this.myColor = 'white';
