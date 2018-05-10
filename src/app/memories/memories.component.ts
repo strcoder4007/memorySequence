@@ -1,4 +1,4 @@
-import { Component, OnInit, SecurityContext, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, SecurityContext, Input, Output, EventEmitter, isDevMode } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
@@ -33,7 +33,8 @@ export class MemoriesComponent implements OnInit {
     screenWidth: any;
     finalUrl: string;
     level = 0;
-    
+    urlArgslen: Number;
+    locprodUrl: String;
         
     constructor(public http: Http, private sanitizer: DomSanitizer, private router: Router) {
         
@@ -67,9 +68,7 @@ export class MemoriesComponent implements OnInit {
     }
 
     getposts() {
-        let prod = "https://1drv.ms/u/s!AmQasIRCiDf9vVBQ--3w2STYkPo8";
-        let local = "https://1drv.ms/u/s!AmQasIRCiDf9vg-uuspbdj0x8Fi9";
-        this.dataUrl = "https://api.onedrive.com/v1.0/shares/u!" + btoa(local+"?v="+Math.random())+"/root?expand=children";
+        this.dataUrl = "https://api.onedrive.com/v1.0/shares/u!" + btoa(this.locprodUrl+"?v="+Math.random())+"/root?expand=children";
         return this.http.get(this.dataUrl).map(res => res.json());
     }
 
@@ -136,11 +135,18 @@ export class MemoriesComponent implements OnInit {
             this.emitMemories.emit(this.sortedMemories);
             let curUrl = (window.location+'').split('/');
             let idx = parseInt(curUrl[curUrl.length-1]);
-            if(curUrl.length >= 5)
+            if(curUrl.length >= this.urlArgslen)
                 this.gotomem(idx);
         })
     }
     ngOnInit() {
+        if (isDevMode()) {
+            this.urlArgslen = 5;
+            this.locprodUrl = "https://1drv.ms/u/s!AmQasIRCiDf9vg-uuspbdj0x8Fi9";
+        } else {
+            this.locprodUrl = "https://1drv.ms/u/s!AmQasIRCiDf9vVBQ--3w2STYkPo8";
+            this.urlArgslen = 6;
+        }
         this.processJson();
         this.screenWidth = window.screen.width;
     }

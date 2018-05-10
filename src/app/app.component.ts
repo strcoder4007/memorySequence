@@ -46,7 +46,7 @@ AfterViewInit {
     screenWidth: any;
     inMemory: String = 'memories';
     hideOptions: Boolean = true;
-    urlArgslen: Number = 5;
+    urlArgslen: Number;
     sortedMemories = [];
     @ViewChild(MemoriesComponent)private memoriesComponent: MemoriesComponent;
     @ViewChild(MemoryComponent)private memoryComponent: MemoryComponent;
@@ -55,7 +55,7 @@ AfterViewInit {
 
     goBack() {
         const curUrl = (window.location + '').split('/');
-        if (curUrl.length >= 5) {
+        if (curUrl.length >= this.urlArgslen) {
             this
                 .router
                 .navigate(['']);
@@ -115,6 +115,8 @@ AfterViewInit {
 
     ngOnInit() {
         if (isDevMode()) {
+            this.urlArgslen = 5;
+        } else {
             this.urlArgslen = 6;
         }
         this.myBgColor = '#222222';
@@ -140,7 +142,7 @@ AfterViewInit {
     }
     ngAfterViewInit() {
         const curUrl = (window.location + '').split('/');
-        if (curUrl.length >= 5) {
+        if (curUrl.length >= this.urlArgslen) {
             this
                 .memoriesComponent
                 .processJson();
