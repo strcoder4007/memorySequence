@@ -1,4 +1,4 @@
-import {Component, OnInit, Input} from '@angular/core';
+import {Component, OnInit, Input, isDevMode} from '@angular/core';
 import {Http} from '@angular/http';
 import 'rxjs/add/operator/map';
 
@@ -56,7 +56,7 @@ export class BooksComponent implements OnInit {
 
     processJson() {
         this
-            .getPosts('http://localhost:3001')
+            .getPosts(isDevMode() ? 'http://localhost:3001' : 'http://18.221.40.67:3001')
             .subscribe(data => {
                 this.books = data;
                 let junkBooks = '', junkRead = '';
@@ -75,7 +75,7 @@ export class BooksComponent implements OnInit {
     }
 
     filterBooks() {
-        this.dostoevsky = [], this.nietzsche = [], this.jung = [], this.hemingway = [];
+        this.dostoevsky = [], this.nietzsche = [], this.jung = [], this.hemingway = [], this.orwell = [], this.freud = [];
         for (let i = 0; i < this.books.length; i++) {
             const curBook = this.books[i].book.toLowerCase();
             if (curBook.indexOf('dosto') !== -1) {

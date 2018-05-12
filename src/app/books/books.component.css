@@ -73,7 +73,7 @@ a {
     .booksPage {
         padding-top: 0px;
     }
-    .header {
+    .header, .authors {
         font-size: 30px;
     }
 }    
