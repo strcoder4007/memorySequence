@@ -17,6 +17,9 @@ export class BooksComponent implements OnInit {
     nietzsche = [];
     jung = [];
     hemingway = [];
+    orwell = [];
+    tolstoy = [];
+    freud = [];
     readBooksList = [
         'Jack London: The Call of the Wild',
         'J.D. Salinger: The Catcher in the Rye',
@@ -86,6 +89,15 @@ export class BooksComponent implements OnInit {
             }
             if (curBook.indexOf('hemingway') !== -1) {
                 this.hemingway.push(this.books[i]);
+            }
+            if (curBook.indexOf('orwell') !== -1) {
+                this.orwell.push(this.books[i]);
+            }
+            if (curBook.indexOf('tolstoy') !== -1) {
+                this.tolstoy.push(this.books[i]);
+            }
+            if (curBook.indexOf('freud') !== -1) {
+                this.freud.push(this.books[i]);
             }
         }
     }

@@ -17,7 +17,16 @@ app.get('/', (req, res) => {
     var pageToVisit = "https://jordanbpeterson.com/reading-list/great-books/";
     console.log("Visiting page " + pageToVisit);
     request(pageToVisit, function(error, response, body) {
-        var books = [];
+        var books = [
+            {
+                "book": 'George Orwell: Down and out in Paris and London',
+                'read': '0'
+            },
+            {
+                "book": 'George Orwell: Burmese Days',
+                'read': '0'
+            }
+        ];
        if(error) {
          console.log("Error: " + error);
        }

@@ -3,42 +3,71 @@
     <div *ngFor="let book of readBooksList; let i = index">
         <div class="favBooks" [style.color]="memColor"><strong>{{i+1}}</strong>. {{book}}</div>
     </div>
+</div>
+<div class="container elementToFadeIn spacer">
     <div class="row gutter-0 header" [style.color]="myColor">Reading:</div>
     <div *ngFor="let book of readingBooksList; let i = index">
         <div class="favBooks" [style.color]="memColor">{{book}}</div>
     </div>
 </div>
 
-
 <div class="container elementToFadeIn spacer">
-    <div class="row gutter-0 header" (click)="processJson()" [style.color]="myColor" style="cursor: pointer;" title="refresh book list">Book List ({{books.length}}):</div>
-    <p class="book" [style.color]="memColor">If you sharpen your capacity to think and to communicate as a consequence of writing, you are better armed. The pen is mightier than the sword, as the saying goes. This is no cheap cliché. Ideas change the world, particularly when they are written. The Romans built buildings, and the Romans and the buildings are both gone. The Jews wrote a book, and they are still here, and so is the book. So it turns out that words may well last longer than stone, and have more impact than whole empires.</p>
-    <p class="book" [style.color]="memColor">If you learn to write and to edit, you will also be able to tell the difference between good ideas, intelligently presented, and bad ideas put forth by murky and unskilled thinkers. That means that you will be able to separate the wheat from the chaff (look it up). Then you can be properly influenced by profound and solid ideas instead of falling prey to foolish fads and whims and ideologies, which can range in their danger from trivial to mortal.</p>
-</div>
-
-<div class="container elementToFadeIn">
+    <div class="header" [style.color] = "myColor">Important Authors:</div>
+    <div class="col-md-6">
     <div class="authors" [style.color]="myColor" >Fyodor Dostoevsky</div>
     <div *ngFor="let book of dostoevsky; let i = index">
         <div *ngIf="book.read == '1' " class="favBooks" [style.color]="memColor"><del>{{book.book.split(': ')[1]}}</del></div>
         <div *ngIf="book.read == '0' " class="favBooks" [style.color]="memColor">{{book.book.split(': ')[1]}}</div>
     </div>
+    </div>
+    <div class="col-md-6">            
     <div class="authors" [style.color]="myColor" >Friedrich Nietzsche</div>
     <div *ngFor="let book of nietzsche; let i = index">
             <div *ngIf="book.read == '1' " class="favBooks" [style.color]="memColor"><del>{{book.book.split(': ')[1]}}</del></div>
             <div *ngIf="book.read == '0' " class="favBooks" [style.color]="memColor">{{book.book.split(': ')[1]}}</div>
         </div>
+    </div>
+    <div class="col-md-6">            
     <div class="authors" [style.color]="myColor" >Carl G. Jung</div>
     <div *ngFor="let book of jung; let i = index">
             <div *ngIf="book.read == '1' " class="favBooks" [style.color]="memColor"><del>{{book.book.split(': ')[1]}}</del></div>
             <div *ngIf="book.read == '0' " class="favBooks" [style.color]="memColor">{{book.book.split(': ')[1]}}</div>
         </div>
-    <div class="authors" [style.color]="myColor" >Ernest Hemingway</div>
-    <div *ngFor="let book of hemingway; let i = index">
+    </div>
+    <div class="col-md-6">
+        <div class="authors" [style.color]="myColor" >Sigmund Freud</div>
+        <div *ngFor="let book of freud; let i = index">
             <div *ngIf="book.read == '1' " class="favBooks" [style.color]="memColor"><del>{{book.book.split(': ')[1]}}</del></div>
             <div *ngIf="book.read == '0' " class="favBooks" [style.color]="memColor">{{book.book.split(': ')[1]}}</div>
         </div>
-    <div class="authors" [style.color]="myColor" >All Books:</div>
+    </div>
+    <div class="col-md-6">
+        <div class="authors" [style.color]="myColor" >Leo Tolstoy</div>
+        <div *ngFor="let book of tolstoy; let i = index">
+            <div *ngIf="book.read == '1' " class="favBooks" [style.color]="memColor"><del>{{book.book.split(': ')[1]}}</del></div>
+            <div *ngIf="book.read == '0' " class="favBooks" [style.color]="memColor">{{book.book.split(': ')[1]}}</div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="col-md-6">
+        <div class="authors" [style.color]="myColor" >George Orwell</div>
+        <div *ngFor="let book of orwell; let i = index">
+            <div *ngIf="book.read == '1' " class="favBooks" [style.color]="memColor"><del>{{book.book.split(': ')[1]}}</del></div>
+            <div *ngIf="book.read == '0' " class="favBooks" [style.color]="memColor">{{book.book.split(': ')[1]}}</div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="authors" [style.color]="myColor" >Ernest Hemingway</div>
+        <div *ngFor="let book of hemingway; let i = index">
+            <div *ngIf="book.read == '1' " class="favBooks" [style.color]="memColor"><del>{{book.book.split(': ')[1]}}</del></div>
+            <div *ngIf="book.read == '0' " class="favBooks" [style.color]="memColor">{{book.book.split(': ')[1]}}</div>
+        </div>
+    </div>
+</div>
+
+<div class="container elementToFadeIn spacer">
+    <div class="header" (click)="processJson()" [style.color]="myColor" style="cursor: pointer;" title="refresh book list"  >Important Books:</div>
     <div class = "col-md-6 booksPage elementToFadeIn" *ngFor="let book of books; let i = index" [style.color]="memColor">
         <span class="books" (click)="readBook(i)" id="{{i}}"><strong>{{i+1}}</strong>. {{book.book}}</span>
-    </div>
+    </div>  
 </div>
