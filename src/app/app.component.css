@@ -33,20 +33,22 @@ a {
 }
 
 .memoryTitle {
-    font-family: "Roboto-Medium";
+    font-family: "Roboto Condensed";
     font-size: 60px;
+    font-weight: bolder;
 }
 .memoryLinkTitle{
-    font-family: "Roboto";
+    font-family: "Roboto Condensed";
     font-size: 45px;
+    font-weight: bolder;
 }
 .memory {
     font-size: 18px;
     text-align: justify;
-    font-family: "Roboto-Regular";
+    font-family: "Roboto Condensed";
 }
 .myTime {
-    font-family: "Roboto-Medium";
+    font-family: "Roboto Condensed";
     font-size: 13px;
 }
 
@@ -60,7 +62,8 @@ a {
 }
 .group {
     font-size: 12px;
-    font-family: "Roboto-Medium";
+    font-family: "Roboto";
+    font-weight: bolder;
     cursor: pointer;
 }
 

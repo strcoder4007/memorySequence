@@ -113,12 +113,12 @@ export class MemoriesComponent implements OnInit {
                 this.memories.push(this.memory);
             }
             let cnt = 0;
-            for(let i = 2015; i < 2064; i++)
-                for(let j = 0; j < 12; j++)
-                    for(let k = 1; k < 32; k++)
-                        for(let x = 0; x < this.memories.length; x++){
+            for (let i = 2015; i < 2064; i++)
+                for (let j = 0; j < 12; j++)
+                    for (let k = 1; k < 32; k++)
+                        for (let x = 0; x < this.memories.length; x++){
                             let date = this.memories[x].time.split(" ");
-                            if(parseInt(date[0]) == k && date[1] == this.months[j] && parseInt(date[2]) == i){
+                            if (parseInt(date[0]) == k && date[1] == this.months[j] && parseInt(date[2]) == i){
                                 let hide = false;
                                 for(let y = 0; y < this.memories[x].tags.length; y++)
                                     if(this.memories[x].tags[y] == "personal")

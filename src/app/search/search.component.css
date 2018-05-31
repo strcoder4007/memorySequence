@@ -18,17 +18,19 @@ a {
     height: 70px;
     width: 100%;
     font-size: 20px;
-    font-family: "Roboto-Thin";
+    font-family: "Roboto Condensed";
     border: none;
+    font-weight: lighter;
 }
 .searchRes{
     padding: 0px !important;
     margin: 0px !important;
     background-color: white;
     font-size: 20px;
-    font-family: "Roboto-Thin";
+    font-family: "Roboto Condensed";
     height: 100%;
     color: black;
+    font-weight: lighter;
 }
 .searchRes:hover {
     background-color: #f2f2f2;
