@@ -2,10 +2,10 @@
     <div class = "container" *ngFor="let memory of sortedMemories; let i = index">
         <div *ngIf="hideOptions; then normalBlock; else linkBlock"></div>
         <ng-template #normalBlock>
-            <span id="{{sortedMemories.length-i}}" [style.color] = "myColor" class="memoryTitle elementToFadeIn"[innerHTML]="memory.title" title="Memory {{sortedMemories.length-i}} [{{memory.content.changingThisBreaksApplicationSecurity.split(' ').length}} words]"></span>
+            <span id="{{sortedMemories.length-i}}" [style.color] = "myColor" class="memoryTitle elementToFadeIn"[innerHTML]="memory.title" title="Memory {{sortedMemories.length-i}} [{{memory.words}} words]"></span>
         </ng-template>
         <ng-template #linkBlock>
-            <a (click)="gotomem(i);"><span id="{{i}}" (mouseenter)="hoverIn(i)" (mouseleave)="hoverOut(i)" [style.color] = "myColor" [style.background-color] = "myBgColor" class="easeBgChange3 memoryLinkTitle elementToFadeIn"[innerHTML]="memory.title"></span>&nbsp;<span id="{{'tinyDate'+i}}" class="tinyDate" hidden>{{memory.time}}&nbsp;[{{memory.content.changingThisBreaksApplicationSecurity.split(' ').length}} words]</span>
+            <a (click)="gotomem(i);"><span id="{{i}}" (mouseenter)="hoverIn(i)" (mouseleave)="hoverOut(i)" [style.color] = "myColor" [style.background-color] = "myBgColor" class="easeBgChange3 memoryLinkTitle elementToFadeIn"[innerHTML]="memory.title"></span>&nbsp;<span id="{{'tinyDate'+i}}" class="tinyDate" hidden>{{memory.time}}&nbsp;[{{memory.words}} words]</span>
             </a>
             <hr *ngIf="this.screenWidth <= 768" style="border: 1px solid" [style.color]="myBgColor">
         </ng-template>

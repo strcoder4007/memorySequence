@@ -128,10 +128,20 @@ export class MemoriesComponent implements OnInit {
                                 this.allMemories.unshift(this.memories[x]);
                             }
                         }
+            this.isLoggedIn ? this.sortedMemories = this.allMemories : this.sortedMemories = this.someMemories;
+            for (let i = 0; i < this.sortedMemories.length; i++) {
+                const junk = this.sortedMemories[i].content.changingThisBreaksApplicationSecurity.split(' ');
+                let words = 0;
+                for (let j = 0; j < junk.length; j++) {
+                    if (junk[j].length > 1) {
+                        ++words;
+                    }
+                }
+                this.sortedMemories[i].words = words;
+            }
             if(this.isLoggedIn)
                 localStorage.setItem("sortedMemoriesPrivate", JSON.stringify(this.allMemories));
             localStorage.setItem("sortedMemoriesPublic", JSON.stringify(this.someMemories));
-            this.isLoggedIn ? this.sortedMemories = this.allMemories : this.sortedMemories = this.someMemories;
             this.emitMemories.emit(this.sortedMemories);
             let curUrl = (window.location+'').split('/');
             let idx = parseInt(curUrl[curUrl.length-1]);
