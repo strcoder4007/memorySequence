@@ -1,7 +1,7 @@
 <div class="container">
     <p [style.color] = "myColor" class="memoryTitle elementToFadeIn" [innerHTML]="post.title"></p>
     <p [style.color] = "myColor" class="myTime">Written on {{post.time}}</p>
-    <div class="container-fluid memory elementToFadeIn" [style.color] = "memColor" [innerHTML]="post.content">
+    <div class="container-fluid memory elementToFadeIn" [style.color] = "memColor" [innerHTML]="post.content.changingThisBreaksApplicationSecurity">
     </div>
     <hr style="border: 1px solid" [style.color]="myColor">    
     <span *ngFor="let tag of post.tags; let i = index;"> 

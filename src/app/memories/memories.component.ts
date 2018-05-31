@@ -133,7 +133,7 @@ export class MemoriesComponent implements OnInit {
                 const junk = this.sortedMemories[i].content.changingThisBreaksApplicationSecurity.split(' ');
                 let words = 0;
                 for (let j = 0; j < junk.length; j++) {
-                    if (junk[j].length > 1) {
+                    if (junk[j].length > 2) {
                         ++words;
                     }
                 }

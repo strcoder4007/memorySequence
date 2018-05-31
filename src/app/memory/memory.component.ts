@@ -32,6 +32,7 @@ export class MemoryComponent implements OnInit, AfterViewInit {
     ngOnInit() {
         let curUrl = (window.location+'').split('/');
         let idx = parseInt(curUrl[curUrl.length-1]);
+        localStorage.getItem('loggedIn') == 'xyufsvt' ? this.sortedMemories = JSON.parse(localStorage.getItem('sortedMemoriesPrivate')) : this.sortedMemories = JSON.parse(localStorage.getItem('sortedMemoriesPublic'));
         this.post = this.sortedMemories[idx];
         if(this.mySide == "dark")
             this.myBgColor = "#222222";
