@@ -32,7 +32,6 @@
     "hoek": "^5.0.3",
     "jquery": "^3.2.1",
     "jsonfile": "^3.0.1",
-    "ng2-search-filter": "^0.3.1",
     "nodemon": "^1.17.5",
     "request": "^2.87.0",
     "roboto-fontface": "^0.8.0",

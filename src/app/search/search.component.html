@@ -1,4 +1,1 @@
 <input id="focusThis" type="text" [(ngModel)]="term" class="searchInput" placeholder="Search memories...">
-<div *ngFor = "let item of items |filter:term" class="searchContainer">
-    <a *ngIf = "term.length != '' "><p class="searchRes">{{item.name}}</p></a>
-</div>
