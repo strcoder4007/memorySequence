@@ -26,14 +26,15 @@ export class BooksComponent implements OnInit {
         'Mark Manson: The Subtle Art of Not Giving a Fuck',
         'R.L. Stevenson: Strange Case of Dr Jekyll and Mr Hyde',
         'Fyodor Dostoevsky: Notes from the Underground',
-        'Ernest Hemingway: The Old Man and the Sea'
+        'Ernest Hemingway: The Old Man and the Sea',
+        'Fyodor Dostoevsky: Crime and Punishment',
+        'George Orwell: Animal Farm'
     ];
     readingBooksList = [
-        'Dr. Robert A. Glover: No More Mr. Nice Guy',
-        'Jack London: Sea Wolf',
         'George Orwell: Down and Out in Paris and London',
-        'Fyodor Dostoevsky: Crime and Punishment',
-        'Friedrich Nietzsche: On the Genealogy of Morals'
+        'George Orwell: 1984',
+        'Albert Camus: The Stranger',
+        'Fyodor Dostoevsky: The Idiot'
     ];
 
     constructor(public http: Http) {}
