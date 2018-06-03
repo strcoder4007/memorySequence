@@ -20,21 +20,19 @@ export class BooksComponent implements OnInit {
     orwell = [];
     tolstoy = [];
     freud = [];
-    readBooksList = [
-        'Jack London: The Call of the Wild',
-        'J.D. Salinger: The Catcher in the Rye',
-        'Mark Manson: The Subtle Art of Not Giving a Fuck',
-        'R.L. Stevenson: Strange Case of Dr Jekyll and Mr Hyde',
-        'Fyodor Dostoevsky: Notes from the Underground',
-        'Ernest Hemingway: The Old Man and the Sea',
-        'Fyodor Dostoevsky: Crime and Punishment',
-        'George Orwell: Animal Farm'
-    ];
-    readingBooksList = [
-        'George Orwell: Down and Out in Paris and London',
-        'George Orwell: 1984',
-        'Albert Camus: The Stranger',
-        'Fyodor Dostoevsky: The Idiot'
+    myBookList = [
+        { title: 'Jack London: The Call of the Wild', pageCount: '', read: 'yes'},
+        { title: 'J.D. Salinger: The Catcher in the Rye', pageCount: '', read: 'yes'},
+        { title: 'Mark Manson: The Subtle Art of Not Giving a Fuck', pageCount: '', read: 'yes'},
+        { title: 'R.L. Stevenson: Strange Case of Dr Jekyll and Mr Hyde', pageCount: '', read: 'yes'},
+        { title: 'Fyodor Dostoevsky: Notes from the Underground', pageCount: '', read: 'yes'},
+        { title: 'Ernest Hemingway: The Old Man and the Sea', pageCount: '', read: 'yes'},
+        { title: 'Fyodor Dostoevsky: Crime and Punishment', pageCount: '', read: 'yes'},
+        { title: 'George Orwell: Animal Farm', pageCount: '', read: 'yes'},
+        { title: 'George Orwell: Down and Out in Paris and London', pageCount: '', read: 'no'},
+        { title: 'George Orwell: 1984', pageCount: '', read: 'no'},
+        { title: 'Albert Camus: The Stranger', pageCount: '', read: 'no'},
+        { title: 'Fyodor Dostoevsky: The Idiot', pageCount: '', read: 'no'}
     ];
 
     constructor(public http: Http) {}
@@ -76,7 +74,7 @@ export class BooksComponent implements OnInit {
     }
 
     filterBooks() {
-        this.dostoevsky = [], this.nietzsche = [], this.jung = [], this.hemingway = [], this.orwell = [], this.freud = [];
+        this.dostoevsky = [], this.nietzsche = [], this.jung = [], this.hemingway = [], this.orwell = [], this.tolstoy = [], this.freud = [];
         for (let i = 0; i < this.books.length; i++) {
             const curBook = this.books[i].book.toLowerCase();
             if (curBook.indexOf('dosto') !== -1) {
@@ -103,19 +101,50 @@ export class BooksComponent implements OnInit {
         }
     }
 
+
+
+
     bookApi() {
-        for (let i = 0; i < this.readBooksList.length; i++) {
-            let bookTitle = this.readBooksList[i].replace('–', ':').split(':')[1].replace(' ', '').replace(/ /g, '+').toLowerCase();
+        for (let i = 0; i < this.myBookList.length; i++) {
+            let author = '';
+            let pageCount = '';
+            let bookTitle = this.myBookList[i].title.replace('–', ':').split(':')[1].replace(' ', '').replace(/ /g, '+').toLowerCase();
             this
             .getPosts('https://www.googleapis.com/books/v1/volumes?q='+bookTitle)
             .subscribe(data => {
-                console.log(data);
+                for(let j = 0; j < data['items'].length; j++) {
+                    if(data['items'][j]['volumeInfo'].pageCount != undefined) {
+                        //console.log(j, "undefined so giving it a value of " + data['items'][j]['volumeInfo']['authors'][0]);
+                        pageCount = data['items'][j]['volumeInfo'].pageCount;
+                        author = data['items'][j]['volumeInfo']['authors'][0];
+                        break;
+                    }
+                }
+                //this.readBooksList[i].pageCount = pageCount;
+                this.myBookList[i].pageCount = data['items'][1]['volumeInfo'].pageCount
             });
         }
+        setTimeout(function() {            
+            localStorage.setItem('myBookList', JSON.stringify(this.myBookList));
+        }, 5000);
     }
 
+
+
+
+
+
+
+
     ngOnInit() {
-        this.bookApi();
+        if(localStorage.getItem('myBookList') == undefined || localStorage.getItem('myBookList').length < 20) {
+            localStorage.setItem('myBookList', '');
+            this.bookApi();
+        }
+        else {
+            this.myBookList = JSON.parse(localStorage.getItem('myBookList'));
+        }
+        
         if (localStorage.getItem('books') == undefined || localStorage.getItem('read') == undefined) {
             localStorage.setItem('books', '');
             localStorage.setItem('read', '');

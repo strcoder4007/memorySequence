@@ -1,13 +1,13 @@
 <div class="container elementToFadeIn spacer">
     <div class="row gutter-0 header" [style.color]="myColor">Read Books:</div>
-    <div *ngFor="let book of readBooksList; let i = index">
-        <div class="favBooks" [style.color]="memColor"><strong>{{i+1}}</strong>. {{book}}</div>
+    <div *ngFor="let book of myBookList; let i = index">
+        <div *ngIf="book.read == 'yes'" class="favBooks" [style.color]="memColor"><strong>{{i+1}}</strong>. {{book.title}} <b>({{book.pageCount}} pages)</b></div>
     </div>
 </div>
 <div class="container elementToFadeIn spacer">
     <div class="row gutter-0 header" [style.color]="myColor">Reading:</div>
-    <div *ngFor="let book of readingBooksList; let i = index">
-        <div class="favBooks" [style.color]="memColor">{{book}}</div>
+    <div *ngFor="let book of myBookList; let i = index">
+        <div *ngIf="book.read == 'no'" class="favBooks" [style.color]="memColor">{{book.title}} <b>({{book.pageCount}} pages)</b></div>
     </div>
 </div>
 
