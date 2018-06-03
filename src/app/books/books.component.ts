@@ -103,7 +103,19 @@ export class BooksComponent implements OnInit {
         }
     }
 
+    bookApi() {
+        for (let i = 0; i < this.readBooksList.length; i++) {
+            let bookTitle = this.readBooksList[i].replace('–', ':').split(':')[1].replace(' ', '').replace(/ /g, '+').toLowerCase();
+            this
+            .getPosts('https://www.googleapis.com/books/v1/volumes?q='+bookTitle)
+            .subscribe(data => {
+                console.log(data);
+            });
+        }
+    }
+
     ngOnInit() {
+        this.bookApi();
         if (localStorage.getItem('books') == undefined || localStorage.getItem('read') == undefined) {
             localStorage.setItem('books', '');
             localStorage.setItem('read', '');

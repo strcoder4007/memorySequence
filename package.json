@@ -9,7 +9,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "deploy": "git pull && ng build --prod --base-href /memseq/ && mv dist ../../html/ && sudo rm -r ../../html/memseq && mv ../../html/dist ../../html/memseq"
+    "deploy": "git pull && ng build --prod --base-href /memseq/ && sudo mv dist ../../html/ && sudo rm -r ../../html/memseq && sudo mv ../../html/dist ../../html/memseq"
   },
   "private": true,
   "dependencies": {
