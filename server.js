@@ -13,7 +13,7 @@ app.use(function (req, res, next) {
 });
 
 app.get('/api', function(req, res){
-    jso('https://contesttrackerapi.herokuapp.com/android/',function(err, rsp, bd){
+    request('https://contesttrackerapi.herokuapp.com/android/',function(err, rsp, bd){
           res.send(JSON.parse(bd));
       });
   });
