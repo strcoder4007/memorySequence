@@ -12,6 +12,12 @@ app.use(function (req, res, next) {
     next();
 });
 
+app.get('/api', function(req, res){
+    jso('https://contesttrackerapi.herokuapp.com/android/',function(err, rsp, bd){
+          res.send(JSON.parse(bd));
+      });
+  });
+
 app.get('/', (req, res) => {
     var pageToVisit = "https://jordanbpeterson.com/reading-list/great-books/";
     console.log("Visiting page " + pageToVisit);
