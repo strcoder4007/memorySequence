@@ -21,18 +21,20 @@ export class BooksComponent implements OnInit {
     tolstoy = [];
     freud = [];
     myBookList = [
-        { title: 'Jack London: The Call of the Wild', pageCount: '', read: 'yes'},
-        { title: 'J.D. Salinger: The Catcher in the Rye', pageCount: '', read: 'yes'},
-        { title: 'Mark Manson: The Subtle Art of Not Giving a Fuck', pageCount: '', read: 'yes'},
-        { title: 'R.L. Stevenson: Strange Case of Dr Jekyll and Mr Hyde', pageCount: '', read: 'yes'},
-        { title: 'Fyodor Dostoevsky: Notes from the Underground', pageCount: '', read: 'yes'},
-        { title: 'Ernest Hemingway: The Old Man and the Sea', pageCount: '', read: 'yes'},
-        { title: 'Fyodor Dostoevsky: Crime and Punishment', pageCount: '', read: 'yes'},
-        { title: 'George Orwell: Animal Farm', pageCount: '', read: 'yes'},
-        { title: 'George Orwell: Down and Out in Paris and London', pageCount: '', read: 'no'},
-        { title: 'George Orwell: 1984', pageCount: '', read: 'no'},
-        { title: 'Albert Camus: The Stranger', pageCount: '', read: 'no'},
-        { title: 'Fyodor Dostoevsky: The Idiot', pageCount: '', read: 'no'}
+        { title: 'Jack London: The Call of the Wild', date: 'JUN15', pageCount: '', read: 'yes'},
+        { title: 'J.D. Salinger: The Catcher in the Rye', date: 'JUL17', pageCount: '', read: 'yes'},
+        { title: 'Mark Manson: The Subtle Art of Not Giving a Fuck', date: 'JAN18', pageCount: '', read: 'yes'},
+        { title: 'R.L. Stevenson: Strange Case of Dr Jekyll and Mr Hyde', date: 'JAN18', pageCount: '', read: 'yes'},
+        { title: 'Fyodor Dostoevsky: Notes from the Underground', date: 'FEB18', pageCount: '', read: 'yes'},
+        { title: 'Ernest Hemingway: The Old Man and the Sea', date: 'FEB18', pageCount: '', read: 'yes'},
+        { title: 'Fyodor Dostoevsky: Crime and Punishment', date: 'APR18', pageCount: '', read: 'yes'},
+        { title: 'George Orwell: Animal Farm', date: 'AUG18', pageCount: '', read: 'yes'},
+        { title: 'George Orwell: Down and Out in Paris and London', date: 'AUG18', pageCount: '', read: 'yes'},
+        { title: 'George Orwell: 1984', date: '', pageCount: '', read: 'no'},
+        { title: 'Albert Camus: The Stranger', date: 'JUL18', pageCount: '', read: 'yes'},
+        { title: 'Fyodor Dostoevsky: The Idiot', date: '', pageCount: '', read: 'no'},
+        { title: 'Jean Paul Sartre: Nausea', date: 'AUG18', pageCount: '', read: 'yes'},
+        { title: 'Albert Camus: The Myth of Sisyphus', date: '', pageCount: '', read: 'no'}
     ];
 
     constructor(public http: Http) {}
