@@ -30,10 +30,10 @@ export class BooksComponent implements OnInit {
         { title: 'Fyodor Dostoevsky: Crime and Punishment', date: 'April 2018', pageCount: '', read: 'yes'},
         { title: 'George Orwell: Animal Farm', date: 'August 2018', pageCount: '', read: 'yes'},
         { title: 'George Orwell: Down and Out in Paris and London', date: 'August 2018', pageCount: '', read: 'yes'},
-        { title: 'George Orwell: 1984', date: '', pageCount: '', read: 'no'},
         { title: 'Albert Camus: The Stranger', date: 'July 2018', pageCount: '', read: 'yes'},
-        { title: 'Fyodor Dostoevsky: The Idiot', date: '', pageCount: '', read: 'no'},
         { title: 'Jean Paul Sartre: Nausea', date: 'August 2018', pageCount: '', read: 'yes'},
+        { title: 'George Orwell: 1984', date: '', pageCount: '', read: 'no'},
+        { title: 'Fyodor Dostoevsky: The Idiot', date: '', pageCount: '', read: 'no'},
         { title: 'Albert Camus: The Myth of Sisyphus', date: '', pageCount: '', read: 'no'},
         { title: 'Viktor Frankl: Man\'s search for meaning', date: '', pageCount: '', read: 'no'}
     ];
@@ -124,7 +124,7 @@ export class BooksComponent implements OnInit {
                     }
                 }
                 //this.readBooksList[i].pageCount = pageCount;
-                this.myBookList[i].pageCount = data['items'][1]['volumeInfo'].pageCount
+                this.myBookList[i].pageCount = data['items'][0]['volumeInfo'].pageCount
             });
         }
         setTimeout(function() {            
