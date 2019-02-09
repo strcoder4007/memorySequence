@@ -8,7 +8,7 @@ import {
     isDevMode
 } from '@angular/core';
 import {Http} from '@angular/http';
-import 'rxjs/add/operator/map';
+
 import {DomSanitizer, SafeHtml} from '@angular/platform-browser';
 import {Router} from '@angular/router';
 import {MemoriesComponent} from './memories/memories.component';

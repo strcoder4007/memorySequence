@@ -1,6 +1,8 @@
+
+import {map} from 'rxjs/operators';
 import {Component, OnInit, Input, isDevMode} from '@angular/core';
 import {Http} from '@angular/http';
-import 'rxjs/add/operator/map';
+
 
 @Component({selector: 'app-books', templateUrl: './books.component.html', styleUrls: ['./books.component.css']})
 export class BooksComponent implements OnInit {
@@ -52,8 +54,8 @@ export class BooksComponent implements OnInit {
     getPosts(myLink: string) {
         return this
             .http
-            .get(myLink)
-            .map(res => res.json());
+            .get(myLink).pipe(
+            map(res => res.json()));
     }
 
     processJson() {

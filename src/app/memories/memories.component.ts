@@ -1,6 +1,8 @@
+
+import {mergeMap, map} from 'rxjs/operators';
 import { Component, OnInit, SecurityContext, Input, Output, EventEmitter, isDevMode } from '@angular/core';
 import { Http } from '@angular/http';
-import 'rxjs/add/operator/map';
+
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { Router} from '@angular/router';
 import 'rxjs/Rx';
@@ -69,11 +71,11 @@ export class MemoriesComponent implements OnInit {
 
     getposts() {
         this.dataUrl = "https://api.onedrive.com/v1.0/shares/u!" + btoa(this.locprodUrl+"?v="+Math.random())+"/root?expand=children";
-        return this.http.get(this.dataUrl).map(res => res.json());
+        return this.http.get(this.dataUrl).pipe(map(res => res.json()));
     }
 
     getfinalposts(myLink: string) {
-        return this.http.get(myLink).map(res => res.json());
+        return this.http.get(myLink).pipe(map(res => res.json()));
     }
 
     processJson() {
@@ -81,7 +83,7 @@ export class MemoriesComponent implements OnInit {
         this.someMemories = [];
         this.sortedMemories = [];
         this.allMemories = [];
-        this.getposts().flatMap(metaJson => {
+        this.getposts().pipe(mergeMap(metaJson => {
             if(localStorage.getItem("lastModified") == metaJson['lastModifiedDateTime']) {
                 if(this.isLoggedIn && this.level == 2) {
                     this.sortedMemories = JSON.parse(localStorage.getItem("sortedMemoriesPrivate"));
@@ -102,7 +104,7 @@ export class MemoriesComponent implements OnInit {
             this.finalUrl = myString.substring(25, myIdx-3);
             let myLink = this.finalUrl;
             return this.getfinalposts(myLink);
-        }).subscribe(posts => {
+        })).subscribe(posts => {
             for(var i = 0; i < posts.length; i++){
                 this.memory = posts[i];
                 this.tags = {
