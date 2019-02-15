@@ -13,6 +13,7 @@
     font-size: 14px;
 }
 .mybtn {
+    margin-right: 5px;
     border-radius: 0px;
     font-family: "Roboto Condensed";
     border: 2px solid;
