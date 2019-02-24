@@ -27,7 +27,7 @@ a {
 }
 
 .authors {
-    font-family: "Roboto Condensed";
+
     font-size: 40px;
     position: relative;
     text-align: left;
@@ -41,12 +41,12 @@ a {
 }
 
 .favBooks {
-    font-family: "Roboto Condensed";
+
     font-size: 16px;
 }
 
 .header {
-    font-family: "Roboto Condensed";
+
     font-size: 50px;
     position: relative;
     text-align: left;
@@ -56,12 +56,12 @@ a {
 .book {
     position: relative;
     text-align: justify;
-    font-family: "Roboto Condensed";
+
     font-size: 16px;
 }
 
 .books {
-    font-family: "Roboto Condensed";
+
     font-size: 16px;
     cursor: pointer;
     position: relative;

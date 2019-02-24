@@ -33,133 +33,59 @@ a {
 }
 
 .memoryTitle {
-    font-family: "Roboto Condensed";
+
     font-size: 60px;
     font-weight: bolder;
 }
 .memoryLinkTitle{
-    font-family: "Roboto Condensed";
+
     font-size: 45px;
     font-weight: bolder;
 }
 .memory {
     font-size: 18px;
     text-align: justify;
-    font-family: "Roboto Condensed";
+
 }
 .myTime {
-    font-family: "Roboto Condensed";
-    font-size: 13px;
-}
 
-.navbar {
-    background-color: transparent;
-    border: none;
-}
-.navbar-brand {
     font-size: 13px;
-    cursor: pointer;
 }
 .group {
     font-size: 12px;
-    font-family: "Roboto";
+
     font-weight: bolder;
     cursor: pointer;
 }
-
 .inputBackground {
     background-color: #1d1d1d;
     border: none;
     border-radius: 0px; 
     box-shadow: none;
 }
-
 .mybtn {
     color: white;
     border-radius: 0px;
     background-color: #1d1d1d;
 }
-
-
 .input-group-btn {
     background-color: white;
 }
-.navbar-collapse {
-    position: relative;
-    padding-top: 30px !important;
-    max-height: 300px;
+.navbar-brand {
+    margin: auto auto;
 }
-.navbar-collapse form[role="search"] {
-    position: absolute;
-    top: 0px;
-    right: 0px;
-    width: 100%;
-    padding: 0px;
-    margin: 0px;
-    z-index: 0;
-}
-.navbar-collapse form[role="search"] button,
-.navbar-collapse form[role="search"] input {
-    padding: 8px 12px;
-    border-radius: 0px;
-    border-width: 0px;
-    color: rgb(119, 119, 119);
-    background-color: rgb(248, 248, 248);
-    border-color: rgb(231, 231, 231);
-    box-shadow: none;
+.navbar-toggler {
+    border: none;
+    text-decoration: none;
     outline: none;
 }
-.navbar-collapse form[role="search"] input {
-    padding: 16px 12px;
-    font-size: 14pt;
-    font-style: italic;
-    color: rgb(160, 160, 160);
-    box-shadow: none;
-}
-.navbar-collapse form[role="search"] button[type="reset"] {
-    display: none;
-}
 
-.header {
-    margin-top: 15px;
-}
 
-@media (min-width: 768px) {
-    .header {
-        margin-top: none;
-    }
-    .memoryLinkTitle{
-        font-size: 60px;
-    }
-    .centerMemories{
-        width: 95%;
-    }
-    .navbar-collapse {
-        padding-top: 0px !important;
-        padding-right: 38px !important;
-    }
-    .navbar-collapse form[role="search"] {
-        width: 38px;
-    }
-    .navbar-collapse form[role="search"] button,
-    .navbar-collapse form[role="search"] input {
-        padding: 15px 12px;
-    }
-    .navbar-collapse form[role="search"] input {
-        font-size: 18pt;
-        opacity: 0;
-        display: none;            
-        height: 50px;
-    }
-    .navbar-collapse form[role="search"].active {
-        width: 100%;
-    }
-    .navbar-collapse form[role="search"].active button,
-    .navbar-collapse form[role="search"].active input {
-        display: table-cell;
-        opacity: 1;
-    }
-    .navbar-collapse form[role="search"].active input {
-        width: 100%;
-    }
-}
+
+
+
+
+
+
+
+

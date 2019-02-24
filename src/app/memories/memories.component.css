@@ -24,7 +24,7 @@ a {
 
 .tinyDate {
     font-size: 1em;
-    font-family: "Roboto Condensed";
+
 }
 
 .myBrand {
@@ -38,23 +38,23 @@ a {
 }
 
 .memoryTitle {
-    font-family: "Roboto Condensed";
+
     font-size: 50px;
     font-weight: bolder;
 }
 .memoryLinkTitle{
-    font-family: "Roboto Condensed";
+
     font-size: 40px;
     font-weight: bolder;
 }
 .memory {
     font-size: 16px;
     text-align: justify;
-    font-family: "Roboto Condensed";
+
     padding-bottom: 30px;
 }
 .myTime {
-    font-family: "Roboto Condensed";
+
     font-size: 13px;
 }
 
@@ -68,7 +68,7 @@ a {
 }
 .group {
     font-size: 12px;
-    font-family: "Roboto Condensed";
+
     cursor: pointer;
 }
 
@@ -178,4 +178,4 @@ a {
     .memoriesPage {
         padding-top: 0px;
     }
-}    
+}

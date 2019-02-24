@@ -1,21 +1,21 @@
 .memoryTitle {
-    font-family: "Roboto Condensed";
+
     font-size: 50px;
     font-weight: bolder;
 }
 .memory {
     font-size: 16px;
     text-align: justify;
-    font-family: "Roboto Condensed";
+
 }
 .myTime {
-    font-family: "Roboto Condensed";
+
     font-size: 14px;
 }
 .mybtn {
     margin-right: 5px;
     border-radius: 0px;
-    font-family: "Roboto Condensed";
+
     border: 2px solid;
     margin-bottom: 3px;
     font-size: 14px;

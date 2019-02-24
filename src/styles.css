@@ -4,7 +4,6 @@
 }
 
 html {
-    overflow-x:hidden;
 }
 
 ::-webkit-scrollbar-track {
@@ -46,3 +45,14 @@ html {
     color: white;
 }
 
+/*   GLOBALS  */
+
+.bg-darker {
+    background-color: #222 !important;
+}
+.robotoCondensed {
+    font-family: "Roboto Condensed";
+}
+.roboto {
+    font-family: "Roboto";
+}
