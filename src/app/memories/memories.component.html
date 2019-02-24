@@ -1,4 +1,4 @@
-<div class="container-fluid memoriesPage mt-5">
+<div class="container-fluid memoriesPage mt-5 px-0">
     <div class = "container" *ngFor="let memory of sortedMemories; let i = index">
         <div *ngIf="hideOptions; then normalBlock; else linkBlock"></div>
         <ng-template #normalBlock>

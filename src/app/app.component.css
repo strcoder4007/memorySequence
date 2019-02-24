@@ -48,12 +48,9 @@ a {
 
 }
 .myTime {
-
     font-size: 13px;
 }
 .group {
-    font-size: 12px;
-
     font-weight: bolder;
     cursor: pointer;
 }

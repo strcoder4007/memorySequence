@@ -56,3 +56,24 @@ html {
 .roboto {
     font-family: "Roboto";
 }
+.smallFont {
+    font-size: 1rem;
+}
+.mediumFont {
+    font-size: 0.9rem;
+}
+.largeFont {
+    font-size: 1.7rem;
+}
+
+
+@media (min-width: 768px) {
+    .largeFont {
+        font-size: 1.2rem;
+    }
+}
+@media (min-width: 1200px) {
+    .largeFont {
+        font-size: 1.2rem;
+    }
+}
