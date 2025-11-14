@@ -95,6 +95,9 @@ const handleSelect = (item) => {
           <span class="chart__tooltip-label">{{ item.label }}</span>
           <span class="chart__tooltip-count">{{ item.blogLabel }}</span>
         </div>
+        <div v-if="item.axisLabel" class="chart__axis-label" aria-hidden="true">
+          {{ item.axisLabel }}
+        </div>
       </div>
     </div>
   </section>
@@ -144,6 +147,7 @@ const handleSelect = (item) => {
   align-items: end;
   gap: 1px;
   position: relative;
+  padding-bottom: 1.6rem;
 }
 
 .chart::before {
@@ -270,6 +274,19 @@ const handleSelect = (item) => {
 .chart__column:focus-visible .chart__tooltip {
   opacity: 1;
   transform: translate(-50%, 0);
+}
+
+.chart__axis-label {
+  position: absolute;
+  top: calc(100% + 0.7rem);
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.66rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 213, 182, 0.75);
+  white-space: nowrap;
+  pointer-events: none;
 }
 
 @media (max-width: 768px) {

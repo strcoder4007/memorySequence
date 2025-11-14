@@ -112,11 +112,14 @@ const monthlyAnalytics = computed(() => {
     })
       .format(cursor)
       .replace(' ', '\n')
+    const axisLabel = cursor.getMonth() === 0 ? `${cursor.getFullYear()}` : ''
+
     results.push({
       key,
       label,
       chars: bucket.chars,
       count: bucket.count,
+      axisLabel,
     })
     cursor.setMonth(cursor.getMonth() + 1)
   }

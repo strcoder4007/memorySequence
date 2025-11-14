@@ -118,7 +118,7 @@ const props = defineProps({
 .tag-group {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.6rem;
+  gap: 0.45rem;
 }
 
 .tag-chip {
@@ -126,10 +126,10 @@ const props = defineProps({
   align-items: center;
   justify-content: center;
   border-radius: 999px;
-  padding: 0.3rem 0.85rem;
-  font-size: 0.8rem;
+  padding: 0.24rem 0.7rem;
+  font-size: 0.72rem;
   text-transform: uppercase;
-  letter-spacing: 0.09em;
+  letter-spacing: 0.08em;
   background: rgba(255, 138, 61, 0.14);
   color: #ffd9bd;
 }
