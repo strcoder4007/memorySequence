@@ -437,7 +437,7 @@ watch(filteredEntries, (list) => {
   align-items: center;
   padding: 0 clamp(1rem, 0.6rem + 1.4vw, 1.8rem);
   border-radius: 1.1rem;
-  background: #07090f;
+  background: #000000;
   border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: 0 18px 40px rgba(5, 7, 11, 0.35);
   overflow: hidden;

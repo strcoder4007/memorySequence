@@ -2,6 +2,8 @@
 
 Memory Sequence is now a modern Vue 3 + Vite single-page experience that renders personal essays directly from `public/data.json`. The UI embraces a 2025-ready, minimalist dark aesthetic designed for focused reading on any device.
 
+![Memory Sequence preview](src/assets/img/readme.png)
+
 ---
 
 - [Key Features](#key-features)

@@ -6,7 +6,7 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  --bg: #05070a;
+  --bg: #000000;
   --surface: rgba(255, 255, 255, 0.02);
   --surface-elevated: rgba(15, 18, 26, 0.88);
   --surface-blur: rgba(15, 18, 26, 0.62);
