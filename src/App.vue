@@ -3,6 +3,7 @@ import { computed, onMounted, ref, watch } from 'vue'
 import DOMPurify from 'dompurify'
 
 import MemoryDetail from './components/MemoryDetail.vue'
+import MemoryEditor from './components/MemoryEditor.vue'
 import MemoryList from './components/MemoryList.vue'
 import AnalyticsBar from './components/AnalyticsBar.vue'
 import logomark from './assets/img/logo.png'
@@ -13,6 +14,9 @@ const error = ref('')
 const selectedId = ref('')
 const activeMonthKey = ref('')
 const searchQuery = ref('')
+const isCreating = ref(false)
+const generatedJson = ref('')
+const previousSelectedId = ref('')
 
 const latestEntry = computed(() => (entries.value.length ? entries.value[0] : null))
 
@@ -49,6 +53,9 @@ const filteredEntries = computed(() => {
 })
 
 const activeEntry = computed(() => {
+  if (isCreating.value) {
+    return null
+  }
   if (filteredEntries.value.length) {
     return (
       filteredEntries.value.find((item) => item.id === selectedId.value) ?? filteredEntries.value[0]
@@ -132,12 +139,15 @@ const activeMonthLabel = computed(() => {
 })
 
 const selectEntry = (id) => {
+  if (isCreating.value || !id) {
+    return
+  }
   selectedId.value = id
   scrollToTopIfMobile()
 }
 
 const handleMonthSelect = (key) => {
-  if (!key || isSearching.value) {
+  if (!key || isSearching.value || isCreating.value) {
     return
   }
   activeMonthKey.value = activeMonthKey.value === key ? '' : key
@@ -238,11 +248,78 @@ const createSnippet = (text, limit = 180) => {
   return `${text.slice(0, limit).trim()}…`
 }
 
+const escapeHtml = (value) =>
+  value
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;')
+
+const convertDraftToHtml = (raw) => {
+  if (!raw) {
+    return ''
+  }
+  const segments = raw
+    .split(/\n{2,}/)
+    .map((segment) => segment.trim())
+    .filter(Boolean)
+
+  if (!segments.length) {
+    return `<p>${escapeHtml(raw.trim()).replace(/\n/g, '<br />')}</p>`
+  }
+
+  return segments
+    .map((segment) => {
+      const escaped = escapeHtml(segment)
+      return `<p>${escaped.replace(/\n/g, '<br />')}</p>`
+    })
+    .join('')
+}
+
+const formatCurrentDate = () =>
+  new Intl.DateTimeFormat('en-GB', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  }).format(new Date())
+
+const startCreate = () => {
+  generatedJson.value = ''
+  previousSelectedId.value = selectedId.value
+  isCreating.value = true
+  selectedId.value = ''
+}
+
+const handleEditorCancel = () => {
+  generatedJson.value = ''
+  isCreating.value = false
+  if (previousSelectedId.value) {
+    selectedId.value = previousSelectedId.value
+  } else if (entries.value.length) {
+    selectedId.value = entries.value[0].id
+  }
+  previousSelectedId.value = ''
+}
+
+const handleEditorSubmit = (draft) => {
+  const payload = {
+    title: draft.title,
+    content: convertDraftToHtml(draft.content),
+    time: formatCurrentDate(),
+    tags: draft.tags,
+  }
+  generatedJson.value = `${JSON.stringify(payload, null, 2)}`
+}
+
 onMounted(() => {
   loadEntries()
 })
 
 watch(filteredEntries, (list) => {
+  if (isCreating.value) {
+    return
+  }
   if (!list.length) {
     selectedId.value = ''
     return
@@ -266,7 +343,7 @@ watch(filteredEntries, (list) => {
     <AnalyticsBar
       :data="monthlyAnalytics"
       :active-key="activeMonthKey"
-      :disabled="isSearching"
+      :disabled="isSearching || isCreating"
       @select="handleMonthSelect"
     />
 
@@ -300,11 +377,24 @@ watch(filteredEntries, (list) => {
         :selected-id="selectedId"
         :loading="loading"
         :error="error"
+        :creating="isCreating"
         :is-filtered="isFiltered"
         :search-query="searchQuery"
         @select="selectEntry"
+        @create="startCreate"
       />
-      <MemoryDetail :entry="activeEntry" :loading="loading" :error="error" />
+      <MemoryDetail
+        v-if="!isCreating"
+        :entry="activeEntry"
+        :loading="loading"
+        :error="error"
+      />
+      <MemoryEditor
+        v-else
+        :json-result="generatedJson"
+        @cancel="handleEditorCancel"
+        @submit="handleEditorSubmit"
+      />
     </main>
 
     <footer class="footer">

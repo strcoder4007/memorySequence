@@ -17,6 +17,10 @@ const props = defineProps({
     type: String,
     default: '',
   },
+  creating: {
+    type: Boolean,
+    default: false,
+  },
   isFiltered: {
     type: Boolean,
     default: false,
@@ -27,10 +31,10 @@ const props = defineProps({
   },
 })
 
-const emit = defineEmits(['select'])
+const emit = defineEmits(['select', 'create'])
 
 const handleSelect = (entry) => {
-  if (!entry || props.loading) {
+  if (!entry || props.loading || props.creating) {
     return
   }
   emit('select', entry.id)
@@ -58,6 +62,14 @@ const blankMessage = computed(() => {
         Browse Memory Sequences
         <span class="eyebrow__count">({{ visibleCount }})</span>
       </p>
+      <button
+        type="button"
+        class="panel__cta"
+        @click="emit('create')"
+        :disabled="creating || loading"
+      >
+        New Memory
+      </button>
     </header>
 
     <div v-if="error" class="state state--error">
@@ -115,7 +127,7 @@ const blankMessage = computed(() => {
 }
 
 .panel--scroll {
-  max-height: min(78vh, 720px);
+  max-height: min(101vh, 936px);
   overflow-y: auto;
   overscroll-behavior: contain;
   backdrop-filter: blur(18px);
@@ -139,8 +151,10 @@ const blankMessage = computed(() => {
 
 .panel__header {
   display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  flex-wrap: wrap;
 }
 
 .eyebrow {
@@ -158,6 +172,36 @@ const blankMessage = computed(() => {
 .eyebrow__count {
   color: #ffdabc;
   letter-spacing: 0;
+}
+
+.panel__cta {
+  padding: 0.55rem 1.15rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 138, 61, 0.55);
+  background: rgba(255, 138, 61, 0.15);
+  color: var(--text);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
+}
+
+.panel__cta:hover,
+.panel__cta:focus-visible {
+  background: rgba(255, 138, 61, 0.28);
+  border-color: rgba(255, 138, 61, 0.8);
+  box-shadow: 0 12px 26px rgba(255, 120, 66, 0.18);
+  outline: none;
+}
+
+.panel__cta:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  background: rgba(255, 138, 61, 0.08);
+  border-color: rgba(255, 138, 61, 0.35);
+  box-shadow: none;
 }
 
 .panel__header h2 {

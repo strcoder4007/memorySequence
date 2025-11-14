@@ -240,7 +240,7 @@ const handleSelect = (item) => {
   transform: translate(-50%, 6px);
   padding: 0.45rem 0.65rem;
   border-radius: 0.6rem;
-  background: #0c111b;
+  background: #030304;
   border: 1px solid rgba(255, 138, 61, 0.45);
   color: var(--text);
   font-size: 0.66rem;
