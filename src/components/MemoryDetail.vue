@@ -97,6 +97,18 @@ const props = defineProps({
   font-weight: 600;
 }
 
+.eyebrow {
+    font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--text-muted);
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  flex-wrap: wrap;
+}
+
 .subtext {
   margin: 0;
   color: var(--text-soft);
