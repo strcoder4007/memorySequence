@@ -1,0 +1,66 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600&display=swap');
+
+:root {
+  color-scheme: dark;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  --bg: #05070a;
+  --surface: rgba(255, 255, 255, 0.02);
+  --surface-elevated: rgba(15, 18, 26, 0.88);
+  --surface-blur: rgba(15, 18, 26, 0.62);
+  --text: #f2f5fa;
+  --text-soft: #c2cada;
+  --text-muted: #8d97aa;
+  --accent: #ff8a3d;
+  --accent-soft: rgba(255, 138, 61, 0.22);
+  --accent-glow: rgba(255, 120, 66, 0.45);
+  --accent-gradient: linear-gradient(135deg, #ff5c5c 0%, #ff8a3d 45%, #ffc043 100%);
+  --border: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.12);
+  --shadow-soft: 0 20px 60px rgba(12, 15, 24, 0.28);
+  --shadow-strong: 0 30px 60px rgba(8, 10, 16, 0.42);
+  background: var(--bg);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--text);
+  font-family: 'Inter', 'Space Grotesk', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  line-height: 1.6;
+}
+
+#app {
+  min-height: 100vh;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--accent);
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+button {
+  font: inherit;
+}
+
+::selection {
+  background: rgba(255, 138, 61, 0.38);
+  color: var(--text);
+}

@@ -1,68 +1,57 @@
-# Data Sources & Caching
+# Data Sources
 
-MemorySequence mixes first-party content hosted on OneDrive with data scraped from public websites. This document outlines how those sources are accessed, how results are cached, and what to change if the upstream links move.
+The Vue rewrite of Memory Sequence intentionally relies on a single, self-managed data source: a JSON file shipped with the application. This keeps the build static, easy to host, and trivial to update.
 
-## Memories (OneDrive)
+## Primary Source — `public/data.json`
 
-- **Share URLs**
-  - Development: `https://1drv.ms/u/s!AmQasIRCiDf9vg-uuspbdj0x8Fi9`
-  - Production: `https://1drv.ms/u/s!AmQasIRCiDf9vVBQ--3w2STYkPo8`
-- The URLs above are expanded by OneDrive into metadata and JSON representing each memory. `MemoriesComponent` encodes the share link and calls:
+- **Location**: `public/data.json`
+- **Delivery**: Served as-is by the static host; fetched client-side by the app on load.
+- **Schema**:
+  ```json
+  {
+    "title": "Entry title",
+    "content": "<p>HTML body…</p>",
+    "time": "14 November 2025",
+    "tags": ["optional", "tags"]
+  }
   ```
-  https://api.onedrive.com/v1.0/shares/u!{btoa(shareUrl + '?v=' + Math.random())}/root?expand=children
-  ```
-  The `?v=` cache buster ensures OneDrive does not serve a stale response.
-- Each child contains `title`, `content`, `time`, and `tags`. HTML content is sanitised at runtime and rendered directly in the UI.
 
-### Caching Strategy
+### Editing Workflow
 
-`MemoriesComponent` keeps a lightweight cache to avoid hitting OneDrive on every page load:
+1. Open `public/data.json` in your editor.
+2. Append or modify entries following the schema above.
+3. Save the file — no rebuild required for local development (`npm run dev` watches the file automatically).
 
-| Key | Purpose |
-| --- | --- |
-| `lastModified` | The `lastModifiedDateTime` returned by OneDrive. If unchanged, the cached payload is reused. |
-| `sortedMemoriesPublic` | Public-only memories (private entries removed). |
-| `sortedMemoriesPrivate` | Full memory list, including entries tagged `personal`. |
+For production, deploy the updated `data.json` alongside the existing build. Static hosts (Netlify, Vercel, S3, etc.) will serve the new content immediately once the file is replaced.
 
-If any of these keys are missing or stale, the component fetches fresh data and rewrites the cache. Clearing browser storage forces a resync.
+### HTML Content Guidelines
 
-### Private vs. Public Memories
+- Keep markup simple: paragraphs, lists, emphasis, links.
+- The client uses DOMPurify to sanitise HTML before rendering, mitigating XSS concerns.
+- Avoid inline scripts or complex embeds; if richer media is needed later, extend the sanitisation allow-list with care.
 
-Entries tagged with `"personal"` are hidden unless the user is logged in. The login flow simply toggles a flag in local storage (`loggedIn = "xyufsvt"`) and the sorted list is re-filtered.
+### Date Format
 
-## Books Feed (Express Scraper)
+- Human-readable strings (e.g., `03 August 2025`) are parsed with the browser’s `Date` constructor.
+- The app falls back gracefully if it encounters an invalid date, but consistent formatting ensures correct sorting and display.
 
-The reading list is aggregated by `server.js`:
+## Derived Data
 
-- Performs a `GET` request to `https://jordanbpeterson.com/reading-list/great-books/`.
-- Uses `cheerio` to extract the ordered list of books and seeds the response with two manual defaults.
-- Serves the combined array at `GET /` with permissive CORS headers.
-- Exposes an additional passthrough endpoint at `GET /api` which proxies `https://contesttrackerapi.herokuapp.com/android/`. This is currently unused by the Angular app but kept for convenience.
+The application enriches each JSON entry at runtime:
 
-`BooksComponent` checks local storage for `books` and `read`. When empty, it hits the scraper (`http://localhost:3001` in development, `http://18.221.40.67:3001` in production) and writes the results back to storage. The `read` flag is a string (`"1"`/`"0"`) persisted to support strike-through toggling.
+- `formattedDate`: Internationalised date string (`Intl.DateTimeFormat`).
+- `readingTime`: Word-count estimate based on ~200 WPM.
+- `snippet`: Plain-text preview for the archive cards.
+- `tags`: Ensured to be an array (empty if omitted).
 
-## Google Books Metadata
+No other caches or remote services are used. Removing the old Angular-era OneDrive feed, login flags, and Express scraper drastically simplifies maintenance.
 
-`BooksComponent.bookApi()` enriches the static `myBookList` by querying the public Google Books API:
+## Future Extensions
 
-```
-GET https://www.googleapis.com/books/v1/volumes?q={bookTitle}
-```
+If you later reintroduce remote content (e.g., a CMS or another JSON endpoint), consider:
 
-- No API key is used; for heavy usage you may want to register a key and supply it via query parameter to avoid rate limiting.
-- The method is invoked on first load when `localStorage.myBookList` is absent or too short. After enrichment, the list is cached under `myBookList`.
+- Creating a fetch composable (e.g., `useRemoteEntries`) with retry/backoff.
+- Adding a build step that hydrates `public/data.json` from the external source.
+- Persisting a revision hash in `localStorage` to avoid redundant fetches while still keeping the app stateless.
 
-## Login Credentials
-
-The front-end uses a hard-coded credential pair:
-
-- Username: `str`
-- Password: `programming!0!`
-
-Successful authentication sets `localStorage.loggedIn = "xyufsvt"`, which the UI treats as a persistent session flag.
-
-## Rotating Links or Clearing Cache
-
-- Update the OneDrive share URLs (`locprodUrl`) in `memories.component.ts` if the dataset moves.
-- If the production scraper endpoint changes, update the host string in `books.component.ts`.
-- For immediate cache invalidation during development, open DevTools and clear Application &rarr; Local Storage for the app domain.
+For now, a single JSON file keeps the workflow fast and predictable.

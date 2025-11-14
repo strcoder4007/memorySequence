@@ -1,58 +1,51 @@
-# Deployment Guide
+# Deployment Guide (Vue 3)
 
-MemorySequence is a static Angular application that can be hosted on any web server capable of serving the compiled assets. This document explains the provided deployment script and outlines the assumptions baked into it.
+The Vue rewrite of Memory Sequence is a fully static single-page application. Deployments are therefore straightforward: build the assets with Vite, ship the resulting `dist/` folder, and include `public/data.json`.
 
-## Production Build
-
-The usual Angular CLI workflow applies:
+## Build Pipeline
 
 ```bash
-ng build --prod
+npm install        # first-time setup
+npm run build      # emits dist/
 ```
 
-This produces the `dist/` folder containing an optimized bundle. The `start`, `test`, and `e2e` scripts operate on the same tooling that Angular CLI installs locally.
+- `npm run build` produces minified JS/CSS under `dist/`.
+- Static assets from `public/` (including `data.json` and `favicon.png`) are copied across automatically.
 
-## `npm run deploy`
+## Local Verification
 
-The project ships with a convenience script intended for the original hosting environment:
-
-```json
-"deploy": "git pull && ng build --prod --base-href /memseq/ && sudo mv dist ../../html/ && sudo rm -r ../../html/memseq && sudo mv ../../html/dist ../../html/memseq"
-```
-
-### What it does
-
-1. `git pull` — ensures the working copy is up to date.
-2. `ng build --prod --base-href /memseq/` — compiles the app with a `base` tag pointing at `/memseq/`.
-3. `sudo mv dist ../../html/` — moves the freshly-built `dist` directory two levels up into an `html` folder.
-4. `sudo rm -r ../../html/memseq` — removes the previous deployment.
-5. `sudo mv ../../html/dist ../../html/memseq` — renames the copied `dist` folder to `memseq`.
-
-### Assumptions & Requirements
-
-- The repository resides two directories below the web root (`../../html/`).
-- You have `sudo` rights on the target machine.
-- `ng` is available on the `$PATH` (i.e., Angular CLI is installed globally or via `npx`).
-- The production web server serves static content from `../../html/memseq/`.
-
-If any of these assumptions do not hold, adjust the script or run the commands manually with paths matching your server layout.
-
-## Alternate Deployments
-
-For other environments (S3, Netlify, nginx, etc.) you can:
-
-1. Run `ng build --prod --base-href /` (or the appropriate subdirectory).
-2. Upload the contents of `dist/memory-sequence` (Angular 7 names the folder after `package.json`).
-3. Serve the files via your preferred static host.
-
-Remember to proxy or redeploy the companion Node service (`server.js`) if you rely on the live Books feed. In production builds the app expects it at `http://18.221.40.67:3001`. Update `books.component.ts` if your backend host differs.
-
-## Server Process
-
-`server.js` is not bundled by the Angular build. To run it on the target server:
+Use Vite’s preview command to smoke-test the production build locally:
 
 ```bash
-node server.js        # or pm2/forever for long-running environments
+npm run preview
 ```
 
-Make sure ports and firewall rules allow the Angular front-end to reach whichever host/port combination you choose.
+- Serves `dist/` on `http://localhost:4173/`.
+- Confirms the static bundle loads `data.json` correctly from the same origin.
+
+## Deploying to a Static Host
+
+Any static host works (Netlify, Vercel, GitHub Pages, Cloudflare Pages, S3 + CloudFront, etc.). The generic process:
+
+1. Build locally or via CI (`npm run build`).
+2. Upload the contents of `dist/` to your host.
+3. Ensure `data.json` ships alongside the assets (it lives in `dist/data.json` after build).
+4. Configure your host for SPA routing if necessary (all routes should serve `index.html`).
+
+Because the app fetches `data.json` relative to `import.meta.env.BASE_URL`, no configuration tweaks are needed when deploying to subdirectories. If you serve the site under a sub-path, set `vite.config.js -> base` accordingly before building.
+
+## Updating Content Without Rebuilding
+
+Since `data.json` lives in the static assets, you can publish new entries by replacing that single file on the host:
+
+1. Edit `public/data.json`.
+2. Deploy the updated file (or rebuild to include it automatically).
+3. The front-end cache-busts requests with a timestamp query, so users pull the latest content on refresh.
+
+## CI/CD Tips
+
+- Cache `node_modules` between runs to speed up builds.
+- Run `npm run build` as part of the pipeline; failing builds automatically signal issues with malformed JSON or syntax errors.
+- Optionally run `npm run preview -- --host` inside CI to run end-to-end tests against the production bundle.
+
+That’s it—no Angular deploy script, no Node server, no additional services. Ship the static bundle and you’re live.

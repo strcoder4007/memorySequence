@@ -1,98 +1,97 @@
-# MemorySequence
+# Memory Sequence · Vue 3 rewrite
 
-MemorySequence is a personal knowledge garden built with Angular 7. It renders a chronology of “memory” entries pulled from an OneDrive share and augments them with an interactive reading list. The application ships with a lightweight Express scraper that hydrates the reading list from Jordan Peterson’s public recommendations.
-
-The project started life as an Angular CLI scaffold, but now has a defined feature set, bespoke styling, and an opinionated local-storage caching strategy. The updated documentation below explains how those pieces fit together and how to run or extend the project today.
+Memory Sequence is now a modern Vue 3 + Vite single-page experience that renders personal essays directly from `public/data.json`. The UI embraces a 2025-ready, minimalist dark aesthetic designed for focused reading on any device.
 
 ---
 
-- [Features](#features)
-- [Project Layout](#project-layout)
-- [Local Development](#local-development)
-- [Testing](#testing)
-- [Deployment](#deployment)
-- [Credentials & Local Storage](#credentials--local-storage)
-- [Reference Docs](#reference-docs)
+- [Key Features](#key-features)
+- [Project Structure](#project-structure)
+- [Getting Started](#getting-started)
+- [Editing Content](#editing-content)
+- [Styling & Theming](#styling--theming)
+- [Build & Deploy](#build--deploy)
+- [Next Steps](#next-steps)
 
 ---
 
-## Features
+## Key Features
 
-- Memory timeline sourced from OneDrive, with private entries gated behind a simple login toggle.
-- Single-memory view with theme support (light/dark) and tag surfacing.
-- Books dashboard that merges a curated list with a scraped feed (via the bundled Express server) and enriches entries with Google Books metadata.
-- Responsive navigation with quick access to the latest memory (“About”), a books catalog, and theme toggling.
+- **Zero backend** — Static hosting friendly; all content comes from a JSON file in `public/`.
+- **Modern dark UI** — Focused typography, responsive layout, and gentle motion.
+- **Rich reading view** — Sanitised HTML rendering with tag chips and reading-time estimates.
+- **Archive overview** — Quick stats (total entries, last update, tag count) plus interactive cards.
 
-## Project Layout
+## Project Structure
 
 ```
 memorySequence/
+├── index.html           # HTML shell & metadata
+├── public/
+│   ├── data.json        # 🔸 single source of truth for entries
+│   └── favicon.png
 ├── src/
-│   └── app/
-│       ├── app.component.*        # Shell: navigation, theme toggle, login
-│       ├── memories/              # Timeline + data ingestion from OneDrive
-│       ├── memory/                # Single memory view
-│       ├── books/                 # Reading list UI + API integration
-│       ├── login/                 # Inline login widget
-│       └── search/                # (Currently hidden) typeahead shell
-├── server.js                      # Express scraper for the books feed
-├── package.json                   # Scripts and dependency manifest
-└── docs/                          # Supplemental documentation
+│   ├── App.vue          # Shell layout, data loading, global state
+│   ├── components/
+│   │   ├── MemoryDetail.vue
+│   │   └── MemoryList.vue
+│   ├── assets/
+│   │   ├── img/         # Preserved brand imagery
+│   │   └── vue.svg
+│   ├── main.js          # Entry point
+│   └── style.css        # Global theme variables & resets
+├── docs/                # Project notes (update as the Vue build evolves)
+├── package.json
+└── vite.config.js
 ```
 
-Angular CLI (`@angular/cli` 7.3) handles building, testing, and scaffolding. The app uses `rxjs` for HTTP orchestration and styles itself with Bootstrap 4 and Font Awesome glyphs.
-
-## Local Development
-
-Prerequisites: Node.js 10+ and npm.
-
-1. Install dependencies
-   ```bash
-   npm install
-   ```
-2. Start the front-end dev server
-   ```bash
-   npm start
-   ```
-   Visit `http://localhost:4200/`.
-3. (Optional but recommended) Start the book scraper in a second shell so the Books view can load live data.
-   ```bash
-   node server.js
-   ```
-   This exposes the scraper on `http://localhost:3001/`.
-
-The memories feed targets an OneDrive share URL. The development build consumes the link configured in `MemoriesComponent.locprodUrl`. See `docs/data-sources.md` for details and guidance on rotating the share link.
-
-## Testing
-
-- `npm test` — run unit tests with Karma + Jasmine.
-- `npm run e2e` — execute Protractor end-to-end tests (requires `npm start` running).
-- `npm run lint` — run TSLint over the source tree.
-
-No custom test suite is currently authored beyond Angular’s defaults.
-
-## Deployment
-
-Production builds use the standard Angular CLI flow:
+## Getting Started
 
 ```bash
-npm run build         # emits dist/ with development config
-ng build --prod       # manual alternative for optimized bundles
+npm install
+npm run dev
 ```
 
-A bespoke deployment helper exists as `npm run deploy`. It assumes the project lives alongside an `../../html/` directory on the target host and requires write access (sudo). See `docs/deployment.md` for the full breakdown before running it in a new environment.
+- Visit `http://localhost:5173/` (default Vite port).
+- `npm run build` bundles the site for production into `dist/`.
+- `npm run preview` serves the production build locally.
 
-## Credentials & Local Storage
+## Editing Content
 
-- Default login: `str` / `programming!0!`
-- Local storage keys: `loggedIn`, `sortedMemoriesPrivate`, `sortedMemoriesPublic`, `lastModified`, `books`, `read`, `myBookList`
+All posts live inside `public/data.json`. Each entry should follow this structure:
 
-The app relies on these keys for caching and access control. Clearing them forces a fresh sync from OneDrive and the books scraper.
+```json
+{
+  "title": "Entry title",
+  "content": "<p>HTML content…</p>",
+  "time": "14 November 2025",
+  "tags": ["personal", "theme"]
+}
+```
 
-## Reference Docs
+Changes in `public/data.json` are picked up immediately without rebuilding. Keep HTML simple (`<p>`, `<ul>`, `<a>`, `<strong>`, etc.); the reader sanitises content with DOMPurify before rendering.
 
-- `docs/architecture.md` — component responsibilities, data flow, and theming notes.
-- `docs/data-sources.md` — OneDrive integration, scraper behavior, and caching strategy.
-- `docs/deployment.md` — expectations and caveats around the provided deploy script and infrastructure assumptions.
+## Styling & Theming
 
-Feel free to extend the `docs/` directory with additional runbooks or onboarding notes as the project evolves.
+- Global tokens/typography live in `src/style.css`.
+- Component-level polish is scoped within each `.vue` file.
+- Assets from the original project (`src/assets/img/*`) remain available for future branding iterations.
+- The layout uses CSS variables for rapid experimentation with hues, contrasts, and backgrounds.
+
+## Build & Deploy
+
+1. Generate a production build:
+   ```bash
+   npm run build
+   ```
+2. Deploy the `dist/` folder to any static host (Netlify, Vercel, S3, GitHub Pages, etc.).
+3. Ensure `public/data.json` is included; editors can update the JSON in place to publish new entries instantly.
+
+No server-side scraper or Angular dependencies remain — this is a purely static Vue front-end.
+
+## Next Steps
+
+- Layer in filters (by tag, year) or a fuzzy search when you’re ready.
+- Extend the design system with additional components (timeline, gallery, etc.).
+- Update the documents under `docs/` to reflect future enhancements to the Vue rebuild.
+
+Enjoy crafting the new Memory Sequence experience!
