@@ -3,5 +3,12 @@ import vue from '@vitejs/plugin-vue'
 
 // https://vite.dev/config/
 export default defineConfig({
+  base: '/memseq/',
   plugins: [vue()],
+  server: {
+    port: 5174,
+  },
+  build: {
+    outDir: 'docs',
+  },
 })

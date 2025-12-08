@@ -182,7 +182,9 @@ const copyJson = async () => {
       </div>
       <pre class="editor__json"><code>{{ jsonResult }}</code></pre>
       <p v-if="copyStatus" class="editor__copy-status">{{ copyStatus }}</p>
-      <p class="editor__hint">Paste this entry at the top of <code>public/data.json</code>.</p>
+      <p class="editor__hint">
+        This entry is already saved to your mounted archive. Copy the JSON if you need a backup.
+      </p>
     </div>
   </section>
 </template>

@@ -73,7 +73,7 @@ const blankMessage = computed(() => {
     </header>
 
     <div v-if="error" class="state state--error">
-      <span>Unable to load the archive. {{ error }}</span>
+      <span>Something went wrong. {{ error }}</span>
     </div>
 
     <div v-else-if="loading" class="skeleton-list" aria-hidden="true">

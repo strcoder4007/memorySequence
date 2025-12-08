@@ -6,9 +6,14 @@ import MemoryDetail from './components/MemoryDetail.vue'
 import MemoryEditor from './components/MemoryEditor.vue'
 import MemoryList from './components/MemoryList.vue'
 import AnalyticsBar from './components/AnalyticsBar.vue'
+import JsonMountPanel from './components/JsonMountPanel.vue'
 import logomark from './assets/img/logo.png'
 
+const STORAGE_KEY = 'memory-sequence:data'
+
 const entries = ref([])
+const sourceEntries = ref([])
+const hasMountedSource = ref(false)
 const loading = ref(false)
 const error = ref('')
 const selectedId = ref('')
@@ -53,7 +58,7 @@ const filteredEntries = computed(() => {
 })
 
 const activeEntry = computed(() => {
-  if (isCreating.value) {
+  if (isCreating.value || !hasMountedSource.value) {
     return null
   }
   if (filteredEntries.value.length) {
@@ -142,7 +147,7 @@ const activeMonthLabel = computed(() => {
 })
 
 const selectEntry = (id) => {
-  if (isCreating.value || !id) {
+  if (isCreating.value || !id || !hasMountedSource.value) {
     return
   }
   selectedId.value = id
@@ -150,7 +155,7 @@ const selectEntry = (id) => {
 }
 
 const handleMonthSelect = (key) => {
-  if (!key || isSearching.value || isCreating.value) {
+  if (!key || isSearching.value || isCreating.value || !hasMountedSource.value) {
     return
   }
   activeMonthKey.value = activeMonthKey.value === key ? '' : key
@@ -166,27 +171,85 @@ const scrollToTopIfMobile = () => {
   }
 }
 
-const loadEntries = async () => {
+const persistEntries = (rawEntries, { skipStorage = false, resetView = false } = {}) => {
+  if (!Array.isArray(rawEntries)) {
+    throw new Error('Mounted data must be an array of entries.')
+  }
+  if (!skipStorage) {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(rawEntries))
+    } catch (err) {
+      throw new Error('Failed to save data to browser storage.')
+    }
+  }
+  sourceEntries.value = rawEntries
+  const normalized = rawEntries
+    .map((item, index) => normalizeEntry(item, index))
+    .sort((a, b) => b.timestamp - a.timestamp)
+  entries.value = normalized
+  hasMountedSource.value = true
+
+  if (resetView) {
+    activeMonthKey.value = ''
+    searchQuery.value = ''
+  }
+
+  if (!normalized.length) {
+    selectedId.value = ''
+    return
+  }
+
+  if (!isCreating.value) {
+    selectedId.value = normalized[0].id
+  }
+}
+
+const loadEntriesFromStorage = () => {
   loading.value = true
   error.value = ''
   try {
-    const response = await fetch(`${import.meta.env.BASE_URL}data.json?cache=${Date.now()}`)
-    if (!response.ok) {
-      throw new Error(`Request failed with status ${response.status}`)
+    const cached = localStorage.getItem(STORAGE_KEY)
+    if (!cached) {
+      hasMountedSource.value = false
+      entries.value = []
+      sourceEntries.value = []
+      selectedId.value = ''
+      return
     }
-    const payload = await response.json()
-    const normalized = payload
-      .map((item, index) => normalizeEntry(item, index))
-      .sort((a, b) => b.timestamp - a.timestamp)
-    entries.value = normalized
-    if (normalized.length) {
-      selectedId.value = normalized[0].id
-    }
+    const parsed = JSON.parse(cached)
+    persistEntries(parsed, { skipStorage: true, resetView: true })
   } catch (err) {
-    error.value = err instanceof Error ? err.message : 'Unknown error'
+    error.value = err instanceof Error ? err.message : 'Stored data is invalid. Please remount.'
+    hasMountedSource.value = false
+    entries.value = []
+    sourceEntries.value = []
+    selectedId.value = ''
+    localStorage.removeItem(STORAGE_KEY)
   } finally {
     loading.value = false
   }
+}
+
+const handleMountComplete = (payload) => {
+  try {
+    persistEntries(payload, { resetView: true })
+    error.value = ''
+  } catch (err) {
+    error.value = err instanceof Error ? err.message : 'Unable to mount JSON.'
+  }
+}
+
+const handleDemount = () => {
+  localStorage.removeItem(STORAGE_KEY)
+  entries.value = []
+  sourceEntries.value = []
+  selectedId.value = ''
+  activeMonthKey.value = ''
+  searchQuery.value = ''
+  isCreating.value = false
+  generatedJson.value = ''
+  previousSelectedId.value = ''
+  hasMountedSource.value = false
 }
 
 const normalizeEntry = (entry, index) => {
@@ -313,14 +376,21 @@ const handleEditorSubmit = (draft) => {
     tags: draft.tags,
   }
   generatedJson.value = `${JSON.stringify(payload, null, 2)}`
+  const nextSource = [payload, ...(sourceEntries.value ?? [])]
+  try {
+    persistEntries(nextSource)
+    error.value = ''
+  } catch (err) {
+    error.value = err instanceof Error ? err.message : 'Unable to save entry.'
+  }
 }
 
 onMounted(() => {
-  loadEntries()
+  loadEntriesFromStorage()
 })
 
 watch(filteredEntries, (list) => {
-  if (isCreating.value) {
+  if (isCreating.value || !hasMountedSource.value) {
     return
   }
   if (!list.length) {
@@ -341,64 +411,78 @@ watch(filteredEntries, (list) => {
           <img :src="logomark" alt="Memory Sequence logo" />
         </div>
       </div>
+      <div v-if="hasMountedSource" class="hero__actions">
+        <button type="button" class="demount-button" @click="handleDemount">
+          Demount current JSON
+        </button>
+      </div>
     </header>
 
-    <AnalyticsBar
-      :data="monthlyAnalytics"
-      :active-key="activeMonthKey"
-      :disabled="isSearching || isCreating"
-      @select="handleMonthSelect"
+    <JsonMountPanel
+      v-if="!hasMountedSource"
+      :loading="loading"
+      :error="error"
+      @mounted="handleMountComplete"
     />
 
-    <div v-if="activeMonthKey" class="filter-notice" role="status">
-      <span>Showing entries from {{ activeMonthLabel }}</span>
-      <button type="button" class="filter-notice__clear" @click="clearMonthFilter">
-        Clear filter
-      </button>
-    </div>
+    <template v-else>
+      <AnalyticsBar
+        :data="monthlyAnalytics"
+        :active-key="activeMonthKey"
+        :disabled="isSearching || isCreating"
+        @select="handleMonthSelect"
+      />
 
-    <div class="search-bar">
-      <span class="search-bar__icon" aria-hidden="true">
-        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path
-            d="m12.657 11.243 3.05 3.05a1 1 0 0 1-1.414 1.414l-3.05-3.05a6 6 0 1 1 1.414-1.414ZM8 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"
-            fill="currentColor"
-          />
-        </svg>
-      </span>
-      <input
-        type="search"
-        v-model="searchQuery"
-        placeholder="Search memories by title, tags, or content..."
-        aria-label="Search memories"
-      />
-    </div>
+      <div v-if="activeMonthKey" class="filter-notice" role="status">
+        <span>Showing entries from {{ activeMonthLabel }}</span>
+        <button type="button" class="filter-notice__clear" @click="clearMonthFilter">
+          Clear filter
+        </button>
+      </div>
 
-    <main class="layout">
-      <MemoryList
-        :entries="filteredEntries"
-        :selected-id="selectedId"
-        :loading="loading"
-        :error="error"
-        :creating="isCreating"
-        :is-filtered="isFiltered"
-        :search-query="searchQuery"
-        @select="selectEntry"
-        @create="startCreate"
-      />
-      <MemoryDetail
-        v-if="!isCreating"
-        :entry="activeEntry"
-        :loading="loading"
-        :error="error"
-      />
-      <MemoryEditor
-        v-else
-        :json-result="generatedJson"
-        @cancel="handleEditorCancel"
-        @submit="handleEditorSubmit"
-      />
-    </main>
+      <div class="search-bar">
+        <span class="search-bar__icon" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="m12.657 11.243 3.05 3.05a1 1 0 0 1-1.414 1.414l-3.05-3.05a6 6 0 1 1 1.414-1.414ZM8 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"
+              fill="currentColor"
+            />
+          </svg>
+        </span>
+        <input
+          type="search"
+          v-model="searchQuery"
+          placeholder="Search memories by title, tags, or content..."
+          aria-label="Search memories"
+        />
+      </div>
+
+      <main class="layout">
+        <MemoryList
+          :entries="filteredEntries"
+          :selected-id="selectedId"
+          :loading="loading"
+          :error="error"
+          :creating="isCreating"
+          :is-filtered="isFiltered"
+          :search-query="searchQuery"
+          @select="selectEntry"
+          @create="startCreate"
+        />
+        <MemoryDetail
+          v-if="!isCreating"
+          :entry="activeEntry"
+          :loading="loading"
+          :error="error"
+        />
+        <MemoryEditor
+          v-else
+          :json-result="generatedJson"
+          @cancel="handleEditorCancel"
+          @submit="handleEditorSubmit"
+        />
+      </main>
+    </template>
 
     <footer class="footer">
       <p>© {{ new Date().getFullYear() }} Memory Sequence. Crafted in Vue 3.</p>
@@ -427,6 +511,33 @@ watch(filteredEntries, (list) => {
   align-items: center;
   justify-content: center;
   gap: 1.15rem;
+}
+
+.hero__actions {
+  display: flex;
+  justify-content: center;
+}
+
+.demount-button {
+  border-radius: 999px;
+  border: 1px solid rgba(255, 92, 92, 0.6);
+  background: rgba(255, 92, 92, 0.15);
+  color: #ffb4b4;
+  padding: 0.45rem 1.4rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: background 160ms ease, border-color 160ms ease, color 160ms ease, transform 160ms ease;
+}
+
+.demount-button:hover,
+.demount-button:focus-visible {
+  background: rgba(255, 92, 92, 0.3);
+  border-color: rgba(255, 92, 92, 0.85);
+  color: #fff1f1;
+  transform: translateY(-1px);
+  outline: none;
 }
 
 .logo {
