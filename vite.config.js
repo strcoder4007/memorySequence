@@ -3,7 +3,7 @@ import vue from '@vitejs/plugin-vue'
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: '/memseq/',
+  base: '/memorySequence/',
   plugins: [vue()],
   server: {
     port: 5174,
