@@ -22,11 +22,13 @@ const searchQuery = ref('')
 const isCreating = ref(false)
 const generatedJson = ref('')
 const previousSelectedId = ref('')
+const showArchiveJson = ref(false)
 
 const latestEntry = computed(() => (entries.value.length ? entries.value[0] : null))
 
 const isSearching = computed(() => searchQuery.value.trim().length > 0)
 const isFiltered = computed(() => Boolean(activeMonthKey.value) || isSearching.value)
+const archiveJson = computed(() => JSON.stringify(sourceEntries.value ?? [], null, 2))
 
 const filteredEntries = computed(() => {
   let list = [...entries.value]
@@ -171,6 +173,13 @@ const scrollToTopIfMobile = () => {
   }
 }
 
+const toggleArchiveJson = () => {
+  if (!hasMountedSource.value) {
+    return
+  }
+  showArchiveJson.value = !showArchiveJson.value
+}
+
 const persistEntries = (rawEntries, { skipStorage = false, resetView = false } = {}) => {
   if (!Array.isArray(rawEntries)) {
     throw new Error('Mounted data must be an array of entries.')
@@ -250,6 +259,7 @@ const handleDemount = () => {
   generatedJson.value = ''
   previousSelectedId.value = ''
   hasMountedSource.value = false
+  showArchiveJson.value = false
 }
 
 const normalizeEntry = (entry, index) => {
@@ -401,6 +411,12 @@ watch(filteredEntries, (list) => {
     selectedId.value = list[0].id
   }
 })
+
+watch(sourceEntries, (list) => {
+  if (!Array.isArray(list) || !list.length) {
+    showArchiveJson.value = false
+  }
+})
 </script>
 
 <template>
@@ -410,11 +426,6 @@ watch(filteredEntries, (list) => {
         <div class="logo">
           <img :src="logomark" alt="Memory Sequence logo" />
         </div>
-      </div>
-      <div v-if="hasMountedSource" class="hero__actions">
-        <button type="button" class="demount-button" @click="handleDemount">
-          Demount current JSON
-        </button>
       </div>
     </header>
 
@@ -456,6 +467,31 @@ watch(filteredEntries, (list) => {
           aria-label="Search memories"
         />
       </div>
+
+      <div class="data-actions">
+        <button
+          type="button"
+          class="demount-button"
+          @click="handleDemount"
+        >
+          Demount current JSON
+        </button>
+        <button
+          type="button"
+          class="generate-button"
+          @click="toggleArchiveJson"
+          :disabled="!hasMountedSource"
+        >
+          {{ showArchiveJson ? 'Hide JSON' : 'Generate JSON' }}
+        </button>
+      </div>
+
+      <textarea
+        v-if="showArchiveJson"
+        class="archive-json-viewer"
+        :value="archiveJson"
+        readonly
+      ></textarea>
 
       <main class="layout">
         <MemoryList
@@ -513,9 +549,11 @@ watch(filteredEntries, (list) => {
   gap: 1.15rem;
 }
 
-.hero__actions {
+.data-actions {
   display: flex;
-  justify-content: center;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
 }
 
 .demount-button {
@@ -538,6 +576,34 @@ watch(filteredEntries, (list) => {
   color: #fff1f1;
   transform: translateY(-1px);
   outline: none;
+}
+
+.generate-button {
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text);
+  padding: 0.45rem 1.4rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: background 160ms ease, border-color 160ms ease, color 160ms ease, transform 160ms ease;
+}
+
+.generate-button:hover,
+.generate-button:focus-visible {
+  background: rgba(255, 255, 255, 0.18);
+  border-color: rgba(255, 255, 255, 0.7);
+  color: #ffffff;
+  transform: translateY(-1px);
+  outline: none;
+}
+
+.generate-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
 }
 
 .logo {
@@ -629,6 +695,19 @@ watch(filteredEntries, (list) => {
   height: 1.2rem;
   color: var(--accent);
   pointer-events: none;
+}
+
+.archive-json-viewer {
+  width: 100%;
+  border-radius: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(5, 7, 11, 0.85);
+  color: var(--text);
+  padding: 1rem;
+  font-size: 0.9rem;
+  font-family: 'SFMono-Regular', Consolas, Menlo, monospace;
+  min-height: 320px;
+  resize: vertical;
 }
 
 .layout {
