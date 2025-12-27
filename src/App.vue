@@ -7,6 +7,7 @@ import MemoryEditor from './components/MemoryEditor.vue'
 import MemoryList from './components/MemoryList.vue'
 import AnalyticsBar from './components/AnalyticsBar.vue'
 import JsonMountPanel from './components/JsonMountPanel.vue'
+import AppModal from './components/AppModal.vue'
 import logomark from './assets/img/logo.png'
 
 const STORAGE_KEY = 'memory-sequence:data'
@@ -64,7 +65,7 @@ const filteredEntries = computed(() => {
 })
 
 const activeEntry = computed(() => {
-  if (isEditorOpen.value || !hasMountedSource.value) {
+  if (!hasMountedSource.value) {
     return null
   }
   if (filteredEntries.value.length) {
@@ -390,7 +391,6 @@ const startCreate = () => {
   isCreating.value = true
   editingEntry.value = null
   editorSeed.value = `create-${Date.now()}`
-  selectedId.value = ''
 }
 
 const startEdit = (entry) => {
@@ -547,31 +547,6 @@ watch(sourceEntries, (list) => {
         />
       </div>
 
-      <div class="data-actions">
-        <button
-          type="button"
-          class="demount-button"
-          @click="handleDemount"
-        >
-          Demount current JSON
-        </button>
-        <button
-          type="button"
-          class="generate-button"
-          @click="toggleArchiveJson"
-          :disabled="!hasMountedSource"
-        >
-          {{ showArchiveJson ? 'Hide JSON' : 'Generate JSON' }}
-        </button>
-      </div>
-
-      <textarea
-        v-if="showArchiveJson"
-        class="archive-json-viewer"
-        :value="archiveJson"
-        readonly
-      ></textarea>
-
       <main class="layout">
         <MemoryList
           :entries="filteredEntries"
@@ -586,21 +561,56 @@ watch(sourceEntries, (list) => {
           @edit="startEdit"
         />
         <MemoryDetail
-          v-if="!isEditorOpen"
           :entry="activeEntry"
           :loading="loading"
           :error="error"
         />
+      </main>
+
+      <div class="data-actions">
+        <button
+          type="button"
+          class="generate-button"
+          @click="toggleArchiveJson"
+          :disabled="!hasMountedSource || isEditorOpen"
+        >
+          {{ showArchiveJson ? 'Hide JSON' : 'Generate JSON' }}
+        </button>
+        <button
+          type="button"
+          class="demount-button"
+          @click="handleDemount"
+          :disabled="isEditorOpen"
+        >
+          Demount JSON
+        </button>
+
+      </div>
+
+      <textarea
+        v-if="showArchiveJson"
+        class="archive-json-viewer"
+        :value="archiveJson"
+        readonly
+      ></textarea>
+
+      <AppModal
+        :open="isEditorOpen"
+        :title="isEditing ? 'Edit Memory' : 'Compose New Memory'"
+        width="90vw"
+        height="90vh"
+        @close="handleEditorCancel"
+      >
         <MemoryEditor
-          v-else
           :json-result="generatedJson"
           :mode="isEditing ? 'edit' : 'create'"
           :seed="editorSeed"
           :initial-draft="editorDraft"
+          embedded
           @cancel="handleEditorCancel"
           @submit="handleEditorSubmit"
         />
-      </main>
+      </AppModal>
     </template>
 
     <footer class="footer">
@@ -661,6 +671,12 @@ watch(sourceEntries, (list) => {
   outline: none;
 }
 
+.demount-button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+}
+
 .generate-button {
   border-radius: 999px;
   border: 1px solid rgba(255, 255, 255, 0.35);
@@ -684,14 +700,27 @@ watch(sourceEntries, (list) => {
 }
 
 .generate-button:disabled {
-  opacity: 0.5;
+  opacity: 0.55;
   cursor: not-allowed;
   transform: none;
 }
 
+.archive-json-viewer {
+  width: 100%;
+  border-radius: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(5, 7, 11, 0.85);
+  color: var(--text);
+  padding: 1rem;
+  font-size: 0.9rem;
+  font-family: 'SFMono-Regular', Consolas, Menlo, monospace;
+  min-height: 320px;
+  resize: vertical;
+}
+
 .logo {
   width: 100%;
-  max-width: clamp(320px, 54vw, 600px);
+  max-width: clamp(224px, 38vw, 420px);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -778,19 +807,6 @@ watch(sourceEntries, (list) => {
   height: 1.2rem;
   color: var(--accent);
   pointer-events: none;
-}
-
-.archive-json-viewer {
-  width: 100%;
-  border-radius: 1rem;
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  background: rgba(5, 7, 11, 0.85);
-  color: var(--text);
-  padding: 1rem;
-  font-size: 0.9rem;
-  font-family: 'SFMono-Regular', Consolas, Menlo, monospace;
-  min-height: 320px;
-  resize: vertical;
 }
 
 .layout {

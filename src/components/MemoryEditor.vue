@@ -6,6 +6,10 @@ const props = defineProps({
     type: String,
     default: '',
   },
+  embedded: {
+    type: Boolean,
+    default: false,
+  },
   mode: {
     type: String,
     default: 'create',
@@ -131,14 +135,7 @@ const copyJson = async () => {
 </script>
 
 <template>
-  <section class="panel editor-panel">
-    <header class="editor__header">
-      <p class="eyebrow">{{ editorHeadline }}</p>
-      <button type="button" class="editor__cancel" @click="handleCancel">
-        Cancel
-      </button>
-    </header>
-
+  <section :class="props.embedded ? 'editor-embedded' : 'panel editor-panel'">
     <form class="editor__form" @submit.prevent="handleSubmit">
       <label class="field">
         <span class="field__label">Title</span>
@@ -187,7 +184,7 @@ const copyJson = async () => {
         <span class="field__label">Content</span>
         <textarea
           v-model="content"
-          rows="12"
+          rows="16"
           placeholder="Capture the details of this memory..."
           required
         ></textarea>
@@ -222,6 +219,20 @@ const copyJson = async () => {
 </template>
 
 <style scoped>
+.editor-embedded {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  padding: 0;
+  box-shadow: none;
+  min-height: auto;
+  position: relative;
+  overflow: visible;
+}
+
 .panel.editor-panel {
   display: flex;
   flex-direction: column;
