@@ -31,13 +31,21 @@ const props = defineProps({
   },
 })
 
-const emit = defineEmits(['select', 'create'])
+const emit = defineEmits(['select', 'create', 'edit'])
 
 const handleSelect = (entry) => {
   if (!entry || props.loading || props.creating) {
     return
   }
   emit('select', entry.id)
+}
+
+const handleEdit = (entry, event) => {
+  event?.stopPropagation?.()
+  if (!entry || props.loading || props.creating) {
+    return
+  }
+  emit('edit', entry)
 }
 
 const searchTerm = computed(() => (props.searchQuery || '').trim())
@@ -96,6 +104,35 @@ const blankMessage = computed(() => {
         :key="entry.id"
         :class="['memory-card', { 'memory-card--active': entry.id === selectedId }]"
       >
+        <button
+          type="button"
+          class="memory-card__edit"
+          :aria-label="`Edit ${entry.title || 'memory'}`"
+          :disabled="creating || loading"
+          @click="handleEdit(entry, $event)"
+        >
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+          >
+            <path
+              d="M4 20h4l10.5-10.5a2.121 2.121 0 0 0 0-3L15.5 3.5a2.121 2.121 0 0 0-3 0L2 14v6Z"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linejoin="round"
+            />
+            <path
+              d="M12.5 4.5 19.5 11.5"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+            />
+          </svg>
+        </button>
         <button type="button" class="memory-card__button" @click="handleSelect(entry)">
           <span class="memory-card__date">{{ entry.formattedDate }}</span>
           <h3 class="memory-card__title">{{ entry.title }}</h3>
@@ -227,11 +264,60 @@ const blankMessage = computed(() => {
 }
 
 .memory-card {
+  position: relative;
   display: block;
   border-radius: 0.9rem;
   border: 1px solid rgba(255, 255, 255, 0.08);
   background: #05070d;
   transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.memory-card__edit {
+  position: absolute;
+  top: 0.65rem;
+  right: 0.65rem;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 138, 61, 0.35);
+  background: rgba(8, 10, 15, 0.88);
+  color: rgba(255, 213, 182, 0.88);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(-2px);
+  transition:
+    opacity 160ms ease,
+    transform 160ms ease,
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    background 160ms ease,
+    color 160ms ease;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.memory-card:hover .memory-card__edit,
+.memory-card:focus-within .memory-card__edit {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.memory-card__edit:hover,
+.memory-card__edit:focus-visible {
+  background: rgba(255, 138, 61, 0.14);
+  border-color: rgba(255, 138, 61, 0.75);
+  color: var(--text);
+  box-shadow: 0 14px 30px rgba(255, 120, 66, 0.2);
+  outline: none;
+}
+
+.memory-card__edit:disabled {
+  opacity: 0;
+  pointer-events: none;
 }
 
 .memory-card--active {

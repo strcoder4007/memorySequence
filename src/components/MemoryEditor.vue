@@ -6,6 +6,18 @@ const props = defineProps({
     type: String,
     default: '',
   },
+  mode: {
+    type: String,
+    default: 'create',
+  },
+  seed: {
+    type: String,
+    default: '',
+  },
+  initialDraft: {
+    type: Object,
+    default: () => ({ title: '', tags: [], content: '' }),
+  },
 })
 
 const emit = defineEmits(['cancel', 'submit'])
@@ -18,6 +30,14 @@ const localError = ref('')
 const copyStatus = ref('')
 
 const trimmedTagInput = computed(() => tagInput.value.trim())
+const editorHeadline = computed(() => (props.mode === 'edit' ? 'Edit Memory' : 'Compose New Memory'))
+const submitLabel = computed(() => (props.mode === 'edit' ? 'Update JSON' : 'Get JSON'))
+const outputTitle = computed(() => (props.mode === 'edit' ? 'Updated JSON' : 'Generated JSON'))
+const outputHint = computed(() =>
+  props.mode === 'edit'
+    ? 'This memory has been updated in your mounted archive. Copy the JSON if you need a backup.'
+    : 'This entry is already saved to your mounted archive. Copy the JSON if you need a backup.',
+)
 
 const canSubmit = computed(() => title.value.trim().length > 0 && content.value.trim().length > 0)
 
@@ -25,6 +45,23 @@ watch([title, content, tags, () => props.jsonResult], () => {
   localError.value = ''
   copyStatus.value = ''
 })
+
+const applyDraft = (draft) => {
+  title.value = draft?.title ?? ''
+  tags.value = Array.isArray(draft?.tags) ? [...draft.tags] : []
+  content.value = draft?.content ?? ''
+  tagInput.value = ''
+  localError.value = ''
+  copyStatus.value = ''
+}
+
+watch(
+  () => props.seed,
+  () => {
+    applyDraft(props.initialDraft)
+  },
+  { immediate: true },
+)
 
 const addTag = () => {
   const next = trimmedTagInput.value.replace(/,$/, '')
@@ -54,12 +91,7 @@ const handleTagKey = (event) => {
 }
 
 const resetForm = () => {
-  title.value = ''
-  tagInput.value = ''
-  tags.value = []
-  content.value = ''
-  localError.value = ''
-  copyStatus.value = ''
+  applyDraft({ title: '', tags: [], content: '' })
 }
 
 const handleCancel = () => {
@@ -101,7 +133,7 @@ const copyJson = async () => {
 <template>
   <section class="panel editor-panel">
     <header class="editor__header">
-      <p class="eyebrow">Compose New Memory</p>
+      <p class="eyebrow">{{ editorHeadline }}</p>
       <button type="button" class="editor__cancel" @click="handleCancel">
         Cancel
       </button>
@@ -168,14 +200,14 @@ const copyJson = async () => {
           Discard
         </button>
         <button type="submit" class="editor__submit" :disabled="!canSubmit">
-          Get JSON
+          {{ submitLabel }}
         </button>
       </div>
     </form>
 
     <div v-if="jsonResult" class="editor__output">
       <div class="editor__output-header">
-        <p class="editor__output-title">Generated JSON</p>
+        <p class="editor__output-title">{{ outputTitle }}</p>
         <button type="button" class="editor__copy" @click="copyJson">
           Copy JSON
         </button>
@@ -183,7 +215,7 @@ const copyJson = async () => {
       <pre class="editor__json"><code>{{ jsonResult }}</code></pre>
       <p v-if="copyStatus" class="editor__copy-status">{{ copyStatus }}</p>
       <p class="editor__hint">
-        This entry is already saved to your mounted archive. Copy the JSON if you need a backup.
+        {{ outputHint }}
       </p>
     </div>
   </section>

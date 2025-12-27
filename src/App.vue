@@ -23,11 +23,15 @@ const isCreating = ref(false)
 const generatedJson = ref('')
 const previousSelectedId = ref('')
 const showArchiveJson = ref(false)
+const editingEntry = ref(null)
+const editorSeed = ref('')
 
 const latestEntry = computed(() => (entries.value.length ? entries.value[0] : null))
 
 const isSearching = computed(() => searchQuery.value.trim().length > 0)
 const isFiltered = computed(() => Boolean(activeMonthKey.value) || isSearching.value)
+const isEditing = computed(() => Boolean(editingEntry.value))
+const isEditorOpen = computed(() => isCreating.value || isEditing.value)
 const archiveJson = computed(() => JSON.stringify(sourceEntries.value ?? [], null, 2))
 
 const filteredEntries = computed(() => {
@@ -60,7 +64,7 @@ const filteredEntries = computed(() => {
 })
 
 const activeEntry = computed(() => {
-  if (isCreating.value || !hasMountedSource.value) {
+  if (isEditorOpen.value || !hasMountedSource.value) {
     return null
   }
   if (filteredEntries.value.length) {
@@ -149,7 +153,7 @@ const activeMonthLabel = computed(() => {
 })
 
 const selectEntry = (id) => {
-  if (isCreating.value || !id || !hasMountedSource.value) {
+  if (isEditorOpen.value || !id || !hasMountedSource.value) {
     return
   }
   selectedId.value = id
@@ -157,7 +161,7 @@ const selectEntry = (id) => {
 }
 
 const handleMonthSelect = (key) => {
-  if (!key || isSearching.value || isCreating.value || !hasMountedSource.value) {
+  if (!key || isSearching.value || isEditorOpen.value || !hasMountedSource.value) {
     return
   }
   activeMonthKey.value = activeMonthKey.value === key ? '' : key
@@ -256,6 +260,8 @@ const handleDemount = () => {
   activeMonthKey.value = ''
   searchQuery.value = ''
   isCreating.value = false
+  editingEntry.value = null
+  editorSeed.value = ''
   generatedJson.value = ''
   previousSelectedId.value = ''
   hasMountedSource.value = false
@@ -274,6 +280,7 @@ const normalizeEntry = (entry, index) => {
   return {
     ...entry,
     id: `${timestamp}-${index}`,
+    sourceIndex: index,
     timestamp,
     date,
     formattedDate: formatDate(date),
@@ -332,6 +339,23 @@ const escapeHtml = (value) =>
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&#39;')
 
+const convertHtmlToDraftText = (raw) => {
+  if (!raw) {
+    return ''
+  }
+  const html = String(raw)
+    .replace(/<\s*br\s*\/?>/gi, '\n')
+    .replace(/<\/\s*p\s*>/gi, '\n\n')
+    .replace(/<\/\s*div\s*>/gi, '\n\n')
+
+  const temp = document.createElement('div')
+  temp.innerHTML = html
+  return (temp.textContent ?? '')
+    .replace(/\u00a0/g, ' ')
+    .replace(/\n{3,}/g, '\n\n')
+    .trim()
+}
+
 const convertDraftToHtml = (raw) => {
   if (!raw) {
     return ''
@@ -364,12 +388,39 @@ const startCreate = () => {
   generatedJson.value = ''
   previousSelectedId.value = selectedId.value
   isCreating.value = true
+  editingEntry.value = null
+  editorSeed.value = `create-${Date.now()}`
   selectedId.value = ''
 }
+
+const startEdit = (entry) => {
+  if (!entry || !hasMountedSource.value) {
+    return
+  }
+  generatedJson.value = ''
+  previousSelectedId.value = selectedId.value
+  selectedId.value = entry.id
+  isCreating.value = false
+  editingEntry.value = entry
+  editorSeed.value = `edit-${entry.id}`
+  scrollToTopIfMobile()
+}
+
+const editorDraft = computed(() => {
+  if (!isEditing.value) {
+    return { title: '', tags: [], content: '' }
+  }
+  return {
+    title: editingEntry.value?.title ?? '',
+    tags: Array.isArray(editingEntry.value?.tags) ? editingEntry.value.tags : [],
+    content: convertHtmlToDraftText(editingEntry.value?.content ?? ''),
+  }
+})
 
 const handleEditorCancel = () => {
   generatedJson.value = ''
   isCreating.value = false
+  editingEntry.value = null
   if (previousSelectedId.value) {
     selectedId.value = previousSelectedId.value
   } else if (entries.value.length) {
@@ -379,11 +430,39 @@ const handleEditorCancel = () => {
 }
 
 const handleEditorSubmit = (draft) => {
-  const payload = {
+  const basePayload = {
     title: draft.title,
     content: convertDraftToHtml(draft.content),
-    time: formatCurrentDate(),
     tags: draft.tags,
+  }
+
+  if (isEditing.value) {
+    const index = editingEntry.value?.sourceIndex
+    if (typeof index !== 'number' || index < 0) {
+      error.value = 'Unable to locate the original entry to edit.'
+      return
+    }
+    const original = sourceEntries.value?.[index] ?? {}
+    const payload = {
+      ...original,
+      ...basePayload,
+      time: original.time ?? editingEntry.value?.time ?? formatCurrentDate(),
+    }
+    generatedJson.value = `${JSON.stringify(payload, null, 2)}`
+    const nextSource = [...(sourceEntries.value ?? [])]
+    nextSource[index] = payload
+    try {
+      persistEntries(nextSource)
+      error.value = ''
+    } catch (err) {
+      error.value = err instanceof Error ? err.message : 'Unable to save entry.'
+    }
+    return
+  }
+
+  const payload = {
+    ...basePayload,
+    time: formatCurrentDate(),
   }
   generatedJson.value = `${JSON.stringify(payload, null, 2)}`
   const nextSource = [payload, ...(sourceEntries.value ?? [])]
@@ -400,7 +479,7 @@ onMounted(() => {
 })
 
 watch(filteredEntries, (list) => {
-  if (isCreating.value || !hasMountedSource.value) {
+  if (isEditorOpen.value || !hasMountedSource.value) {
     return
   }
   if (!list.length) {
@@ -440,7 +519,7 @@ watch(sourceEntries, (list) => {
       <AnalyticsBar
         :data="monthlyAnalytics"
         :active-key="activeMonthKey"
-        :disabled="isSearching || isCreating"
+        :disabled="isSearching || isEditorOpen"
         @select="handleMonthSelect"
       />
 
@@ -499,14 +578,15 @@ watch(sourceEntries, (list) => {
           :selected-id="selectedId"
           :loading="loading"
           :error="error"
-          :creating="isCreating"
+          :creating="isEditorOpen"
           :is-filtered="isFiltered"
           :search-query="searchQuery"
           @select="selectEntry"
           @create="startCreate"
+          @edit="startEdit"
         />
         <MemoryDetail
-          v-if="!isCreating"
+          v-if="!isEditorOpen"
           :entry="activeEntry"
           :loading="loading"
           :error="error"
@@ -514,6 +594,9 @@ watch(sourceEntries, (list) => {
         <MemoryEditor
           v-else
           :json-result="generatedJson"
+          :mode="isEditing ? 'edit' : 'create'"
+          :seed="editorSeed"
+          :initial-draft="editorDraft"
           @cancel="handleEditorCancel"
           @submit="handleEditorSubmit"
         />
@@ -670,19 +753,19 @@ watch(sourceEntries, (list) => {
   width: 100%;
   padding: 0.95rem 3rem 0.95rem 1.1rem;
   border-radius: 1rem;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background: #07090f;
+  border: 1px solid rgba(255, 138, 61, 0.7);
+  background: #090c15;
   color: var(--text);
   font-size: 0.95rem;
   letter-spacing: 0.01em;
   outline: none;
   transition: border-color 160ms ease, box-shadow 160ms ease, background 160ms ease;
+  box-shadow: 0 12px 30px rgba(255, 120, 66, 0.2);
 }
 
 .search-bar input:focus-visible {
-  border-color: rgba(255, 138, 61, 0.7);
-  box-shadow: 0 12px 30px rgba(255, 120, 66, 0.2);
-  background: #090c15;
+  border-color: rgba(255, 138, 61, 0.85);
+  box-shadow: 0 14px 34px rgba(255, 120, 66, 0.28);
 }
 
 .search-bar__icon {
