@@ -24,6 +24,7 @@ const isCreating = ref(false)
 const generatedJson = ref('')
 const previousSelectedId = ref('')
 const showArchiveJson = ref(false)
+const archiveCopyStatus = ref('')
 const editingEntry = ref(null)
 const editorSeed = ref('')
 
@@ -183,6 +184,24 @@ const toggleArchiveJson = () => {
     return
   }
   showArchiveJson.value = !showArchiveJson.value
+}
+
+const copyArchiveJson = async () => {
+  if (!hasMountedSource.value) {
+    return
+  }
+
+  showArchiveJson.value = true
+  archiveCopyStatus.value = ''
+  try {
+    await navigator.clipboard.writeText(archiveJson.value)
+    archiveCopyStatus.value = 'Copied!'
+  } catch (err) {
+    archiveCopyStatus.value = 'Copy failed. Press Cmd/Ctrl+C.'
+  }
+  setTimeout(() => {
+    archiveCopyStatus.value = ''
+  }, 2000)
 }
 
 const persistEntries = (rawEntries, { skipStorage = false, resetView = false } = {}) => {
@@ -454,6 +473,11 @@ const handleEditorSubmit = (draft) => {
     try {
       persistEntries(nextSource)
       error.value = ''
+      isCreating.value = false
+      editingEntry.value = null
+      editorSeed.value = ''
+      previousSelectedId.value = ''
+      generatedJson.value = ''
     } catch (err) {
       error.value = err instanceof Error ? err.message : 'Unable to save entry.'
     }
@@ -571,11 +595,22 @@ watch(sourceEntries, (list) => {
         <button
           type="button"
           class="generate-button"
+          @click="copyArchiveJson"
+          :disabled="!hasMountedSource || isEditorOpen"
+        >
+          Copy JSON
+        </button>
+
+        <button
+          v-if="showArchiveJson"
+          type="button"
+          class="hide-json-button"
           @click="toggleArchiveJson"
           :disabled="!hasMountedSource || isEditorOpen"
         >
-          {{ showArchiveJson ? 'Hide JSON' : 'Generate JSON' }}
+          Hide JSON
         </button>
+
         <button
           type="button"
           class="demount-button"
@@ -585,6 +620,9 @@ watch(sourceEntries, (list) => {
           Demount JSON
         </button>
 
+        <span v-if="archiveCopyStatus" class="data-actions__status" role="status">
+          {{ archiveCopyStatus }}
+        </span>
       </div>
 
       <textarea
@@ -703,6 +741,39 @@ watch(sourceEntries, (list) => {
   opacity: 0.55;
   cursor: not-allowed;
   transform: none;
+}
+
+.hide-json-button {
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text-soft);
+  padding: 0.45rem 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: background 160ms ease, border-color 160ms ease, color 160ms ease, transform 160ms ease;
+}
+
+.hide-json-button:hover,
+.hide-json-button:focus-visible {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.3);
+  color: var(--text);
+  transform: translateY(-1px);
+  outline: none;
+}
+
+.hide-json-button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.data-actions__status {
+  font-size: 0.82rem;
+  color: #ffdabc;
 }
 
 .archive-json-viewer {
