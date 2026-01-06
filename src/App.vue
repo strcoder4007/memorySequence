@@ -425,6 +425,29 @@ const startEdit = (entry) => {
   scrollToTopIfMobile()
 }
 
+const deleteEntry = (entry) => {
+  if (!entry || !hasMountedSource.value || isEditorOpen.value) {
+    return
+  }
+  const index = entry.sourceIndex
+  if (typeof index !== 'number' || index < 0) {
+    error.value = 'Unable to locate the original entry to delete.'
+    return
+  }
+  const nextSource = [...(sourceEntries.value ?? [])]
+  if (index >= nextSource.length) {
+    error.value = 'Unable to locate the original entry to delete.'
+    return
+  }
+  nextSource.splice(index, 1)
+  try {
+    persistEntries(nextSource)
+    error.value = ''
+  } catch (err) {
+    error.value = err instanceof Error ? err.message : 'Unable to delete entry.'
+  }
+}
+
 const editorDraft = computed(() => {
   if (!isEditing.value) {
     return { title: '', tags: [], content: '' }
@@ -583,6 +606,7 @@ watch(sourceEntries, (list) => {
           @select="selectEntry"
           @create="startCreate"
           @edit="startEdit"
+          @delete="deleteEntry"
         />
         <MemoryDetail
           :entry="activeEntry"

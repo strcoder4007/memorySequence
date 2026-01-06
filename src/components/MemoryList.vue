@@ -31,7 +31,7 @@ const props = defineProps({
   },
 })
 
-const emit = defineEmits(['select', 'create', 'edit'])
+const emit = defineEmits(['select', 'create', 'edit', 'delete'])
 
 const handleSelect = (entry) => {
   if (!entry || props.loading || props.creating) {
@@ -46,6 +46,20 @@ const handleEdit = (entry, event) => {
     return
   }
   emit('edit', entry)
+}
+
+const handleDelete = (entry, event) => {
+  event?.stopPropagation?.()
+  if (!entry || props.loading || props.creating) {
+    return
+  }
+  const confirmed = window.confirm(
+    `Delete "${entry.title || 'memory'}"? This will remove it from local storage.`,
+  )
+  if (!confirmed) {
+    return
+  }
+  emit('delete', entry)
 }
 
 const searchTerm = computed(() => (props.searchQuery || '').trim())
@@ -104,6 +118,55 @@ const blankMessage = computed(() => {
         :key="entry.id"
         :class="['memory-card', { 'memory-card--active': entry.id === selectedId }]"
       >
+              <button
+          type="button"
+          class="memory-card__delete"
+          :aria-label="`Delete ${entry.title || 'memory'}`"
+          :disabled="creating || loading"
+          @click="handleDelete(entry, $event)"
+        >
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+          >
+            <path
+              d="M3 6h18"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+            />
+            <path
+              d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <path
+              d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <path
+              d="M10 11v6"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+            />
+            <path
+              d="M14 11v6"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+            />
+          </svg>
+        </button>
         <button
           type="button"
           class="memory-card__edit"
@@ -134,6 +197,7 @@ const blankMessage = computed(() => {
             />
           </svg>
         </button>
+
         <button type="button" class="memory-card__button" @click="handleSelect(entry)">
           <span class="memory-card__date">{{ entry.formattedDate }}</span>
           <h3 class="memory-card__title">{{ entry.title }}</h3>
@@ -276,7 +340,7 @@ const blankMessage = computed(() => {
 .memory-card__edit {
   position: absolute;
   top: 0.65rem;
-  right: 0.65rem;
+  right: 3.4rem;
   width: 2.25rem;
   height: 2.25rem;
   border-radius: 999px;
@@ -300,8 +364,42 @@ const blankMessage = computed(() => {
   z-index: 2;
 }
 
+.memory-card__delete {
+  position: absolute;
+  top: 0.65rem;
+  right: 0.65rem;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 92, 92, 0.35);
+  background: rgba(8, 10, 15, 0.88);
+  color: rgba(255, 190, 190, 0.88);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(-2px);
+  transition:
+    opacity 160ms ease,
+    transform 160ms ease,
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    background 160ms ease,
+    color 160ms ease;
+  pointer-events: none;
+  z-index: 2;
+}
+
 .memory-card:hover .memory-card__edit,
+.memory-card:hover .memory-card__delete,
 .memory-card:focus-within .memory-card__edit {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.memory-card:focus-within .memory-card__delete {
   opacity: 1;
   transform: translateY(0);
   pointer-events: auto;
@@ -316,7 +414,21 @@ const blankMessage = computed(() => {
   outline: none;
 }
 
+.memory-card__delete:hover,
+.memory-card__delete:focus-visible {
+  background: rgba(255, 92, 92, 0.18);
+  border-color: rgba(255, 92, 92, 0.8);
+  color: var(--text);
+  box-shadow: 0 14px 30px rgba(255, 92, 92, 0.14);
+  outline: none;
+}
+
 .memory-card__edit:disabled {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.memory-card__delete:disabled {
   opacity: 0;
   pointer-events: none;
 }
