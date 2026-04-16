@@ -99,9 +99,11 @@ const monthlyAnalytics = computed(() => {
     const month = entry.date.getMonth()
     const key = `${year}-${month}`
     const chars = entry.plainText?.length ?? 0
-    const current = buckets.get(key) ?? { chars: 0, count: 0 }
+    const words = entry.plainText?.trim()?.split(/\s+/).filter(w => w.length > 0).length ?? 0
+    const current = buckets.get(key) ?? { chars: 0, words: 0, count: 0 }
     buckets.set(key, {
       chars: current.chars + chars,
+      words: current.words + words,
       count: current.count + 1,
     })
   })
@@ -131,6 +133,7 @@ const monthlyAnalytics = computed(() => {
       key,
       label,
       chars: bucket.chars,
+      words: bucket.words,
       count: bucket.count,
       axisLabel,
     })

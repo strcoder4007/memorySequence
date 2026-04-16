@@ -22,20 +22,22 @@ const enriched = computed(() => {
   if (!props.data.length) {
     return []
   }
-  const max = Math.max(...props.data.map((item) => item.chars ?? 0))
+  const max = Math.max(...props.data.map((item) => item.words ?? 0))
   const safeMax = max === 0 ? 1 : max
   const scale = 120
   return props.data.map((item) => {
     const chars = item.chars ?? 0
-    const ratio = chars / safeMax
+    const words = item.words ?? 0
+    const ratio = words / safeMax
     const computedHeight = Math.round(ratio * scale)
-    const minHeight = chars === 0 ? 6 : 28
+    const minHeight = words === 0 ? 6 : 28
     const blogCount = item.count ?? 0
     const blogLabel = `${blogCount} ${blogCount === 1 ? 'blog' : 'blogs'}`
     const accessibleLabel = `${item.label?.replace(/\n/g, ' ') ?? ''} — ${blogLabel}`
     return {
       ...item,
       chars,
+      words,
       count: blogCount,
       blogLabel,
       accessibleLabel,
@@ -108,7 +110,7 @@ const handleSelect = (item) => {
           >
             <!-- Value label above bar — hover only -->
             <span class="chart__value">
-              {{ item.chars.toLocaleString() }}
+              {{ item.words.toLocaleString() }}
             </span>
 
             <!-- The bar -->
@@ -269,7 +271,7 @@ const handleSelect = (item) => {
   width: 100%;
   height: calc(var(--bar-height) * 1px);
   min-height: 4px;
-  border-radius: 6px;
+  border-radius: 4px;
   background: linear-gradient(
     160deg,
     color-mix(in srgb, var(--accent) 75%, white 25%) 0%,
@@ -284,7 +286,7 @@ const handleSelect = (item) => {
 
 .chart__bar--empty {
   background: var(--border);
-  border-radius: 3px;
+  border-radius: 2px;
   height: 6px !important;
   min-height: 6px;
   box-shadow: none;
