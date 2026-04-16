@@ -170,12 +170,10 @@ const handleUseExample = () => {
   flex-direction: column;
   gap: 1.5rem;
   padding: clamp(1.5rem, 1.2rem + 1.8vw, 2.5rem);
-  border-radius: 1.75rem;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  background:
-    linear-gradient(140deg, rgba(13, 17, 25, 0.92), rgba(7, 10, 17, 0.78)),
-    radial-gradient(140% 130% at 0% 0%, rgba(255, 138, 61, 0.12), transparent 60%);
-  box-shadow: 0 24px 50px rgba(5, 7, 11, 0.5);
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  background: #FFFFFF;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
 }
 
 .mount-panel__header {
@@ -188,11 +186,13 @@ const handleUseExample = () => {
   font-size: clamp(1.45rem, 1.2rem + 1vw, 1.9rem);
   font-weight: 600;
   margin: 0;
+  font-family: 'Newsreader', serif;
+  color: var(--text);
 }
 
 .mount-panel__header p {
   margin: 0;
-  color: rgba(255, 255, 255, 0.82);
+  color: var(--text-soft);
 }
 
 .mount-panel__grid {
@@ -202,9 +202,9 @@ const handleUseExample = () => {
 }
 
 .mount-panel__card {
-  border-radius: 1.25rem;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(9, 12, 19, 0.55);
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  background: #FDFAF5;
   padding: clamp(1rem, 0.9rem + 1vw, 1.75rem);
   display: flex;
   flex-direction: column;
@@ -212,19 +212,27 @@ const handleUseExample = () => {
 }
 
 .mount-panel__card-title {
-  font-size: 1rem;
+  font-size: 0.9rem;
   font-weight: 600;
   margin: 0;
+  font-family: 'Newsreader', serif;
+  color: var(--text);
 }
 
 .file-upload {
   position: relative;
   overflow: hidden;
   width: fit-content;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 4px;
+  border: 1px dashed var(--border-strong);
+  background: transparent;
   cursor: pointer;
+  transition: border-color 160ms ease, background 160ms ease;
+}
+
+.file-upload:hover {
+  border-color: var(--accent);
+  background: var(--accent-soft);
 }
 
 .file-upload input {
@@ -237,7 +245,8 @@ const handleUseExample = () => {
 .file-upload span {
   display: inline-block;
   padding: 0.5rem 1.25rem;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
+  color: var(--text-soft);
 }
 
 .file-upload--disabled {
@@ -249,10 +258,11 @@ const handleUseExample = () => {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  color: rgba(255, 255, 255, 0.45);
-  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-size: 0.8rem;
   text-transform: uppercase;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.1em;
+  font-family: 'DM Sans', sans-serif;
 }
 
 .divider::before,
@@ -260,18 +270,30 @@ const handleUseExample = () => {
   content: '';
   flex: 1;
   height: 1px;
-  background: rgba(255, 255, 255, 0.12);
+  background: var(--border);
 }
 
 .json-input {
   width: 100%;
-  border-radius: 0.8rem;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  background: rgba(0, 0, 0, 0.35);
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  background: #FFFFFF;
   color: var(--text);
   padding: 0.85rem 1rem;
-  font-family: 'SFMono-Regular', Consolas, Menlo, monospace;
+  font-family: 'JetBrains Mono', 'SFMono-Regular', Consolas, Menlo, monospace;
+  font-size: 0.82rem;
   resize: vertical;
+  transition: border-color 160ms ease;
+}
+
+.json-input::placeholder {
+  color: var(--text-muted);
+}
+
+.json-input:focus-visible {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
 }
 
 .json-input:disabled {
@@ -286,64 +308,88 @@ const handleUseExample = () => {
 }
 
 .mount-panel__actions button {
-  border-radius: 999px;
+  border-radius: 4px;
   padding: 0.55rem 1.4rem;
-  font-size: 0.85rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
   cursor: pointer;
   border: 1px solid transparent;
-  transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease,
-    background 160ms ease;
+  transition: background 160ms ease, border-color 160ms ease;
+  font-family: 'DM Sans', sans-serif;
 }
 
 .mount-panel__actions button.primary {
-  background: rgba(255, 138, 61, 0.9);
-  color: #050709;
-  border-color: rgba(255, 138, 61, 0.9);
-  box-shadow: 0 18px 30px rgba(255, 138, 61, 0.25);
+  background: var(--accent);
+  color: #FFFFFF;
+  border-color: var(--accent);
+}
+
+.mount-panel__actions button.primary:hover,
+.mount-panel__actions button.primary:focus-visible {
+  background: #A8521F;
+  border-color: #A8521F;
+  outline: none;
 }
 
 .mount-panel__actions button.secondary {
   background: transparent;
-  border-color: rgba(255, 255, 255, 0.24);
+  border-color: var(--border);
+  color: var(--text-soft);
+}
+
+.mount-panel__actions button.secondary:hover,
+.mount-panel__actions button.secondary:focus-visible {
+  background: #F0EBE5;
+  border-color: var(--border-strong);
   color: var(--text);
+  outline: none;
 }
 
 .mount-panel__actions button:disabled {
-  opacity: 0.5;
+  opacity: 0.45;
   cursor: not-allowed;
-  box-shadow: none;
 }
 
 .mount-panel__hint {
   margin: 0;
-  font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.78);
+  font-size: 0.85rem;
+  color: var(--text-soft);
+  line-height: 1.55;
+}
+
+.mount-panel__hint code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  background: var(--accent-soft);
+  color: var(--accent);
+  padding: 0.1rem 0.35rem;
+  border-radius: 3px;
 }
 
 .example-json {
   max-height: 300px;
   overflow: auto;
-  border-radius: 0.9rem;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(0, 0, 0, 0.4);
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  background: #FFFFFF;
   padding: 1rem;
-  font-size: 0.85rem;
-  font-family: 'SFMono-Regular', Consolas, Menlo, monospace;
+  font-size: 0.78rem;
+  font-family: 'JetBrains Mono', 'SFMono-Regular', Consolas, Menlo, monospace;
+  line-height: 1.6;
 }
 
 .state {
   margin: 0;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
+  font-family: 'DM Sans', sans-serif;
 }
 
 .state--error {
-  color: #ff9ba0;
+  color: var(--accent);
 }
 
 .state--success {
-  color: #8de0b0;
+  color: #2D6A4F;
 }
 
 @media (max-width: 640px) {

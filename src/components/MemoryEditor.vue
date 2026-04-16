@@ -237,58 +237,14 @@ const copyJson = async () => {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  background:
-    linear-gradient(155deg, rgba(16, 22, 33, 0.92), rgba(6, 8, 13, 0.75)),
-    radial-gradient(120% 140% at 10% -20%, rgba(255, 138, 61, 0.12), transparent 65%);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 1.5rem;
+  background: #FFFFFF;
+  border: 1px solid var(--border);
+  border-radius: 4px;
   padding: clamp(1.35rem, 1.2rem + 1vw, 2rem);
-  box-shadow: 0 24px 50px rgba(5, 7, 11, 0.55);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
   min-height: min(640px, 72vh);
   position: relative;
   overflow: hidden;
-}
-
-.panel.editor-panel::after {
-  content: '';
-  position: absolute;
-  top: -40%;
-  right: -35%;
-  bottom: -40%;
-  left: -35%;
-  background: radial-gradient(circle at top, rgba(255, 138, 61, 0.18), transparent 70%);
-  pointer-events: none;
-}
-
-.editor__header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  flex-wrap: wrap;
-  position: relative;
-  z-index: 1;
-}
-
-.editor__cancel {
-  border: 1px solid rgba(255, 138, 61, 0.45);
-  background: transparent;
-  border-radius: 999px;
-  padding: 0.45rem 1.1rem;
-  color: var(--text);
-  font-size: 0.78rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: background 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
-}
-
-.editor__cancel:hover,
-.editor__cancel:focus-visible {
-  background: rgba(255, 138, 61, 0.22);
-  border-color: rgba(255, 138, 61, 0.75);
-  box-shadow: 0 10px 24px rgba(255, 120, 66, 0.18);
-  outline: none;
 }
 
 .editor__form {
@@ -302,41 +258,47 @@ const copyJson = async () => {
 .field {
   display: flex;
   flex-direction: column;
-  gap: 0.65rem;
+  gap: 0.5rem;
 }
 
 .field__label {
-  font-size: 0.78rem;
-  letter-spacing: 0.16em;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: rgba(255, 213, 182, 0.82);
-  font-weight: 600;
+  color: var(--text-soft);
+  font-weight: 500;
+  font-family: 'DM Sans', sans-serif;
 }
 
 .field input,
 .field textarea {
   width: 100%;
-  border-radius: 0.9rem;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  background: rgba(6, 8, 13, 0.78);
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  background: #FFFFFF;
   color: var(--text);
   font-size: 0.95rem;
-  padding: 0.85rem 1rem;
+  padding: 0.8rem 1rem;
   outline: none;
-  transition: border-color 160ms ease, box-shadow 160ms ease, background 160ms ease;
+  transition: border-color 160ms ease, box-shadow 160ms ease;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.field input::placeholder,
+.field textarea::placeholder {
+  color: var(--text-muted);
 }
 
 .field input:focus-visible,
 .field textarea:focus-visible {
-  border-color: rgba(255, 138, 61, 0.7);
-  box-shadow: 0 12px 28px rgba(255, 120, 66, 0.22);
-  background: rgba(6, 8, 13, 0.92);
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
 }
 
 .field textarea {
   resize: vertical;
   min-height: 220px;
-  line-height: 1.6;
+  line-height: 1.7;
 }
 
 .tag-input {
@@ -352,131 +314,124 @@ const copyJson = async () => {
 }
 
 .tag-input__cta {
-  border-radius: 0.8rem;
-  padding: 0.55rem 1.1rem;
-  border: 1px solid rgba(255, 138, 61, 0.55);
-  background: rgba(255, 138, 61, 0.18);
-  color: var(--text);
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--accent);
+  background: var(--accent);
+  color: #FFFFFF;
   font-size: 0.78rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
   cursor: pointer;
-  transition: background 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+  transition: background 160ms ease, border-color 160ms ease;
+  font-family: 'DM Sans', sans-serif;
 }
 
 .tag-input__cta:hover,
 .tag-input__cta:focus-visible {
-  background: rgba(255, 138, 61, 0.28);
-  border-color: rgba(255, 138, 61, 0.8);
-  box-shadow: 0 12px 24px rgba(255, 120, 66, 0.2);
+  background: #A8521F;
+  border-color: #A8521F;
   outline: none;
 }
 
 .tag-input__cta:disabled {
-  opacity: 0.55;
+  opacity: 0.45;
   cursor: not-allowed;
-  background: rgba(255, 138, 61, 0.1);
-  border-color: rgba(255, 138, 61, 0.35);
-  box-shadow: none;
 }
 
 .tag-collection {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.6rem;
+  gap: 0.5rem;
 }
 
 .tag-pill {
   display: inline-flex;
   align-items: center;
-  gap: 0.45rem;
-  padding: 0.35rem 0.8rem;
-  border-radius: 999px;
-  background: rgba(255, 138, 61, 0.18);
-  color: #ffd9bd;
-  font-size: 0.78rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  gap: 0.4rem;
+  padding: 0.3rem 0.7rem;
+  border-radius: 4px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  border: 1px solid rgba(196, 98, 45, 0.2);
 }
 
 .tag-pill__remove {
   background: transparent;
   border: 0;
-  color: rgba(255, 213, 182, 0.8);
+  color: var(--accent);
   cursor: pointer;
   font-size: 1rem;
   line-height: 1;
   padding: 0;
-  transition: color 160ms ease;
+  transition: opacity 160ms ease;
 }
 
 .tag-pill__remove:hover,
 .tag-pill__remove:focus-visible {
-  color: var(--text);
+  opacity: 0.6;
   outline: none;
 }
 
 .editor__error {
   margin: 0;
   padding: 0.75rem 1rem;
-  border-radius: 0.75rem;
-  border: 1px solid rgba(255, 90, 77, 0.45);
-  background: rgba(255, 90, 77, 0.18);
-  color: #ffb4b4;
+  border-radius: 4px;
+  border: 1px solid rgba(196, 98, 45, 0.3);
+  background: #FFF8F5;
+  color: var(--accent);
   font-size: 0.85rem;
 }
 
 .editor__actions {
   display: flex;
   justify-content: flex-end;
-  gap: 0.85rem;
+  gap: 0.75rem;
   flex-wrap: wrap;
 }
 
 .editor__secondary,
 .editor__submit {
-  border-radius: 999px;
-  padding: 0.6rem 1.45rem;
+  border-radius: 4px;
+  padding: 0.55rem 1.4rem;
   font-size: 0.82rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  letter-spacing: 0.04em;
   cursor: pointer;
-  transition: background 160ms ease, border-color 160ms ease, box-shadow 160ms ease, opacity 160ms ease;
+  transition: background 160ms ease, border-color 160ms ease;
+  font-family: 'DM Sans', sans-serif;
 }
 
 .editor__secondary {
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid var(--border);
   background: transparent;
-  color: var(--text);
+  color: var(--text-soft);
 }
 
 .editor__secondary:hover,
 .editor__secondary:focus-visible {
-  background: rgba(255, 255, 255, 0.08);
-  border-color: rgba(255, 255, 255, 0.22);
-  box-shadow: 0 10px 24px rgba(6, 8, 13, 0.45);
+  background: #F0EBE5;
+  border-color: var(--border-strong);
+  color: var(--text);
   outline: none;
 }
 
 .editor__submit {
-  border: 1px solid rgba(255, 138, 61, 0.65);
-  background: linear-gradient(135deg, rgba(255, 138, 61, 0.9), rgba(255, 111, 61, 0.7));
-  color: #130a07;
-  font-weight: 700;
-  box-shadow: 0 16px 32px rgba(255, 120, 66, 0.28);
+  border: 1px solid var(--accent);
+  background: var(--accent);
+  color: #FFFFFF;
+  font-weight: 500;
 }
 
 .editor__submit:hover,
 .editor__submit:focus-visible {
-  border-color: rgba(255, 138, 61, 0.9);
-  box-shadow: 0 18px 36px rgba(255, 120, 66, 0.35);
+  background: #A8521F;
+  border-color: #A8521F;
   outline: none;
 }
 
 .editor__submit:disabled {
-  opacity: 0.6;
+  opacity: 0.55;
   cursor: not-allowed;
-  box-shadow: none;
 }
 
 .editor__output {
@@ -484,10 +439,9 @@ const copyJson = async () => {
   flex-direction: column;
   gap: 0.85rem;
   padding: 1rem;
-  border-radius: 1rem;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  background: rgba(6, 8, 13, 0.78);
-  box-shadow: inset 0 0 0 1px rgba(255, 138, 61, 0.08);
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  background: #F7F4EF;
 }
 
 .editor__output-header {
@@ -500,42 +454,41 @@ const copyJson = async () => {
 
 .editor__output-title {
   margin: 0;
-  font-size: 0.8rem;
-  letter-spacing: 0.16em;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: rgba(255, 213, 182, 0.85);
+  color: var(--text-soft);
+  font-family: 'DM Sans', sans-serif;
 }
 
 .editor__copy {
-  border-radius: 0.75rem;
-  padding: 0.45rem 1.05rem;
-  border: 1px solid rgba(255, 138, 61, 0.55);
-  background: rgba(255, 138, 61, 0.18);
-  color: var(--text);
+  border-radius: 4px;
+  padding: 0.4rem 1rem;
+  border: 1px solid var(--accent);
+  background: var(--accent);
+  color: #FFFFFF;
   font-size: 0.75rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
   cursor: pointer;
-  transition: background 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+  transition: background 160ms ease, border-color 160ms ease;
+  font-family: 'DM Sans', sans-serif;
 }
 
 .editor__copy:hover,
 .editor__copy:focus-visible {
-  background: rgba(255, 138, 61, 0.3);
-  border-color: rgba(255, 138, 61, 0.85);
-  box-shadow: 0 12px 26px rgba(255, 120, 66, 0.25);
+  background: #A8521F;
+  border-color: #A8521F;
   outline: none;
 }
 
 .editor__json {
   margin: 0;
   padding: 1rem;
-  border-radius: 0.9rem;
-  background: rgba(5, 7, 12, 0.9);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  color: #f8f6f3;
-  font-family: 'Space Grotesk', 'Inter', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
-  font-size: 0.83rem;
+  border-radius: 4px;
+  background: #FFFFFF;
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-family: 'JetBrains Mono', 'SFMono-Regular', Consolas, Menlo, monospace;
+  font-size: 0.82rem;
   line-height: 1.6;
   overflow: auto;
   max-height: 320px;
@@ -545,9 +498,7 @@ const copyJson = async () => {
 .editor__copy-status {
   margin: 0;
   font-size: 0.75rem;
-  letter-spacing: 0.08em;
-  color: rgba(255, 213, 182, 0.8);
-  text-transform: uppercase;
+  color: var(--accent);
 }
 
 .editor__hint {
@@ -557,14 +508,14 @@ const copyJson = async () => {
 }
 
 .editor__hint code {
-  font-family: inherit;
-  color: rgba(255, 213, 182, 0.9);
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--accent);
 }
 
 @media (max-width: 960px) {
   .panel.editor-panel {
     padding: 1.25rem;
-    border-radius: 1.25rem;
+    border-radius: 4px;
     min-height: auto;
   }
 

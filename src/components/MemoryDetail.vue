@@ -61,58 +61,50 @@ const props = defineProps({
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  background:
-    linear-gradient(155deg, rgba(16, 22, 33, 0.92), rgba(6, 8, 13, 0.75)),
-    radial-gradient(120% 140% at 10% -20%, rgba(255, 138, 61, 0.1), transparent 65%);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 1.5rem;
-  padding: clamp(1.35rem, 1.2rem + 1vw, 2rem);
-  box-shadow: 0 24px 50px rgba(5, 7, 11, 0.55);
+  background: #FFFFFF;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: clamp(1.5rem, 1.5rem + 1vw, 2.5rem);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
   min-height: min(640px, 72vh);
   position: relative;
-  overflow: hidden;
-}
-
-.panel::after {
-  content: '';
-  position: absolute;
-  top: -40%;
-  right: -35%;
-  bottom: -40%;
-  left: -35%;
-  background: radial-gradient(circle at top, rgba(255, 138, 61, 0.18), transparent 70%);
-  pointer-events: none;
 }
 
 .panel__header {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border);
 }
 
 .panel__header h2 {
   margin: 0;
-  font-size: clamp(1.35rem, 1.2rem + 0.6vw, 1.85rem);
-  line-height: 1.18;
+  font-size: clamp(1.4rem, 1.2rem + 0.8vw, 2rem);
+  line-height: 1.2;
   font-weight: 600;
+  font-family: 'Newsreader', serif;
+  color: var(--text);
 }
 
 .eyebrow {
-    font-size: 0.75rem;
+  font-size: 0.72rem;
   text-transform: uppercase;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.15em;
   color: var(--text-muted);
-  font-weight: 600;
+  font-weight: 500;
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
   flex-wrap: wrap;
+  font-family: 'DM Sans', sans-serif;
 }
 
 .subtext {
   margin: 0;
-  color: var(--text-soft);
-  font-size: 0.95rem;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  font-family: 'DM Sans', sans-serif;
 }
 
 .tag-group {
@@ -125,19 +117,22 @@ const props = defineProps({
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border-radius: 999px;
-  padding: 0.24rem 0.7rem;
-  font-size: 0.72rem;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  background: rgba(255, 138, 61, 0.14);
-  color: #ffd9bd;
+  border-radius: 4px;
+  padding: 0.2rem 0.6rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  background: var(--accent-soft);
+  color: var(--accent);
+  border: 1px solid rgba(196, 98, 45, 0.2);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
 }
 
 .tag-chip--solid {
-  background: var(--accent-gradient);
-  color: #140a06;
-  font-weight: 700;
+  background: var(--accent);
+  color: #FFFFFF;
+  font-weight: 600;
+  border-color: var(--accent);
 }
 
 .detail__body {
@@ -147,14 +142,15 @@ const props = defineProps({
 }
 
 .prose :deep(*) {
-  max-width: 72ch;
+  max-width: 65ch;
 }
 
 .prose :deep(p) {
-  margin: 0 0 1rem;
-  color: var(--text-soft);
-  line-height: 1.75;
-  font-size: 0.98rem;
+  margin: 0 0 1.25rem;
+  color: var(--text);
+  line-height: 1.85;
+  font-size: 1.0625rem;
+  font-family: 'Newsreader', serif;
 }
 
 .prose :deep(p:last-child) {
@@ -164,32 +160,36 @@ const props = defineProps({
 .prose :deep(a) {
   color: var(--accent);
   text-decoration: underline;
-  text-decoration-color: rgba(255, 138, 61, 0.5);
-  text-decoration-thickness: 2px;
+  text-decoration-color: rgba(196, 98, 45, 0.4);
+  text-underline-offset: 3px;
 }
 
 .prose :deep(strong) {
   color: var(--text);
+  font-weight: 600;
 }
 
 .state {
   padding: 1.25rem;
-  border-radius: 1rem;
+  border-radius: 4px;
   border: 1px solid var(--border);
-  background: rgba(255, 255, 255, 0.02);
+  background: #FFFFFF;
   color: var(--text-soft);
 }
 
 .state--error {
-  border-color: rgba(255, 94, 94, 0.35);
-  background: rgba(255, 94, 94, 0.1);
-  color: #ffb4b4;
+  border-color: rgba(196, 98, 45, 0.3);
+  background: #FFF8F5;
+  color: var(--accent);
 }
 
 .state--blank {
   margin-top: 4rem;
   text-align: center;
-  color: var(--text-soft);
+  color: var(--text-muted);
+  font-family: 'Newsreader', serif;
+  font-style: italic;
+  font-size: 1.05rem;
 }
 
 .skeleton-wrapper {
@@ -199,12 +199,12 @@ const props = defineProps({
 
 .skeleton-line {
   height: 0.9rem;
-  border-radius: 999px;
+  border-radius: 4px;
   background: linear-gradient(
     90deg,
-    rgba(255, 255, 255, 0.06) 0%,
-    rgba(255, 255, 255, 0.16) 50%,
-    rgba(255, 255, 255, 0.06) 100%
+    #F0EBE5 0%,
+    #E5DDD3 50%,
+    #F0EBE5 100%
   );
   background-size: 200% 100%;
   animation: shimmer 1.6s infinite;
@@ -212,30 +212,26 @@ const props = defineProps({
 
 .skeleton-line.title {
   height: 1.5rem;
-  width: 80%;
+  width: 75%;
 }
 
 .skeleton-line.half {
-  width: 40%;
+  width: 35%;
 }
 
 .skeleton-line.long {
-  height: 6rem;
+  height: 5rem;
 }
 
 @keyframes shimmer {
-  0% {
-    background-position: 200% 0;
-  }
-  100% {
-    background-position: -200% 0;
-  }
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
 }
 
 @media (max-width: 960px) {
   .panel {
     padding: 1.25rem;
-    border-radius: 1.25rem;
+    border-radius: 4px;
   }
 }
 </style>

@@ -712,103 +712,90 @@ watch(sourceEntries, (list) => {
 }
 
 .demount-button {
-  border-radius: 999px;
-  border: 1px solid rgba(255, 92, 92, 0.6);
-  background: rgba(255, 92, 92, 0.15);
-  color: #ffb4b4;
+  border-radius: 4px;
+  border: 1px solid #D4CCC2;
+  background: #FFFFFF;
+  color: var(--text);
   padding: 0.45rem 1.4rem;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
   font-size: 0.75rem;
   cursor: pointer;
-  transition: background 160ms ease, border-color 160ms ease, color 160ms ease, transform 160ms ease;
+  transition: background 160ms ease, border-color 160ms ease, color 160ms ease;
 }
 
 .demount-button:hover,
 .demount-button:focus-visible {
-  background: rgba(255, 92, 92, 0.3);
-  border-color: rgba(255, 92, 92, 0.85);
-  color: #fff1f1;
-  transform: translateY(-1px);
+  background: #FFF0EB;
+  border-color: var(--accent);
+  color: var(--accent);
   outline: none;
 }
 
 .demount-button:disabled {
-  opacity: 0.55;
+  opacity: 0.45;
   cursor: not-allowed;
-  transform: none;
 }
 
 .generate-button {
-  border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.35);
-  background: rgba(255, 255, 255, 0.08);
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  background: #FFFFFF;
   color: var(--text);
   padding: 0.45rem 1.4rem;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
   font-size: 0.75rem;
   cursor: pointer;
-  transition: background 160ms ease, border-color 160ms ease, color 160ms ease, transform 160ms ease;
+  transition: background 160ms ease, border-color 160ms ease, color 160ms ease;
 }
 
 .generate-button:hover,
 .generate-button:focus-visible {
-  background: rgba(255, 255, 255, 0.18);
-  border-color: rgba(255, 255, 255, 0.7);
-  color: #ffffff;
-  transform: translateY(-1px);
+  background: #F0EBE5;
+  border-color: var(--border-strong);
   outline: none;
 }
 
 .generate-button:disabled {
-  opacity: 0.55;
+  opacity: 0.45;
   cursor: not-allowed;
-  transform: none;
 }
 
 .hide-json-button {
-  border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  background: rgba(255, 255, 255, 0.04);
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  background: transparent;
   color: var(--text-soft);
   padding: 0.45rem 1.1rem;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
   font-size: 0.75rem;
   cursor: pointer;
-  transition: background 160ms ease, border-color 160ms ease, color 160ms ease, transform 160ms ease;
+  transition: background 160ms ease, border-color 160ms ease, color 160ms ease;
 }
 
 .hide-json-button:hover,
 .hide-json-button:focus-visible {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.3);
+  background: #F0EBE5;
+  border-color: var(--border-strong);
   color: var(--text);
-  transform: translateY(-1px);
   outline: none;
 }
 
 .hide-json-button:disabled {
-  opacity: 0.55;
+  opacity: 0.45;
   cursor: not-allowed;
-  transform: none;
 }
 
 .data-actions__status {
   font-size: 0.82rem;
-  color: #ffdabc;
+  color: var(--accent);
 }
 
 .archive-json-viewer {
   width: 100%;
-  border-radius: 1rem;
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  background: rgba(5, 7, 11, 0.85);
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  background: #FFFFFF;
   color: var(--text);
   padding: 1rem;
   font-size: 0.9rem;
-  font-family: 'SFMono-Regular', Consolas, Menlo, monospace;
+  font-family: 'JetBrains Mono', 'SFMono-Regular', Consolas, Menlo, monospace;
   min-height: 320px;
   resize: vertical;
 }
@@ -820,17 +807,17 @@ watch(sourceEntries, (list) => {
   justify-content: center;
   align-items: center;
   padding: 0 clamp(1rem, 0.6rem + 1.4vw, 1.8rem);
-  border-radius: 1.1rem;
-  background: #000000;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 18px 40px rgba(5, 7, 11, 0.35);
+  border-radius: 4px;
+  background: #FFFFFF;
+  border: 1px solid var(--border);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
   overflow: hidden;
 }
 
 .logo img {
   width: 100%;
   height: auto;
-  border-radius: 0.8rem;
+  border-radius: 3px;
 }
 
 .filter-notice {
@@ -838,31 +825,30 @@ watch(sourceEntries, (list) => {
   align-items: center;
   gap: 0.75rem;
   padding: 0.85rem 1rem;
-  border-radius: 0.9rem;
-  background: rgba(255, 138, 61, 0.08);
-  border: 1px solid rgba(255, 138, 61, 0.35);
-  color: #ffdabc;
+  border-radius: 4px;
+  background: #FFFFFF;
+  border: 1px solid var(--border);
+  color: var(--text-soft);
   font-size: 0.9rem;
   width: fit-content;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
 }
 
 .filter-notice__clear {
   background: transparent;
-  border: 1px solid rgba(255, 138, 61, 0.45);
-  border-radius: 999px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
   padding: 0.35rem 0.9rem;
-  color: var(--text);
+  color: var(--accent);
   font-size: 0.75rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
   cursor: pointer;
-  transition: background 160ms ease, color 160ms ease, border-color 160ms ease;
+  transition: background 160ms ease, border-color 160ms ease;
 }
 
 .filter-notice__clear:hover,
 .filter-notice__clear:focus-visible {
-  background: rgba(255, 138, 61, 0.18);
-  border-color: rgba(255, 138, 61, 0.6);
+  background: #FFF0EB;
+  border-color: var(--accent);
   outline: none;
 }
 
@@ -875,21 +861,24 @@ watch(sourceEntries, (list) => {
 
 .search-bar input {
   width: 100%;
-  padding: 0.95rem 3rem 0.95rem 1.1rem;
-  border-radius: 1rem;
-  border: 1px solid rgba(255, 138, 61, 0.7);
-  background: #090c15;
+  padding: 0.85rem 3rem 0.85rem 1.1rem;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  background: #FFFFFF;
   color: var(--text);
   font-size: 0.95rem;
-  letter-spacing: 0.01em;
   outline: none;
-  transition: border-color 160ms ease, box-shadow 160ms ease, background 160ms ease;
-  box-shadow: 0 12px 30px rgba(255, 120, 66, 0.2);
+  transition: border-color 160ms ease, box-shadow 160ms ease;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+}
+
+.search-bar input::placeholder {
+  color: var(--text-muted);
 }
 
 .search-bar input:focus-visible {
-  border-color: rgba(255, 138, 61, 0.85);
-  box-shadow: 0 14px 34px rgba(255, 120, 66, 0.28);
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
 }
 
 .search-bar__icon {
@@ -900,7 +889,7 @@ watch(sourceEntries, (list) => {
   justify-content: center;
   width: 1.2rem;
   height: 1.2rem;
-  color: var(--accent);
+  color: var(--text-muted);
   pointer-events: none;
 }
 
@@ -916,7 +905,7 @@ watch(sourceEntries, (list) => {
   color: var(--text-muted);
   font-size: 0.85rem;
   padding-top: 1rem;
-  border-top: 1px solid rgba(255, 138, 61, 0.18);
+  border-top: 1px solid var(--border);
 }
 
 @media (max-width: 960px) {

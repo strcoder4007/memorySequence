@@ -24,12 +24,12 @@ const enriched = computed(() => {
   }
   const max = Math.max(...props.data.map((item) => item.chars ?? 0))
   const safeMax = max === 0 ? 1 : max
-  const scale = 180
+  const scale = 120
   return props.data.map((item) => {
     const chars = item.chars ?? 0
     const ratio = chars / safeMax
     const computedHeight = Math.round(ratio * scale)
-    const minHeight = chars === 0 ? 4 : 10
+    const minHeight = chars === 0 ? 6 : 28
     const blogCount = item.count ?? 0
     const blogLabel = `${blogCount} ${blogCount === 1 ? 'blog' : 'blogs'}`
     const accessibleLabel = `${item.label?.replace(/\n/g, ' ') ?? ''} — ${blogLabel}`
@@ -45,6 +45,21 @@ const enriched = computed(() => {
   })
 })
 
+// Detect year boundaries
+const enrichedWithYear = computed(() => {
+  if (!enriched.value.length) return []
+  return enriched.value.map((item, index) => {
+    const label = item.label ?? ''
+    const yearMatch = label.match(/(\d{4})$/)
+    const year = yearMatch ? yearMatch[1] : null
+    const prev = index > 0 ? enriched.value[index - 1] : null
+    const prevYearMatch = prev?.label?.match(/(\d{4})$/)
+    const prevYear = prevYearMatch ? prevYearMatch[1] : null
+    const showYear = year !== null && (index === 0 || year !== prevYear)
+    return { ...item, year, showYear }
+  })
+})
+
 const handleSelect = (item) => {
   if (props.disabled) {
     return
@@ -57,47 +72,66 @@ const handleSelect = (item) => {
 </script>
 
 <template>
-  <section class="board" aria-labelledby="analytics-heading">
+  <section class="board">
+    <span class="eyebrow">Monthly Activity</span>
 
     <div v-if="!data.length" class="state">
       Analytics will appear once memories are added.
     </div>
 
-    <div
-      v-else
-      :class="['chart', { 'chart--disabled': disabled }]"
-      role="list"
-      :aria-disabled="disabled ? 'true' : 'false'"
-      :style="{ '--bar-count': enriched.length || 1 }"
-    >
+    <!-- Chart wrapper -->
+    <div v-else class="chart-scroll">
       <div
-        v-for="item in enriched"
-        :key="item.key ?? item.label"
-        :class="[
-          'chart__column',
-          { 'chart__column--active': item.active, 'chart__column--empty': item.chars === 0 },
-        ]"
-        :aria-label="item.accessibleLabel"
-        :aria-selected="item.active ? 'true' : 'false'"
-        :tabindex="disabled ? -1 : 0"
-        role="listitem"
-        @click="handleSelect(item)"
-        @keydown.enter.prevent="handleSelect(item)"
-        @keydown.space.prevent="handleSelect(item)"
+        :class="['chart', { 'chart--disabled': disabled }]"
+        role="list"
+        :aria-disabled="disabled ? 'true' : 'false'"
       >
-        <div
-          :class="['chart__bar', { 'chart__bar--empty': item.chars === 0, 'chart__bar--active': item.active }]"
-          :style="{ '--bar-height': item.height }"
-        >
-          <span v-if="item.chars" class="chart__value">{{ item.chars.toLocaleString() }}</span>
+        <!-- Baseline -->
+        <div class="chart__baseline" aria-hidden="true" />
+
+        <!-- Bars row -->
+        <div class="chart__bars-region">
+          <div
+            v-for="item in enrichedWithYear"
+            :key="item.key ?? item.label"
+            :class="[
+              'chart__column',
+              { 'chart__column--active': item.active, 'chart__column--empty': item.chars === 0 },
+            ]"
+            :aria-label="item.accessibleLabel"
+            :aria-selected="item.active ? 'true' : 'false'"
+            :tabindex="disabled ? -1 : 0"
+            role="listitem"
+            @click="handleSelect(item)"
+            @keydown.enter.prevent="handleSelect(item)"
+            @keydown.space.prevent="handleSelect(item)"
+          >
+            <!-- Value label above bar — hover only -->
+            <span class="chart__value">
+              {{ item.chars.toLocaleString() }}
+            </span>
+
+            <!-- The bar -->
+            <div
+              :class="['chart__bar', { 'chart__bar--empty': item.chars === 0, 'chart__bar--active': item.active }]"
+              :style="{ '--bar-height': item.height }"
+            >
+              <span v-if="item.active" class="chart__bar-dot" aria-hidden="true" />
+            </div>
+
+            <!-- Tooltip — hover only -->
+            <div class="chart__tooltip" role="presentation">
+              <span class="chart__tooltip-label">{{ item.label }}</span>
+              <span class="chart__tooltip-count">{{ item.blogLabel }}</span>
+            </div>
+
+            <!-- Year label — only for first month of each year -->
+            <div v-if="item.showYear" class="chart__year-label" aria-hidden="true">
+              {{ item.year }}
+            </div>
+          </div>
         </div>
-        <div class="chart__tooltip" role="presentation">
-          <span class="chart__tooltip-label">{{ item.label }}</span>
-          <span class="chart__tooltip-count">{{ item.blogLabel }}</span>
-        </div>
-        <div v-if="item.axisLabel" class="chart__axis-label" aria-hidden="true">
-          {{ item.axisLabel }}
-        </div>
+
       </div>
     </div>
   </section>
@@ -105,64 +139,84 @@ const handleSelect = (item) => {
 
 <style scoped>
 .board {
-  padding: clamp(1.5rem, 1.1rem + 1.4vw, 2.2rem);
-  border-radius: 1.4rem;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background: #07090f;
-  box-shadow: 0 20px 50px rgba(4, 6, 10, 0.55);
+  padding: clamp(1.25rem, 1rem + 1.5vw, 2rem);
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  box-shadow:
+    0 2px 4px rgba(0,0,0,0.04),
+    0 4px 12px rgba(0,0,0,0.06);
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
-  position: relative;
+  gap: 1.25rem;
   overflow: hidden;
 }
 
-.board__header {
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
-  position: relative;
-}
-
-.board__header h2 {
-  margin: 0;
-  font-size: clamp(1.35rem, 1.2rem + 0.5vw, 1.75rem);
-  font-weight: 600;
-  color: var(--text);
+.eyebrow {
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  font-weight: 500;
+  flex-shrink: 0;
 }
 
 .state {
-  border-radius: 1rem;
-  border: 1px dashed rgba(255, 255, 255, 0.15);
-  padding: 1.5rem;
+  border-radius: 12px;
+  border: 1px dashed var(--border);
+  padding: 2rem 1.5rem;
   text-align: center;
-  color: var(--text-soft);
-  font-size: 0.95rem;
-  background: rgba(255, 255, 255, 0.03);
+  color: var(--text-muted);
+  font-size: 0.875rem;
+  background: var(--bg);
+}
+
+/* Scrollable container */
+.chart-scroll {
+  overflow: visible;
 }
 
 .chart {
-  display: grid;
-  grid-template-columns: repeat(var(--bar-count, 1), minmax(2px, 1fr));
-  align-items: end;
-  gap: 1px;
   position: relative;
-  padding-bottom: 1.6rem;
+  width: 100%;
+  min-width: 0;
 }
 
-.chart::before {
-  content: '';
+.chart--disabled {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.chart__baseline {
   position: absolute;
-  bottom: -0.25rem;
+  bottom: 0;
   left: 0;
   right: 0;
   height: 1px;
-  background: linear-gradient(90deg, rgba(255, 255, 255, 0.2), transparent);
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--border) 8%,
+    var(--border) 92%,
+    transparent
+  );
   pointer-events: none;
+  z-index: 0;
+}
+
+.chart__bars-region {
+  display: flex;
+  align-items: flex-end;
+  gap: 0;
+  padding-bottom: 1.5rem;
+  padding-top: 1.2rem;
+  position: relative;
+  z-index: 1;
 }
 
 .chart__column {
   min-width: 0;
+  flex: 1 1 0%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -172,102 +226,140 @@ const handleSelect = (item) => {
   cursor: pointer;
 }
 
-.chart--disabled {
-  opacity: 0.7;
-  pointer-events: none;
-}
-
 .chart--disabled .chart__column {
   cursor: not-allowed;
+}
+
+.chart__value {
+  font-size: 0.62rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  letter-spacing: 0.03em;
+  margin-bottom: 0.35rem;
+  white-space: nowrap;
+  font-family: 'DM Sans', sans-serif;
+  opacity: 0;
+  transition: opacity 150ms ease;
+  height: 0;
+  overflow: hidden;
+}
+
+.chart__column:hover .chart__value {
+  opacity: 1;
+  height: auto;
+  overflow: visible;
+}
+
+/* Year label — always visible, only for first month of year */
+.chart__year-label {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.58rem;
+  letter-spacing: 0.05em;
+  color: var(--text-soft);
+  font-weight: 500;
+  font-family: 'DM Sans', sans-serif;
+  white-space: nowrap;
+  pointer-events: none;
 }
 
 .chart__bar {
   width: 100%;
   height: calc(var(--bar-height) * 1px);
-  border-radius: 0;
-  background-color: rgba(255, 138, 61, 0.75);
-  border: 1px solid rgba(255, 138, 61, 0.4);
-  box-shadow: 0 12px 22px rgba(255, 120, 66, 0.22);
+  min-height: 4px;
+  border-radius: 6px;
+  background: linear-gradient(
+    160deg,
+    color-mix(in srgb, var(--accent) 75%, white 25%) 0%,
+    var(--accent) 100%
+  );
   position: relative;
-  overflow: hidden;
-  transition: transform 160ms ease, background-color 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
+  transition:
+    transform 220ms cubic-bezier(0.34, 1.3, 0.64, 1),
+    box-shadow 200ms ease;
+  box-shadow: 0 2px 6px rgba(196, 98, 45, 0.22);
 }
 
 .chart__bar--empty {
-  background-color: rgba(255, 138, 61, 0.12);
-  border-color: rgba(255, 138, 61, 0.18);
+  background: var(--border);
+  border-radius: 3px;
+  height: 6px !important;
+  min-height: 6px;
   box-shadow: none;
 }
 
 .chart__bar--active {
-  background-color: var(--accent);
-  border-color: rgba(255, 138, 61, 0.7);
-  box-shadow: 0 18px 34px rgba(255, 120, 66, 0.28);
+  background: linear-gradient(160deg, #9A4419 0%, #7A3010 100%);
+  box-shadow:
+    0 2px 8px rgba(196, 98, 45, 0.35),
+    0 4px 16px rgba(196, 98, 45, 0.18);
 }
 
-.chart__value {
+.chart__bar-dot {
   position: absolute;
-  top: -1.2rem;
+  top: -5px;
   left: 50%;
   transform: translateX(-50%);
-  font-size: 0.68rem;
-  font-weight: 600;
-  color: var(--text-soft);
-  letter-spacing: 0.06em;
-  white-space: nowrap;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #7A3010;
+  box-shadow: 0 0 0 2px rgba(196, 98, 45, 0.15);
 }
 
 .chart__column:focus-visible {
   outline: none;
 }
 
-.chart__column:hover .chart__bar:not(.chart__bar--empty),
 .chart__column:focus-visible .chart__bar:not(.chart__bar--empty) {
-  background-color: var(--accent);
-  border-color: rgba(255, 138, 61, 0.7);
-  box-shadow: 0 18px 34px rgba(255, 120, 66, 0.28);
-  transform: translateY(-4px);
+  outline: 2px solid var(--accent-soft);
+  outline-offset: 2px;
 }
 
-.chart--disabled .chart__column:hover .chart__bar,
-.chart--disabled .chart__column:focus-visible .chart__bar {
-  background-color: rgba(255, 138, 61, 0.75);
-  border-color: rgba(255, 138, 61, 0.4);
-  box-shadow: 0 12px 22px rgba(255, 120, 66, 0.22);
-  transform: none;
+.chart__column:hover .chart__bar:not(.chart__bar--empty):not(.chart__bar--active) {
+  transform: translateY(-2px);
+  background: linear-gradient(
+    to bottom,
+    var(--accent) 0%,
+    #A8521F 100%
+  );
 }
 
 .chart__tooltip {
   position: absolute;
-  bottom: calc(100% + 0.85rem);
+  bottom: calc(100% + 10px);
   left: 50%;
   transform: translate(-50%, 6px);
-  padding: 0.45rem 0.65rem;
-  border-radius: 0.6rem;
-  background: #030304;
-  border: 1px solid rgba(255, 138, 61, 0.45);
-  color: var(--text);
-  font-size: 0.66rem;
-  letter-spacing: 0.07em;
-  text-transform: uppercase;
+  padding: 0.6rem 0.9rem;
+  border-radius: 14px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.04),
+    0 6px 20px rgba(0, 0, 0, 0.10),
+    0 1px 4px rgba(0, 0, 0, 0.06);
   opacity: 0;
   pointer-events: none;
-  transition: opacity 150ms ease, transform 150ms ease;
-  box-shadow: 0 12px 28px rgba(4, 6, 10, 0.48);
+  transition: opacity 180ms ease, transform 180ms cubic-bezier(0.34, 1.2, 0.64, 1);
   z-index: 20;
+  white-space: nowrap;
 }
 
 .chart__tooltip-label {
   display: block;
+  font-size: 0.75rem;
   font-weight: 600;
-  white-space: pre-line;
+  color: var(--text);
+  margin-bottom: 0.15rem;
 }
 
 .chart__tooltip-count {
   display: block;
-  margin-top: 0.15rem;
-  color: rgba(255, 213, 182, 0.9);
-  letter-spacing: 0.05em;
+  font-size: 0.7rem;
+  color: var(--accent);
+  font-weight: 500;
 }
 
 .chart__column:hover .chart__tooltip,
@@ -276,22 +368,10 @@ const handleSelect = (item) => {
   transform: translate(-50%, 0);
 }
 
-.chart__axis-label {
-  position: absolute;
-  top: calc(100% + 0.7rem);
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 0.66rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: rgba(255, 213, 182, 0.75);
-  white-space: nowrap;
-  pointer-events: none;
-}
 
 @media (max-width: 768px) {
   .board {
-    margin-top: 2rem;
+    margin-top: 1.5rem;
   }
 }
 </style>
