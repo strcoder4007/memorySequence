@@ -572,8 +572,10 @@ watch(sourceEntries, (list) => {
   <div class="app-shell">
     <header class="hero">
       <div class="hero__brand">
-        <div class="logo">
-          <img :src="logomark" alt="Memory Sequence logo" />
+        <div class="logo" aria-label="Memory Sequence">
+          <span class="logo__memory">MEMORY</span>
+          <span class="logo__separator" aria-hidden="true"></span>
+          <span class="logo__sequences">SEQUENCES</span>
         </div>
         <button
           type="button"
@@ -893,23 +895,64 @@ watch(sourceEntries, (list) => {
 }
 
 .logo {
-  width: 100%;
-  max-width: clamp(180px, 28vw, 320px);
   display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
+  align-items: baseline;
+  gap: 0;
+  line-height: 1;
+  user-select: none;
 }
 
-.logo img {
-  width: 100%;
-  height: auto;
-  transition: filter 250ms cubic-bezier(0.34, 1.1, 0.64, 1), transform 250ms cubic-bezier(0.34, 1.1, 0.64, 1);
+.logo__memory,
+.logo__sequences {
+  font-family: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
+  font-weight: 900;
+  font-size: clamp(1.2rem, 0.9rem + 1.8vw, 2.2rem);
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  background: linear-gradient(
+    90deg,
+    #E8417D 0%,
+    #ED5F68 20%,
+    #F37C5B 40%,
+    #F79450 55%,
+    #FAAE3D 72%,
+    #FFC629 100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  display: inline-block;
+  position: relative;
 }
 
-.logo img:hover {
-  filter: brightness(1.08) saturate(1.1);
-  transform: scale(1.02);
+.logo__memory::after,
+.logo__sequences::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    135deg,
+    transparent,
+    transparent 3px,
+    rgba(255, 255, 255, 0.015) 3px,
+    rgba(255, 255, 255, 0.015) 4px
+  );
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+.logo__separator {
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  background: linear-gradient(135deg, #F79450, #FAAE3D);
+  transform: rotate(45deg);
+  margin: 0 clamp(0.35rem, 0.3rem + 0.5vw, 0.8rem);
+  align-self: center;
+  flex-shrink: 0;
+  position: relative;
+  top: -0.1em;
 }
 
 .filter-notice {
