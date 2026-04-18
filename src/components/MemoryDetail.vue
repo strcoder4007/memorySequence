@@ -61,11 +61,10 @@ const props = defineProps({
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  background: #FFFFFF;
+  background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 4px;
+  border-radius: 10px;
   padding: clamp(1.5rem, 1.5rem + 1vw, 2.5rem);
-  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
   min-height: min(640px, 72vh);
   position: relative;
 }
@@ -82,29 +81,29 @@ const props = defineProps({
   margin: 0;
   font-size: clamp(1.4rem, 1.2rem + 0.8vw, 2rem);
   line-height: 1.2;
-  font-weight: 600;
-  font-family: 'Newsreader', serif;
-  color: var(--text);
+  font-weight: 700;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  color: var(--text-heading);
 }
 
 .eyebrow {
-  font-size: 0.72rem;
+  font-size: 0.68rem;
   text-transform: uppercase;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.12em;
   color: var(--text-muted);
-  font-weight: 500;
+  font-weight: 600;
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
   flex-wrap: wrap;
-  font-family: 'DM Sans', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
 .subtext {
   margin: 0;
   color: var(--text-muted);
   font-size: 0.9rem;
-  font-family: 'DM Sans', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
 .tag-group {
@@ -117,22 +116,23 @@ const props = defineProps({
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border-radius: 4px;
+  border-radius: 6px;
   padding: 0.2rem 0.6rem;
-  font-size: 0.7rem;
-  letter-spacing: 0.06em;
-  background: var(--accent-soft);
-  color: var(--accent);
-  border: 1px solid rgba(196, 98, 45, 0.2);
-  font-family: 'DM Sans', sans-serif;
-  font-weight: 500;
+  font-size: 0.65rem;
+  letter-spacing: 0.04em;
+  background: var(--tag-bg);
+  color: var(--tag-text);
+  border: 1px solid var(--tag-border);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
 }
 
 .tag-chip--solid {
-  background: var(--accent);
-  color: #FFFFFF;
-  font-weight: 600;
-  border-color: var(--accent);
+  background: var(--tag-bg);
+  color: var(--tag-text);
+  font-weight: 700;
+  border-color: var(--tag-border);
 }
 
 .detail__body {
@@ -147,10 +147,10 @@ const props = defineProps({
 
 .prose :deep(p) {
   margin: 0 0 1.25rem;
-  color: var(--text);
+  color: var(--prose-color);
   line-height: 1.85;
   font-size: 1.0625rem;
-  font-family: 'Newsreader', serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
 .prose :deep(p:last-child) {
@@ -158,10 +158,16 @@ const props = defineProps({
 }
 
 .prose :deep(a) {
-  color: var(--accent);
+  color: var(--tag-text);
   text-decoration: underline;
-  text-decoration-color: rgba(196, 98, 45, 0.4);
+  text-decoration-color: rgba(96, 165, 250, 0.4);
   text-underline-offset: 3px;
+  transition: color 200ms ease, text-decoration-color 200ms ease;
+}
+
+.prose :deep(a:hover) {
+  color: var(--accent);
+  text-decoration-color: var(--accent);
 }
 
 .prose :deep(strong) {
@@ -171,23 +177,23 @@ const props = defineProps({
 
 .state {
   padding: 1.25rem;
-  border-radius: 4px;
+  border-radius: 10px;
   border: 1px solid var(--border);
-  background: #FFFFFF;
+  background: var(--surface);
   color: var(--text-soft);
 }
 
 .state--error {
-  border-color: rgba(196, 98, 45, 0.3);
-  background: #FFF8F5;
-  color: var(--accent);
+  border-color: rgba(255, 77, 77, 0.3);
+  background: var(--error-dim);
+  color: var(--error);
 }
 
 .state--blank {
   margin-top: 4rem;
   text-align: center;
   color: var(--text-muted);
-  font-family: 'Newsreader', serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-style: italic;
   font-size: 1.05rem;
 }
@@ -199,12 +205,12 @@ const props = defineProps({
 
 .skeleton-line {
   height: 0.9rem;
-  border-radius: 4px;
+  border-radius: 2px;
   background: linear-gradient(
     90deg,
-    #F0EBE5 0%,
-    #E5DDD3 50%,
-    #F0EBE5 100%
+    var(--surface-raised) 0%,
+    var(--surface-high) 50%,
+    var(--surface-raised) 100%
   );
   background-size: 200% 100%;
   animation: shimmer 1.6s infinite;
@@ -231,7 +237,7 @@ const props = defineProps({
 @media (max-width: 960px) {
   .panel {
     padding: 1.25rem;
-    border-radius: 4px;
+    border-radius: 2px;
   }
 }
 </style>

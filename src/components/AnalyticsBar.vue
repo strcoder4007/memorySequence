@@ -142,12 +142,9 @@ const handleSelect = (item) => {
 <style scoped>
 .board {
   padding: clamp(1.25rem, 1rem + 1.5vw, 2rem);
-  border-radius: 16px;
+  border-radius: 10px;
   border: 1px solid var(--border);
   background: var(--surface);
-  box-shadow:
-    0 2px 4px rgba(0,0,0,0.04),
-    0 4px 12px rgba(0,0,0,0.06);
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
@@ -155,22 +152,24 @@ const handleSelect = (item) => {
 }
 
 .eyebrow {
-  font-size: 0.68rem;
-  letter-spacing: 0.1em;
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--text-muted);
-  font-weight: 500;
+  font-weight: 600;
   flex-shrink: 0;
+  font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
 .state {
-  border-radius: 12px;
-  border: 1px dashed var(--border);
+  border-radius: 10px;
+  border: 1px dashed var(--border-strong);
   padding: 2rem 1.5rem;
   text-align: center;
   color: var(--text-muted);
   font-size: 0.875rem;
-  background: var(--bg);
+  background: var(--surface-raised);
+  font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
 /* Scrollable container */
@@ -185,7 +184,7 @@ const handleSelect = (item) => {
 }
 
 .chart--disabled {
-  opacity: 0.6;
+  opacity: 0.5;
   pointer-events: none;
 }
 
@@ -198,8 +197,8 @@ const handleSelect = (item) => {
   background: linear-gradient(
     to right,
     transparent,
-    var(--border) 8%,
-    var(--border) 92%,
+    var(--border-strong) 8%,
+    var(--border-strong) 92%,
     transparent
   );
   pointer-events: none;
@@ -233,13 +232,13 @@ const handleSelect = (item) => {
 }
 
 .chart__value {
-  font-size: 0.62rem;
-  font-weight: 500;
-  color: var(--text-muted);
+  font-size: 0.6rem;
+  font-weight: 600;
+  color: var(--accent);
   letter-spacing: 0.03em;
   margin-bottom: 0.35rem;
   white-space: nowrap;
-  font-family: 'DM Sans', sans-serif;
+  font-family: 'Outfit', sans-serif;
   opacity: 0;
   transition: opacity 150ms ease;
   height: 0;
@@ -259,10 +258,10 @@ const handleSelect = (item) => {
   left: 50%;
   transform: translateX(-50%);
   font-size: 0.58rem;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.06em;
   color: var(--text-soft);
-  font-weight: 500;
-  font-family: 'DM Sans', sans-serif;
+  font-weight: 600;
+  font-family: 'Outfit', sans-serif;
   white-space: nowrap;
   pointer-events: none;
 }
@@ -271,32 +270,32 @@ const handleSelect = (item) => {
   width: 100%;
   height: calc(var(--bar-height) * 1px);
   min-height: 4px;
-  border-radius: 4px;
+  border-radius: 6px;
   background: linear-gradient(
     160deg,
-    color-mix(in srgb, var(--accent) 75%, white 25%) 0%,
-    var(--accent) 100%
+    color-mix(in srgb, var(--tag-text) 75%, var(--bg) 25%) 0%,
+    var(--tag-text) 100%
   );
   position: relative;
   transition:
     transform 220ms cubic-bezier(0.34, 1.3, 0.64, 1),
     box-shadow 200ms ease;
-  box-shadow: 0 2px 6px rgba(196, 98, 45, 0.22);
+  box-shadow: 0 0 8px var(--accent-glow);
 }
 
 .chart__bar--empty {
-  background: var(--border);
-  border-radius: 2px;
+  background: var(--border-strong);
+  border-radius: 6px;
   height: 6px !important;
   min-height: 6px;
   box-shadow: none;
 }
 
 .chart__bar--active {
-  background: linear-gradient(160deg, #9A4419 0%, #7A3010 100%);
+  background: linear-gradient(160deg, var(--tag-text) 0%, var(--tag-bg) 100%);
   box-shadow:
-    0 2px 8px rgba(196, 98, 45, 0.35),
-    0 4px 16px rgba(196, 98, 45, 0.18);
+    0 0 12px var(--accent-glow),
+    0 0 24px rgba(96, 165, 250, 0.1);
 }
 
 .chart__bar-dot {
@@ -307,8 +306,8 @@ const handleSelect = (item) => {
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: #7A3010;
-  box-shadow: 0 0 0 2px rgba(196, 98, 45, 0.15);
+  background: var(--tag-text);
+  box-shadow: 0 0 0 2px var(--accent-glow);
 }
 
 .chart__column:focus-visible {
@@ -316,17 +315,13 @@ const handleSelect = (item) => {
 }
 
 .chart__column:focus-visible .chart__bar:not(.chart__bar--empty) {
-  outline: 2px solid var(--accent-soft);
+  outline: 2px solid var(--accent-dim);
   outline-offset: 2px;
 }
 
 .chart__column:hover .chart__bar:not(.chart__bar--empty):not(.chart__bar--active) {
   transform: translateY(-2px);
-  background: linear-gradient(
-    to bottom,
-    var(--accent) 0%,
-    #A8521F 100%
-  );
+  box-shadow: 0 0 16px var(--accent-glow);
 }
 
 .chart__tooltip {
@@ -335,13 +330,10 @@ const handleSelect = (item) => {
   left: 50%;
   transform: translate(-50%, 6px);
   padding: 0.6rem 0.9rem;
-  border-radius: 14px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  box-shadow:
-    0 2px 4px rgba(0, 0, 0, 0.04),
-    0 6px 20px rgba(0, 0, 0, 0.10),
-    0 1px 4px rgba(0, 0, 0, 0.06);
+  border-radius: 8px;
+  background: var(--surface-high);
+  border: 1px solid var(--border-strong);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
   opacity: 0;
   pointer-events: none;
   transition: opacity 180ms ease, transform 180ms cubic-bezier(0.34, 1.2, 0.64, 1);
@@ -353,14 +345,14 @@ const handleSelect = (item) => {
   display: block;
   font-size: 0.75rem;
   font-weight: 600;
-  color: var(--text);
+  color: var(--text-heading);
   margin-bottom: 0.15rem;
 }
 
 .chart__tooltip-count {
   display: block;
   font-size: 0.7rem;
-  color: var(--accent);
+  color: var(--tag-text);
   font-weight: 500;
 }
 

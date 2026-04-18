@@ -118,7 +118,7 @@ const blankMessage = computed(() => {
         :key="entry.id"
         :class="['memory-card', { 'memory-card--active': entry.id === selectedId }]"
       >
-              <button
+        <button
           type="button"
           class="memory-card__delete"
           :aria-label="`Delete ${entry.title || 'memory'}`"
@@ -222,10 +222,9 @@ const blankMessage = computed(() => {
   flex-direction: column;
   gap: 1.25rem;
   padding: 1.35rem;
-  background: #FFFFFF;
+  background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 4px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  border-radius: 10px;
 }
 
 .panel--scroll {
@@ -245,16 +244,16 @@ const blankMessage = computed(() => {
 }
 
 .eyebrow {
-  font-size: 0.75rem;
+  font-size: 0.68rem;
   text-transform: uppercase;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.12em;
   color: var(--text-muted);
-  font-weight: 500;
+  font-weight: 600;
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
   flex-wrap: wrap;
-  font-family: 'DM Sans', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
 .eyebrow__count {
@@ -263,28 +262,31 @@ const blankMessage = computed(() => {
 }
 
 .panel__cta {
-  padding: 0.5rem 1.1rem;
-  border-radius: 4px;
+  padding: 0.55rem 1.2rem;
+  border-radius: 10px;
   border: 1px solid var(--accent);
   background: var(--accent);
-  color: #FFFFFF;
-  font-size: 0.78rem;
-  font-weight: 500;
+  color: var(--accent-text);
+  font-size: 0.72rem;
+  font-weight: 600;
   letter-spacing: 0.06em;
+  text-transform: uppercase;
   cursor: pointer;
-  transition: background 160ms ease, border-color 160ms ease;
-  font-family: 'DM Sans', sans-serif;
+  transition: background 200ms cubic-bezier(0.34, 1.2, 0.64, 1), color 200ms cubic-bezier(0.34, 1.2, 0.64, 1), box-shadow 200ms cubic-bezier(0.34, 1.2, 0.64, 1), transform 200ms cubic-bezier(0.34, 1.2, 0.64, 1);
+  font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
 .panel__cta:hover,
 .panel__cta:focus-visible {
-  background: #A8521F;
-  border-color: #A8521F;
+  background: transparent;
+  color: var(--accent);
+  box-shadow: 0 0 20px var(--accent-glow);
+  transform: translateY(-2px);
   outline: none;
 }
 
 .panel__cta:disabled {
-  opacity: 0.45;
+  opacity: 0.35;
   cursor: not-allowed;
 }
 
@@ -311,7 +313,7 @@ const blankMessage = computed(() => {
   border: none;
   border-left: 3px solid transparent;
   background: transparent;
-  transition: border-color 160ms ease, background 160ms ease;
+  transition: border-color 200ms cubic-bezier(0.34, 1.2, 0.64, 1), background 200ms cubic-bezier(0.34, 1.2, 0.64, 1), box-shadow 200ms cubic-bezier(0.34, 1.2, 0.64, 1), transform 200ms cubic-bezier(0.34, 1.2, 0.64, 1);
 }
 
 .memory-card + .memory-card {
@@ -324,16 +326,16 @@ const blankMessage = computed(() => {
   right: 0.5rem;
   width: 1.8rem;
   height: 1.8rem;
-  border-radius: 4px;
-  border: 1px solid var(--border);
-  background: #FFFFFF;
+  border-radius: 8px;
+  border: 1px solid var(--ghost-border);
+  background: var(--surface);
   color: var(--text-soft);
   display: inline-flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   opacity: 0;
-  transition: opacity 160ms ease, border-color 160ms ease, color 160ms ease, background 160ms ease;
+  transition: opacity 200ms cubic-bezier(0.34, 1.2, 0.64, 1), border-color 200ms cubic-bezier(0.34, 1.2, 0.64, 1), color 200ms cubic-bezier(0.34, 1.2, 0.64, 1), background 200ms cubic-bezier(0.34, 1.2, 0.64, 1), box-shadow 200ms cubic-bezier(0.34, 1.2, 0.64, 1), transform 200ms cubic-bezier(0.34, 1.2, 0.64, 1);
   pointer-events: none;
   z-index: 2;
 }
@@ -344,16 +346,16 @@ const blankMessage = computed(() => {
   right: 2.5rem;
   width: 1.8rem;
   height: 1.8rem;
-  border-radius: 4px;
-  border: 1px solid var(--border);
-  background: #FFFFFF;
+  border-radius: 8px;
+  border: 1px solid var(--ghost-border);
+  background: var(--surface);
   color: var(--text-soft);
   display: inline-flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   opacity: 0;
-  transition: opacity 160ms ease, border-color 160ms ease, color 160ms ease, background 160ms ease;
+  transition: opacity 200ms cubic-bezier(0.34, 1.2, 0.64, 1), border-color 200ms cubic-bezier(0.34, 1.2, 0.64, 1), color 200ms cubic-bezier(0.34, 1.2, 0.64, 1), background 200ms cubic-bezier(0.34, 1.2, 0.64, 1), box-shadow 200ms cubic-bezier(0.34, 1.2, 0.64, 1), transform 200ms cubic-bezier(0.34, 1.2, 0.64, 1);
   pointer-events: none;
   z-index: 2;
 }
@@ -368,17 +370,21 @@ const blankMessage = computed(() => {
 
 .memory-card__edit:hover,
 .memory-card__edit:focus-visible {
-  background: var(--accent-soft);
+  background: var(--accent-dim);
   border-color: var(--accent);
   color: var(--accent);
+  box-shadow: 0 0 16px var(--accent-glow);
+  transform: scale(1.1);
   outline: none;
 }
 
 .memory-card__delete:hover,
 .memory-card__delete:focus-visible {
-  background: #FFF0F0;
-  border-color: #C4622D;
-  color: var(--accent);
+  background: var(--error-dim);
+  border-color: var(--error);
+  color: var(--error);
+  box-shadow: 0 0 16px rgba(248, 113, 113, 0.25);
+  transform: scale(1.1);
   outline: none;
 }
 
@@ -390,7 +396,8 @@ const blankMessage = computed(() => {
 
 .memory-card--active {
   border-left-color: var(--accent);
-  background: #FDF9F6;
+  background: var(--accent-dim);
+  box-shadow: inset 4px 0 20px var(--accent-glow);
 }
 
 .memory-card__button {
@@ -406,6 +413,7 @@ const blankMessage = computed(() => {
   align-items: flex-start;
   border-radius: inherit;
   cursor: pointer;
+  transition: transform 200ms cubic-bezier(0.34, 1.2, 0.64, 1), box-shadow 200ms cubic-bezier(0.34, 1.2, 0.64, 1);
 }
 
 .memory-card__button:focus-visible {
@@ -414,23 +422,26 @@ const blankMessage = computed(() => {
 }
 
 .memory-card:hover:not(.memory-card--active) {
-  background: #F9F6F2;
+  background: var(--surface-raised);
+  transform: translateX(3px);
+  box-shadow: -4px 0 16px var(--accent-glow);
 }
 
 .memory-card__date {
-  font-size: 0.72rem;
+  font-size: 0.68rem;
   letter-spacing: 0.08em;
   color: var(--text-muted);
-  font-family: 'DM Sans', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-weight: 500;
+  text-transform: uppercase;
 }
 
 .memory-card__title {
   margin: 0;
   font-size: 1rem;
   font-weight: 600;
-  color: var(--text);
-  font-family: 'Newsreader', serif;
+  color: var(--text-heading);
+  font-family: 'Plus Jakarta Sans', sans-serif;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
@@ -460,30 +471,31 @@ const blankMessage = computed(() => {
 .tag-chip {
   display: inline-flex;
   align-items: center;
-  border-radius: 4px;
+  border-radius: 6px;
   padding: 0.2rem 0.55rem;
-  font-size: 0.68rem;
-  letter-spacing: 0.06em;
-  background: var(--accent-soft);
-  color: var(--accent);
-  font-weight: 500;
-  border: 1px solid rgba(196, 98, 45, 0.2);
-  font-family: 'DM Sans', sans-serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.04em;
+  background: var(--tag-bg);
+  color: var(--tag-text);
+  font-weight: 600;
+  border: 1px solid var(--tag-border);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  text-transform: uppercase;
 }
 
 .state {
   padding: 1rem 1.25rem;
-  border-radius: 4px;
+  border-radius: 10px;
   border: 1px solid var(--border);
-  background: #FFFFFF;
+  background: var(--surface);
   font-size: 0.9rem;
   color: var(--text-soft);
 }
 
 .state--error {
-  border-color: rgba(196, 98, 45, 0.3);
-  background: #FFF8F5;
-  color: var(--accent);
+  border-color: rgba(255, 77, 77, 0.3);
+  background: var(--error-dim);
+  color: var(--error);
 }
 
 .state--blank {
@@ -497,10 +509,10 @@ const blankMessage = computed(() => {
 }
 
 .skeleton-card {
-  border-radius: 4px;
+  border-radius: 10px;
   border: 1px solid var(--border);
   padding: 1.05rem;
-  background: #FFFFFF;
+  background: var(--surface);
   display: grid;
   gap: 0.75rem;
   overflow: hidden;
@@ -508,12 +520,12 @@ const blankMessage = computed(() => {
 
 .skeleton-line {
   height: 0.75rem;
-  border-radius: 4px;
+  border-radius: 2px;
   background: linear-gradient(
     90deg,
-    #F0EBE5 0%,
-    #E5DDD3 50%,
-    #F0EBE5 100%
+    var(--surface-raised) 0%,
+    var(--surface-high) 50%,
+    var(--surface-raised) 100%
   );
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite;
@@ -531,13 +543,13 @@ const blankMessage = computed(() => {
 
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 180ms ease, transform 180ms ease;
+  transition: opacity 220ms cubic-bezier(0.34, 1.1, 0.64, 1), transform 220ms cubic-bezier(0.34, 1.1, 0.64, 1);
 }
 
 .fade-enter-from,
 .fade-leave-to {
   opacity: 0;
-  transform: translateY(4px);
+  transform: translateY(6px);
 }
 
 @media (max-width: 960px) {

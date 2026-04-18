@@ -23,6 +23,21 @@ const isReadingFile = ref(false)
 
 const exampleJson = JSON.stringify(sampleEntries, null, 2)
 
+const highlightedExampleJson = computed(() => {
+  const escaped = exampleJson
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+  return escaped
+    .replace(/"([^"]+)":/g, '<span class="key">"$1"</span>:')
+    .replace(/: "([^"]*)"(,?)$/gm, ': <span class="string">"$1"</span><span class="punct">$2</span>')
+    .replace(/: (-?\d+\.?\d*)(,?)$/gm, ': <span class="number">$1</span><span class="punct">$2</span>')
+    .replace(/: (true|false)(,?)$/gm, ': <span class="boolean">$1</span><span class="punct">$2</span>')
+    .replace(/: (null)(,?)$/gm, ': <span class="null">$1</span><span class="punct">$2</span>')
+    .replace(/([\[{,])/g, '<span class="punct">$1</span>')
+    .replace(/([\]\}])/g, '<span class="punct">$1</span>')
+})
+
 const isBusy = computed(() => props.loading || isReadingFile.value)
 
 const validatePayload = (payload) => {
@@ -158,7 +173,7 @@ const handleUseExample = () => {
           Each entry should include <code>title</code>, <code>content</code>, <code>time</code>, and
           optional <code>tags</code>.
         </p>
-        <pre class="example-json"><code>{{ exampleJson }}</code></pre>
+        <pre class="example-json"><code v-html="highlightedExampleJson"></code></pre>
       </div>
     </div>
   </section>
@@ -170,10 +185,22 @@ const handleUseExample = () => {
   flex-direction: column;
   gap: 1.5rem;
   padding: clamp(1.5rem, 1.2rem + 1.8vw, 2.5rem);
-  border-radius: 4px;
+  border-radius: 16px;
   border: 1px solid var(--border);
-  background: #FFFFFF;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  background: var(--surface);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.08);
+  animation: panel-in 400ms cubic-bezier(0.34, 1.1, 0.64, 1) both;
+}
+
+@keyframes panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .mount-panel__header {
@@ -184,15 +211,17 @@ const handleUseExample = () => {
 
 .mount-panel__header h2 {
   font-size: clamp(1.45rem, 1.2rem + 1vw, 1.9rem);
-  font-weight: 600;
+  font-weight: 700;
   margin: 0;
-  font-family: 'Newsreader', serif;
+  font-family: 'Space Grotesk', sans-serif;
   color: var(--text);
 }
 
 .mount-panel__header p {
   margin: 0;
   color: var(--text-soft);
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.05rem;
 }
 
 .mount-panel__grid {
@@ -202,9 +231,9 @@ const handleUseExample = () => {
 }
 
 .mount-panel__card {
-  border-radius: 4px;
+  border-radius: 10px;
   border: 1px solid var(--border);
-  background: #FDFAF5;
+  background: var(--surface-raised);
   padding: clamp(1rem, 0.9rem + 1vw, 1.75rem);
   display: flex;
   flex-direction: column;
@@ -215,24 +244,26 @@ const handleUseExample = () => {
   font-size: 0.9rem;
   font-weight: 600;
   margin: 0;
-  font-family: 'Newsreader', serif;
-  color: var(--text);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  color: var(--text-heading);
 }
 
 .file-upload {
   position: relative;
   overflow: hidden;
   width: fit-content;
-  border-radius: 4px;
+  border-radius: 8px;
   border: 1px dashed var(--border-strong);
   background: transparent;
   cursor: pointer;
-  transition: border-color 160ms ease, background 160ms ease;
+  transition: border-color 200ms cubic-bezier(0.34, 1.2, 0.64, 1), background 200ms cubic-bezier(0.34, 1.2, 0.64, 1), box-shadow 200ms cubic-bezier(0.34, 1.2, 0.64, 1), transform 200ms cubic-bezier(0.34, 1.2, 0.64, 1);
 }
 
 .file-upload:hover {
-  border-color: var(--accent);
-  background: var(--accent-soft);
+  border-color: var(--tag-text);
+  background: var(--tag-bg);
+  box-shadow: 0 0 16px rgba(96, 165, 250, 0.2);
+  transform: translateY(-1px);
 }
 
 .file-upload input {
@@ -245,8 +276,9 @@ const handleUseExample = () => {
 .file-upload span {
   display: inline-block;
   padding: 0.5rem 1.25rem;
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   color: var(--text-soft);
+  font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
 .file-upload--disabled {
@@ -259,10 +291,10 @@ const handleUseExample = () => {
   align-items: center;
   gap: 0.5rem;
   color: var(--text-muted);
-  font-size: 0.8rem;
+  font-size: 0.72rem;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  font-family: 'DM Sans', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
 .divider::before,
@@ -275,9 +307,9 @@ const handleUseExample = () => {
 
 .json-input {
   width: 100%;
-  border-radius: 4px;
-  border: 1px solid var(--border);
-  background: #FFFFFF;
+  border-radius: 8px;
+  border: 1px solid var(--ghost-border);
+  background: var(--surface);
   color: var(--text);
   padding: 0.85rem 1rem;
   font-family: 'JetBrains Mono', 'SFMono-Regular', Consolas, Menlo, monospace;
@@ -292,12 +324,13 @@ const handleUseExample = () => {
 
 .json-input:focus-visible {
   outline: none;
-  border-color: var(--accent);
-  box-shadow: 0 0 0 3px var(--accent-soft);
+  border-color: var(--tag-text);
+  box-shadow: 0 0 0 3px var(--tag-bg), 0 4px 20px rgba(96, 165, 250, 0.15);
+  transform: translateY(-1px);
 }
 
 .json-input:disabled {
-  opacity: 0.6;
+  opacity: 0.5;
   cursor: not-allowed;
 }
 
@@ -308,45 +341,51 @@ const handleUseExample = () => {
 }
 
 .mount-panel__actions button {
-  border-radius: 4px;
+  border-radius: 10px;
   padding: 0.55rem 1.4rem;
-  font-size: 0.82rem;
+  font-size: 0.72rem;
   letter-spacing: 0.04em;
+  text-transform: uppercase;
   cursor: pointer;
   border: 1px solid transparent;
-  transition: background 160ms ease, border-color 160ms ease;
-  font-family: 'DM Sans', sans-serif;
+  transition: background 200ms cubic-bezier(0.34, 1.2, 0.64, 1), border-color 200ms cubic-bezier(0.34, 1.2, 0.64, 1), box-shadow 200ms cubic-bezier(0.34, 1.2, 0.64, 1), transform 200ms cubic-bezier(0.34, 1.2, 0.64, 1), color 200ms cubic-bezier(0.34, 1.2, 0.64, 1);
+  font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
 .mount-panel__actions button.primary {
   background: var(--accent);
-  color: #FFFFFF;
+  color: var(--accent-text);
   border-color: var(--accent);
+  font-weight: 600;
 }
 
 .mount-panel__actions button.primary:hover,
 .mount-panel__actions button.primary:focus-visible {
-  background: #A8521F;
-  border-color: #A8521F;
+  background: transparent;
+  color: var(--accent);
+  box-shadow: 0 0 20px var(--accent-glow);
+  transform: translateY(-2px);
   outline: none;
 }
 
 .mount-panel__actions button.secondary {
   background: transparent;
-  border-color: var(--border);
+  border-color: var(--ghost-border);
   color: var(--text-soft);
 }
 
 .mount-panel__actions button.secondary:hover,
 .mount-panel__actions button.secondary:focus-visible {
-  background: #F0EBE5;
-  border-color: var(--border-strong);
+  background: var(--surface-high);
+  border-color: var(--text-soft);
   color: var(--text);
+  box-shadow: 0 0 12px rgba(96, 165, 250, 0.15);
+  transform: translateY(-1px);
   outline: none;
 }
 
 .mount-panel__actions button:disabled {
-  opacity: 0.45;
+  opacity: 0.35;
   cursor: not-allowed;
 }
 
@@ -355,41 +394,56 @@ const handleUseExample = () => {
   font-size: 0.85rem;
   color: var(--text-soft);
   line-height: 1.55;
+  font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
 .mount-panel__hint code {
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.8rem;
-  background: var(--accent-soft);
-  color: var(--accent);
+  background: var(--tag-bg);
+  color: var(--tag-text);
   padding: 0.1rem 0.35rem;
-  border-radius: 3px;
+  border-radius: 4px;
 }
 
 .example-json {
   max-height: 300px;
   overflow: auto;
-  border-radius: 4px;
+  border-radius: 8px;
   border: 1px solid var(--border);
-  background: #FFFFFF;
+  background: var(--surface);
   padding: 1rem;
   font-size: 0.78rem;
   font-family: 'JetBrains Mono', 'SFMono-Regular', Consolas, Menlo, monospace;
   line-height: 1.6;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-strong) transparent;
 }
+
+.example-json code {
+  display: block;
+  white-space: pre;
+}
+
+.example-json code .key { color: var(--tag-text); }
+.example-json code .string { color: var(--accent); }
+.example-json code .number { color: #f0a869; }
+.example-json code .boolean { color: #c3a6ff; }
+.example-json code .null { color: var(--text-muted); }
+.example-json code .punct { color: var(--text-soft); }
 
 .state {
   margin: 0;
   font-size: 0.85rem;
-  font-family: 'DM Sans', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
 .state--error {
-  color: var(--accent);
+  color: var(--error);
 }
 
 .state--success {
-  color: #2D6A4F;
+  color: var(--accent);
 }
 
 @media (max-width: 640px) {

@@ -227,7 +227,6 @@ const copyJson = async () => {
   border: 0;
   border-radius: 0;
   padding: 0;
-  box-shadow: none;
   min-height: auto;
   position: relative;
   overflow: visible;
@@ -237,11 +236,10 @@ const copyJson = async () => {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  background: #FFFFFF;
+  background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 4px;
+  border-radius: 2px;
   padding: clamp(1.35rem, 1.2rem + 1vw, 2rem);
-  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
   min-height: min(640px, 72vh);
   position: relative;
   overflow: hidden;
@@ -262,26 +260,26 @@ const copyJson = async () => {
 }
 
 .field__label {
-  font-size: 0.75rem;
-  letter-spacing: 0.1em;
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--text-soft);
+  color: var(--text-muted);
   font-weight: 500;
-  font-family: 'DM Sans', sans-serif;
+  font-family: 'Outfit', sans-serif;
 }
 
 .field input,
 .field textarea {
   width: 100%;
-  border-radius: 4px;
-  border: 1px solid var(--border);
-  background: #FFFFFF;
+  border-radius: 8px;
+  border: 1px solid var(--border-strong);
+  background: var(--surface-raised);
   color: var(--text);
   font-size: 0.95rem;
   padding: 0.8rem 1rem;
   outline: none;
-  transition: border-color 160ms ease, box-shadow 160ms ease;
-  font-family: 'DM Sans', sans-serif;
+  transition: border-color 220ms cubic-bezier(0.34, 1.2, 0.64, 1), box-shadow 220ms cubic-bezier(0.34, 1.2, 0.64, 1), transform 220ms cubic-bezier(0.34, 1.2, 0.64, 1);
+  font-family: 'Outfit', sans-serif;
 }
 
 .field input::placeholder,
@@ -291,8 +289,9 @@ const copyJson = async () => {
 
 .field input:focus-visible,
 .field textarea:focus-visible {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 3px var(--accent-soft);
+  border-color: var(--tag-text);
+  box-shadow: 0 0 0 3px var(--tag-bg), 0 4px 20px rgba(96, 165, 250, 0.15);
+  transform: translateY(-1px);
 }
 
 .field textarea {
@@ -314,26 +313,31 @@ const copyJson = async () => {
 }
 
 .tag-input__cta {
-  border-radius: 4px;
+  border-radius: 8px;
   padding: 0.5rem 1rem;
   border: 1px solid var(--accent);
   background: var(--accent);
-  color: #FFFFFF;
-  font-size: 0.78rem;
+  color: var(--accent-text);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
   cursor: pointer;
-  transition: background 160ms ease, border-color 160ms ease;
-  font-family: 'DM Sans', sans-serif;
+  transition: background 200ms cubic-bezier(0.34, 1.2, 0.64, 1), box-shadow 200ms cubic-bezier(0.34, 1.2, 0.64, 1), transform 200ms cubic-bezier(0.34, 1.2, 0.64, 1), color 200ms cubic-bezier(0.34, 1.2, 0.64, 1);
+  font-family: 'Outfit', sans-serif;
 }
 
 .tag-input__cta:hover,
 .tag-input__cta:focus-visible {
-  background: #A8521F;
-  border-color: #A8521F;
+  background: transparent;
+  color: var(--accent);
+  box-shadow: 0 0 20px var(--accent-glow);
+  transform: translateY(-1px);
   outline: none;
 }
 
 .tag-input__cta:disabled {
-  opacity: 0.45;
+  opacity: 0.35;
   cursor: not-allowed;
 }
 
@@ -348,12 +352,18 @@ const copyJson = async () => {
   align-items: center;
   gap: 0.4rem;
   padding: 0.3rem 0.7rem;
-  border-radius: 4px;
-  background: var(--accent-soft);
+  border-radius: 20px;
+  background: var(--accent-dim);
   color: var(--accent);
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   letter-spacing: 0.04em;
-  border: 1px solid rgba(196, 98, 45, 0.2);
+  border: 1px solid var(--accent);
+  transition: box-shadow 200ms cubic-bezier(0.34, 1.2, 0.64, 1), transform 200ms cubic-bezier(0.34, 1.2, 0.64, 1);
+}
+
+.tag-pill:hover {
+  box-shadow: 0 0 12px var(--accent-glow);
+  transform: translateY(-1px);
 }
 
 .tag-pill__remove {
@@ -376,10 +386,10 @@ const copyJson = async () => {
 .editor__error {
   margin: 0;
   padding: 0.75rem 1rem;
-  border-radius: 4px;
-  border: 1px solid rgba(196, 98, 45, 0.3);
-  background: #FFF8F5;
-  color: var(--accent);
+  border-radius: 2px;
+  border: 1px solid rgba(255, 77, 77, 0.3);
+  background: var(--error-dim);
+  color: var(--error);
   font-size: 0.85rem;
 }
 
@@ -392,45 +402,50 @@ const copyJson = async () => {
 
 .editor__secondary,
 .editor__submit {
-  border-radius: 4px;
+  border-radius: 8px;
   padding: 0.55rem 1.4rem;
-  font-size: 0.82rem;
-  letter-spacing: 0.04em;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   cursor: pointer;
-  transition: background 160ms ease, border-color 160ms ease;
-  font-family: 'DM Sans', sans-serif;
+  transition: background 200ms cubic-bezier(0.34, 1.2, 0.64, 1), border-color 200ms cubic-bezier(0.34, 1.2, 0.64, 1), box-shadow 200ms cubic-bezier(0.34, 1.2, 0.64, 1), transform 200ms cubic-bezier(0.34, 1.2, 0.64, 1), color 200ms cubic-bezier(0.34, 1.2, 0.64, 1);
+  font-family: 'Outfit', sans-serif;
 }
 
 .editor__secondary {
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-strong);
   background: transparent;
   color: var(--text-soft);
 }
 
 .editor__secondary:hover,
 .editor__secondary:focus-visible {
-  background: #F0EBE5;
-  border-color: var(--border-strong);
+  background: var(--surface-raised);
+  border-color: var(--text-soft);
   color: var(--text);
+  box-shadow: 0 0 12px rgba(96, 165, 250, 0.15);
+  transform: translateY(-1px);
   outline: none;
 }
 
 .editor__submit {
   border: 1px solid var(--accent);
   background: var(--accent);
-  color: #FFFFFF;
-  font-weight: 500;
+  color: var(--accent-text);
+  font-weight: 600;
 }
 
 .editor__submit:hover,
 .editor__submit:focus-visible {
-  background: #A8521F;
-  border-color: #A8521F;
+  background: transparent;
+  color: var(--accent);
+  box-shadow: 0 0 20px var(--accent-glow);
+  transform: translateY(-1px);
   outline: none;
 }
 
 .editor__submit:disabled {
-  opacity: 0.55;
+  opacity: 0.35;
   cursor: not-allowed;
 }
 
@@ -439,9 +454,9 @@ const copyJson = async () => {
   flex-direction: column;
   gap: 0.85rem;
   padding: 1rem;
-  border-radius: 4px;
+  border-radius: 2px;
   border: 1px solid var(--border);
-  background: #F7F4EF;
+  background: var(--surface-raised);
 }
 
 .editor__output-header {
@@ -454,38 +469,43 @@ const copyJson = async () => {
 
 .editor__output-title {
   margin: 0;
-  font-size: 0.75rem;
-  letter-spacing: 0.1em;
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--text-soft);
-  font-family: 'DM Sans', sans-serif;
+  color: var(--text-muted);
+  font-family: 'Outfit', sans-serif;
 }
 
 .editor__copy {
-  border-radius: 4px;
+  border-radius: 8px;
   padding: 0.4rem 1rem;
   border: 1px solid var(--accent);
   background: var(--accent);
-  color: #FFFFFF;
-  font-size: 0.75rem;
+  color: var(--accent-text);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
   cursor: pointer;
-  transition: background 160ms ease, border-color 160ms ease;
-  font-family: 'DM Sans', sans-serif;
+  transition: background 200ms cubic-bezier(0.34, 1.2, 0.64, 1), box-shadow 200ms cubic-bezier(0.34, 1.2, 0.64, 1), transform 200ms cubic-bezier(0.34, 1.2, 0.64, 1), color 200ms cubic-bezier(0.34, 1.2, 0.64, 1);
+  font-family: 'Outfit', sans-serif;
 }
 
 .editor__copy:hover,
 .editor__copy:focus-visible {
-  background: #A8521F;
-  border-color: #A8521F;
+  background: transparent;
+  color: var(--accent);
+  box-shadow: 0 0 16px var(--accent-glow);
+  transform: translateY(-1px);
   outline: none;
 }
 
 .editor__json {
   margin: 0;
   padding: 1rem;
-  border-radius: 4px;
-  background: #FFFFFF;
-  border: 1px solid var(--border);
+  border-radius: 2px;
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
   color: var(--text);
   font-family: 'JetBrains Mono', 'SFMono-Regular', Consolas, Menlo, monospace;
   font-size: 0.82rem;
@@ -515,7 +535,7 @@ const copyJson = async () => {
 @media (max-width: 960px) {
   .panel.editor-panel {
     padding: 1.25rem;
-    border-radius: 4px;
+    border-radius: 2px;
     min-height: auto;
   }
 
