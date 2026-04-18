@@ -758,19 +758,19 @@ watch(sourceEntries, (list) => {
 /* ── Wordmark — the bold logo text ── */
 .wordmark {
   margin: 0;
-  font-family: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
+  font-family: 'Space Grotesk', 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
   font-weight: 900;
   font-size: clamp(1.8rem, 1.2rem + 4vw, 4rem);
   letter-spacing: -0.03em;
   line-height: 1;
   background: linear-gradient(
     100deg,
-    #E8417D 0%,
-    #ED5F68 18%,
-    #F37C5B 36%,
-    #F79450 52%,
-    #FAAE3D 70%,
-    #FFC629 100%
+    #1A9E5F 0%,
+    #2BC489 20%,
+    #3ECF8E 40%,
+    #5EDCA6 60%,
+    #7EFFBD 80%,
+    #A8FFD9 100%
   );
   background-clip: text;
   -webkit-background-clip: text;
