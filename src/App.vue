@@ -763,6 +763,7 @@ watch(sourceEntries, (list) => {
   font-size: clamp(1.8rem, 1.2rem + 4vw, 4rem);
   letter-spacing: -0.03em;
   line-height: 1;
+  word-spacing: -0.02em;
   background: linear-gradient(
     100deg,
     #1A9E5F 0%,
@@ -930,15 +931,21 @@ watch(sourceEntries, (list) => {
 
 .archive-json-viewer {
   width: 100%;
-  border-radius: 10px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  line-height: 1.7;
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.08);
   border: 1px solid var(--ghost-border);
   background: var(--surface);
   color: var(--text);
   padding: 1rem;
-  font-size: 0.9rem;
   font-family: 'JetBrains Mono', 'SFMono-Regular', Consolas, Menlo, monospace;
   min-height: 320px;
   resize: vertical;
+}
+
+:root.dark-theme .archive-json-viewer {
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
 .filter-notice {

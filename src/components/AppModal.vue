@@ -105,8 +105,8 @@ onBeforeUnmount(() => {
   position: fixed;
   inset: 0;
   background: rgba(12, 12, 15, 0.75);
-  backdrop-filter: blur(12px) saturate(180%);
-  -webkit-backdrop-filter: blur(12px) saturate(180%);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
   display: flex;
   align-items: flex-start;
   justify-content: center;
@@ -129,7 +129,7 @@ onBeforeUnmount(() => {
   flex-direction: column;
   margin-top: clamp(1rem, 4vh, 3rem);
   margin-bottom: clamp(1rem, 4vh, 3rem);
-  border-radius: 16px;
+  border-radius: 20px;
   border: 1px solid var(--border-strong);
   background: var(--surface);
   box-shadow:

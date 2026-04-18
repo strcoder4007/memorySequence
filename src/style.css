@@ -49,9 +49,9 @@
   --ghost-border: #E5E5E5;
 
   /* Tags */
-  --tag-bg: #E8F2FF;
-  --tag-text: #2E7DFF;
-  --tag-border: transparent;
+  --tag-bg: rgba(54, 211, 153, 0.12);
+  --tag-text: #36D399;
+  --tag-border: rgba(54, 211, 153, 0.3);
 
   /* Semantic */
   --error: #D32F2F;
@@ -106,9 +106,9 @@
   --ghost-border: #444444;
 
   /* Tags */
-  --tag-bg: #1E3A8A;
-  --tag-text: #60A5FA;
-  --tag-border: transparent;
+  --tag-bg: rgba(54, 211, 153, 0.15);
+  --tag-text: #36D399;
+  --tag-border: rgba(54, 211, 153, 0.25);
 
   /* Semantic */
   --error: #F87171;

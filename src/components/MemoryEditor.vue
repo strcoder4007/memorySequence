@@ -289,8 +289,8 @@ const copyJson = async () => {
 
 .field input:focus-visible,
 .field textarea:focus-visible {
-  border-color: var(--tag-text);
-  box-shadow: 0 0 0 3px var(--tag-bg), 0 4px 20px rgba(96, 165, 250, 0.15);
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-dim), 0 4px 20px rgba(54, 211, 153, 0.12);
   transform: translateY(-1px);
 }
 
@@ -439,8 +439,8 @@ const copyJson = async () => {
 .editor__submit:focus-visible {
   background: transparent;
   color: var(--accent);
-  box-shadow: 0 0 20px var(--accent-glow);
-  transform: translateY(-1px);
+  box-shadow: 0 0 0 2px var(--accent-glow), 0 0 24px var(--accent-glow);
+  transform: translateY(-2px) scale(1.02);
   outline: none;
 }
 

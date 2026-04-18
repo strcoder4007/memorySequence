@@ -89,7 +89,7 @@ const props = defineProps({
 .eyebrow {
   font-size: 0.68rem;
   text-transform: uppercase;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.15em;
   color: var(--text-muted);
   font-weight: 600;
   display: inline-flex;
@@ -148,8 +148,9 @@ const props = defineProps({
 .prose :deep(p) {
   margin: 0 0 1.25rem;
   color: var(--prose-color);
-  line-height: 1.85;
-  font-size: 1.0625rem;
+  line-height: 1.9;
+  font-size: 1.05rem;
+  letter-spacing: 0.01em;
   font-family: 'Plus Jakarta Sans', sans-serif;
 }
 

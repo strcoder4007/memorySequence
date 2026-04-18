@@ -153,7 +153,7 @@ const handleSelect = (item) => {
 
 .eyebrow {
   font-size: 0.62rem;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
   color: var(--text-muted);
   font-weight: 600;
@@ -320,8 +320,8 @@ const handleSelect = (item) => {
 }
 
 .chart__column:hover .chart__bar:not(.chart__bar--empty):not(.chart__bar--active) {
-  transform: translateY(-2px);
-  box-shadow: 0 0 16px var(--accent-glow);
+  transform: translateY(-3px);
+  box-shadow: 0 0 20px var(--accent-glow);
 }
 
 .chart__tooltip {
