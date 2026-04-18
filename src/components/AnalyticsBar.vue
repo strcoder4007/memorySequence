@@ -22,18 +22,21 @@ const enriched = computed(() => {
   if (!props.data.length) {
     return []
   }
-  const max = Math.max(...props.data.map((item) => item.words ?? 0))
-  const safeMax = max === 0 ? 1 : max
+  // Only consider months with actual words for the scale — zero-word months get excluded from max
+  const wordCounts = props.data.map((item) => item.words ?? 0)
+  const maxWords = Math.max(...wordCounts.filter((w) => w > 0))
+  const safeMax = maxWords === 0 ? 1 : maxWords
+  const logMax = Math.log1p(safeMax)
   const scale = 120
   return props.data.map((item) => {
     const chars = item.chars ?? 0
     const words = item.words ?? 0
-    // Use logarithmic scale for better visual distribution across word counts
-    const logMax = Math.log1p(safeMax)
+    const hasWords = words > 0
+    // Logarithmic scale: only applies to months with words
     const logWords = Math.log1p(words)
-    const ratio = logWords / logMax
+    const ratio = hasWords ? logWords / logMax : 0
     const computedHeight = Math.round(ratio * scale)
-    const minHeight = words === 0 ? 4 : 16
+    const minHeight = hasWords ? 16 : 4
     const blogCount = item.count ?? 0
     const blogLabel = blogCount === 1 ? '1 blog' : `${blogCount} blogs`
     const wordLabel = words === 1 ? '1 word' : `${words.toLocaleString()} words`
