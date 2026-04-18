@@ -40,10 +40,10 @@
   --text-muted: #999999;
 
   /* Accent / CTA */
-  --accent: #2563EB;
+  --accent: #36D399;
   --accent-text: #FFFFFF;
-  --accent-dim: rgba(37, 99, 235, 0.08);
-  --accent-glow: rgba(37, 99, 235, 0.15);
+  --accent-dim: rgba(54, 211, 153, 0.10);
+  --accent-glow: rgba(54, 211, 153, 0.20);
 
   /* Ghost button */
   --ghost-border: #E5E5E5;
@@ -96,11 +96,11 @@
   --text-soft: #9CA3AF;
   --text-muted: #6B7280;
 
-  /* Accent / CTA — warm beige */
-  --accent: #60A5FA;
-  --accent-text: #0F172A;
-  --accent-dim: rgba(96, 165, 250, 0.12);
-  --accent-glow: rgba(96, 165, 250, 0.20);
+  /* Accent / CTA — Supabase green */
+  --accent: #36D399;
+  --accent-text: #0F1E14;
+  --accent-dim: rgba(54, 211, 153, 0.12);
+  --accent-glow: rgba(54, 211, 153, 0.22);
 
   /* Ghost button */
   --ghost-border: #444444;

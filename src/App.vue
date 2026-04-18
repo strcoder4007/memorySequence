@@ -571,11 +571,13 @@ watch(sourceEntries, (list) => {
 <template>
   <div class="app-shell">
     <header class="hero">
-      <div class="hero__brand">
-        <div class="logo" aria-label="Memory Sequence">
-          <span class="logo__memory">MEMORY</span>
-          <span class="logo__separator" aria-hidden="true"></span>
-          <span class="logo__sequences">SEQUENCES</span>
+      <div class="hero__top">
+        <div class="hero__logo-wrap">
+          <h1 class="wordmark">
+            <span class="wordmark__memory">MEMORY</span>
+            <span class="wordmark__space" aria-hidden="true"> </span>
+            <span class="wordmark__sequences">SEQUENCES</span>
+          </h1>
         </div>
         <button
           type="button"
@@ -734,42 +736,83 @@ watch(sourceEntries, (list) => {
 }
 
 /* ─── Floating pill nav bar ─── */
+/* ── Hero shell ── */
 .hero {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 0;
+  gap: 1rem;
+  width: 100%;
+  padding: 2rem 0 1.5rem;
+  border-bottom: 1px solid var(--border);
 }
 
-.hero__brand {
+/* ── Top row: logo left, toggle right ── */
+.hero__top {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 0.75rem;
-  padding: 0.6rem 1rem 0.6rem 1rem;
-  border-radius: 50px;
-  background: var(--surface);
-  border: 1px solid var(--ghost-border);
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
-  width: fit-content;
-  transition: box-shadow 250ms cubic-bezier(0.34, 1.1, 0.64, 1), transform 250ms cubic-bezier(0.34, 1.1, 0.64, 1);
+  justify-content: space-between;
+  gap: 1rem;
+  width: 100%;
 }
 
-:root.dark-theme .hero__brand {
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+/* ── Wordmark — the bold logo text ── */
+.wordmark {
+  margin: 0;
+  font-family: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
+  font-weight: 900;
+  font-size: clamp(1.8rem, 1.2rem + 4vw, 4rem);
+  letter-spacing: -0.03em;
+  line-height: 1;
+  background: linear-gradient(
+    100deg,
+    #E8417D 0%,
+    #ED5F68 18%,
+    #F37C5B 36%,
+    #F79450 52%,
+    #FAAE3D 70%,
+    #FFC629 100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  display: inline-block;
+  position: relative;
+  user-select: none;
 }
 
-.hero__brand:hover {
-  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.14);
-  transform: translateY(-2px);
+/* Subtle shimmer texture */
+.wordmark::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    135deg,
+    transparent,
+    transparent 4px,
+    rgba(255, 255, 255, 0.018) 4px,
+    rgba(255, 255, 255, 0.018) 5px
+  );
+  pointer-events: none;
+  border-radius: inherit;
 }
 
+.wordmark__memory,
+.wordmark__sequences {
+  display: inline;
+}
+
+.wordmark__space {
+  display: inline;
+}
+
+/* ── Theme toggle ── */
 .theme-toggle {
-  width: 2.2rem;
-  height: 2.2rem;
-  border-radius: 8px;
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 10px;
   border: 1px solid var(--ghost-border);
-  background: transparent;
+  background: var(--surface);
   color: var(--text-soft);
   display: inline-flex;
   align-items: center;
@@ -777,6 +820,7 @@ watch(sourceEntries, (list) => {
   cursor: pointer;
   transition: background 200ms cubic-bezier(0.34, 1.2, 0.64, 1), border-color 200ms cubic-bezier(0.34, 1.2, 0.64, 1), color 200ms cubic-bezier(0.34, 1.2, 0.64, 1), box-shadow 200ms cubic-bezier(0.34, 1.2, 0.64, 1), transform 200ms cubic-bezier(0.34, 1.2, 0.64, 1);
   flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
 .theme-toggle:hover,
@@ -784,16 +828,20 @@ watch(sourceEntries, (list) => {
   background: var(--accent-dim);
   border-color: var(--accent);
   color: var(--accent);
-  box-shadow: 0 0 16px var(--accent-glow);
+  box-shadow: 0 0 20px var(--accent-glow);
   transform: rotate(12deg) scale(1.05);
   outline: none;
+}
+
+:root.dark-theme .theme-toggle {
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
 }
 
 .data-actions {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0.6rem;
 }
 
 .demount-button {
@@ -801,11 +849,11 @@ watch(sourceEntries, (list) => {
   border: 1px solid var(--ghost-border);
   background: transparent;
   color: var(--text-soft);
-  padding: 0.45rem 1.4rem;
-  font-size: 0.75rem;
-  cursor: pointer;
-  transition: background 200ms cubic-bezier(0.34, 1.2, 0.64, 1), border-color 200ms cubic-bezier(0.34, 1.2, 0.64, 1), color 200ms cubic-bezier(0.34, 1.2, 0.64, 1), box-shadow 200ms cubic-bezier(0.34, 1.2, 0.64, 1), transform 200ms cubic-bezier(0.34, 1.2, 0.64, 1);
+  padding: 0.4rem 1.2rem;
+  font-size: 0.72rem;
   font-family: 'Plus Jakarta Sans', sans-serif;
+  cursor: pointer;
+  transition: background 200ms, border-color 200ms, color 200ms, box-shadow 200ms, transform 200ms;
 }
 
 .demount-button:hover,
@@ -825,22 +873,21 @@ watch(sourceEntries, (list) => {
 
 .generate-button {
   border-radius: 10px;
-  border: 1px solid var(--ghost-border);
-  background: transparent;
-  color: var(--text-soft);
-  padding: 0.45rem 1.4rem;
-  font-size: 0.75rem;
-  cursor: pointer;
-  transition: background 200ms cubic-bezier(0.34, 1.2, 0.64, 1), border-color 200ms cubic-bezier(0.34, 1.2, 0.64, 1), color 200ms cubic-bezier(0.34, 1.2, 0.64, 1), box-shadow 200ms cubic-bezier(0.34, 1.2, 0.64, 1), transform 200ms cubic-bezier(0.34, 1.2, 0.64, 1);
+  border: 1px solid var(--accent);
+  background: var(--accent);
+  color: var(--accent-text);
+  padding: 0.4rem 1.2rem;
+  font-size: 0.72rem;
   font-family: 'Plus Jakarta Sans', sans-serif;
+  cursor: pointer;
+  transition: background 200ms, border-color 200ms, color 200ms, box-shadow 200ms, transform 200ms;
 }
 
 .generate-button:hover,
 .generate-button:focus-visible {
-  background: var(--accent-dim);
-  border-color: var(--accent);
+  background: transparent;
   color: var(--accent);
-  box-shadow: 0 0 16px var(--accent-glow);
+  box-shadow: 0 0 20px var(--accent-glow);
   transform: translateY(-1px);
   outline: none;
 }
@@ -855,11 +902,11 @@ watch(sourceEntries, (list) => {
   border: 1px solid var(--ghost-border);
   background: transparent;
   color: var(--text-muted);
-  padding: 0.45rem 1.1rem;
-  font-size: 0.75rem;
-  cursor: pointer;
-  transition: background 200ms cubic-bezier(0.34, 1.2, 0.64, 1), border-color 200ms cubic-bezier(0.34, 1.2, 0.64, 1), color 200ms cubic-bezier(0.34, 1.2, 0.64, 1), transform 200ms cubic-bezier(0.34, 1.2, 0.64, 1);
+  padding: 0.4rem 1rem;
+  font-size: 0.72rem;
   font-family: 'Plus Jakarta Sans', sans-serif;
+  cursor: pointer;
+  transition: background 200ms, border-color 200ms, color 200ms, transform 200ms;
 }
 
 .hide-json-button:hover,
@@ -892,67 +939,6 @@ watch(sourceEntries, (list) => {
   font-family: 'JetBrains Mono', 'SFMono-Regular', Consolas, Menlo, monospace;
   min-height: 320px;
   resize: vertical;
-}
-
-.logo {
-  display: flex;
-  align-items: baseline;
-  gap: 0;
-  line-height: 1;
-  user-select: none;
-}
-
-.logo__memory,
-.logo__sequences {
-  font-family: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
-  font-weight: 900;
-  font-size: clamp(1.2rem, 0.9rem + 1.8vw, 2.2rem);
-  letter-spacing: -0.02em;
-  text-transform: uppercase;
-  background: linear-gradient(
-    90deg,
-    #E8417D 0%,
-    #ED5F68 20%,
-    #F37C5B 40%,
-    #F79450 55%,
-    #FAAE3D 72%,
-    #FFC629 100%
-  );
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent;
-  display: inline-block;
-  position: relative;
-}
-
-.logo__memory::after,
-.logo__sequences::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: repeating-linear-gradient(
-    135deg,
-    transparent,
-    transparent 3px,
-    rgba(255, 255, 255, 0.015) 3px,
-    rgba(255, 255, 255, 0.015) 4px
-  );
-  pointer-events: none;
-  border-radius: inherit;
-}
-
-.logo__separator {
-  display: inline-block;
-  width: 5px;
-  height: 5px;
-  background: linear-gradient(135deg, #F79450, #FAAE3D);
-  transform: rotate(45deg);
-  margin: 0 clamp(0.35rem, 0.3rem + 0.5vw, 0.8rem);
-  align-self: center;
-  flex-shrink: 0;
-  position: relative;
-  top: -0.1em;
 }
 
 .filter-notice {
