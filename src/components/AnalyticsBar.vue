@@ -32,14 +32,16 @@ const enriched = computed(() => {
     const computedHeight = Math.round(ratio * scale)
     const minHeight = words === 0 ? 6 : 28
     const blogCount = item.count ?? 0
-    const blogLabel = `${blogCount} ${blogCount === 1 ? 'blog' : 'blogs'}`
-    const accessibleLabel = `${item.label?.replace(/\n/g, ' ') ?? ''} — ${blogLabel}`
+    const blogLabel = blogCount === 1 ? '1 blog' : `${blogCount} blogs`
+    const wordLabel = words === 1 ? '1 word' : `${words.toLocaleString()} words`
+    const accessibleLabel = `${item.label?.replace(/\n/g, ' ') ?? ''} — ${wordLabel}`
     return {
       ...item,
       chars,
       words,
       count: blogCount,
       blogLabel,
+      wordLabel,
       accessibleLabel,
       active: props.activeKey === item.key,
       height: Math.max(minHeight, computedHeight),
@@ -124,7 +126,8 @@ const handleSelect = (item) => {
             <!-- Tooltip — hover only -->
             <div class="chart__tooltip" role="presentation">
               <span class="chart__tooltip-label">{{ item.label }}</span>
-              <span class="chart__tooltip-count">{{ item.blogLabel }}</span>
+              <span class="chart__tooltip-count">{{ item.wordLabel }}</span>
+              <span class="chart__tooltip-sub">{{ item.blogLabel }}</span>
             </div>
 
             <!-- Year label — only for first month of each year -->
@@ -351,9 +354,16 @@ const handleSelect = (item) => {
 
 .chart__tooltip-count {
   display: block;
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   color: var(--accent);
-  font-weight: 500;
+  font-weight: 600;
+}
+
+.chart__tooltip-sub {
+  display: block;
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  margin-top: 0.1rem;
 }
 
 .chart__column:hover .chart__tooltip,
