@@ -246,7 +246,7 @@ const blankMessage = computed(() => {
 .eyebrow {
   font-size: 0.68rem;
   text-transform: uppercase;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.15em;
   color: var(--text-muted);
   font-weight: 600;
   display: inline-flex;
@@ -280,8 +280,8 @@ const blankMessage = computed(() => {
 .panel__cta:focus-visible {
   background: transparent;
   color: var(--accent);
-  box-shadow: 0 0 20px var(--accent-glow);
-  transform: translateY(-2px);
+  box-shadow: 0 0 0 2px var(--accent-glow), 0 0 24px var(--accent-glow);
+  transform: translateY(-2px) scale(1.02);
   outline: none;
 }
 
@@ -396,8 +396,8 @@ const blankMessage = computed(() => {
 
 .memory-card--active {
   border-left-color: var(--accent);
+  border-left-width: 3px;
   background: var(--accent-dim);
-  box-shadow: inset 4px 0 20px var(--accent-glow);
 }
 
 .memory-card__button {
@@ -423,8 +423,8 @@ const blankMessage = computed(() => {
 
 .memory-card:hover:not(.memory-card--active) {
   background: var(--surface-raised);
-  transform: translateX(3px);
-  box-shadow: -4px 0 16px var(--accent-glow);
+  transform: translateX(4px);
+  box-shadow: -4px 0 20px var(--accent-glow);
 }
 
 .memory-card__date {
@@ -481,6 +481,12 @@ const blankMessage = computed(() => {
   border: 1px solid var(--tag-border);
   font-family: 'Plus Jakarta Sans', sans-serif;
   text-transform: uppercase;
+  cursor: pointer;
+  transition: transform 200ms cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 200ms ease;
+}
+.memory-card__tags .tag-chip:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 12px var(--accent-glow);
 }
 
 .state {

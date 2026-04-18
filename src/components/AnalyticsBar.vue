@@ -270,11 +270,11 @@ const handleSelect = (item) => {
   width: 100%;
   height: calc(var(--bar-height) * 1px);
   min-height: 4px;
-  border-radius: 6px;
+  border-radius: 4px;
   background: linear-gradient(
     160deg,
-    color-mix(in srgb, var(--tag-text) 75%, var(--bg) 25%) 0%,
-    var(--tag-text) 100%
+    color-mix(in srgb, var(--accent) 75%, var(--bg) 25%) 0%,
+    var(--accent) 100%
   );
   position: relative;
   transition:
@@ -285,17 +285,17 @@ const handleSelect = (item) => {
 
 .chart__bar--empty {
   background: var(--border-strong);
-  border-radius: 6px;
+  border-radius: 4px;
   height: 6px !important;
   min-height: 6px;
   box-shadow: none;
 }
 
 .chart__bar--active {
-  background: linear-gradient(160deg, var(--tag-text) 0%, var(--tag-bg) 100%);
+  background: linear-gradient(160deg, var(--accent) 0%, color-mix(in srgb, var(--accent) 60%, var(--bg) 40%) 100%);
   box-shadow:
     0 0 12px var(--accent-glow),
-    0 0 24px rgba(96, 165, 250, 0.1);
+    0 0 24px var(--accent-glow);
 }
 
 .chart__bar-dot {
@@ -306,7 +306,7 @@ const handleSelect = (item) => {
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: var(--tag-text);
+  background: var(--accent);
   box-shadow: 0 0 0 2px var(--accent-glow);
 }
 
@@ -352,7 +352,7 @@ const handleSelect = (item) => {
 .chart__tooltip-count {
   display: block;
   font-size: 0.7rem;
-  color: var(--tag-text);
+  color: var(--accent);
   font-weight: 500;
 }
 

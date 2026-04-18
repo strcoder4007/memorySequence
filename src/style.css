@@ -199,5 +199,6 @@ button {
 h1, h2, h3, h4, h5, h6 {
   color: var(--text-heading);
   font-family: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
-  line-height: 1.25;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
 }
