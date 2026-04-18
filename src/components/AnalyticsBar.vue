@@ -28,9 +28,12 @@ const enriched = computed(() => {
   return props.data.map((item) => {
     const chars = item.chars ?? 0
     const words = item.words ?? 0
-    const ratio = words / safeMax
+    // Use logarithmic scale for better visual distribution across word counts
+    const logMax = Math.log1p(safeMax)
+    const logWords = Math.log1p(words)
+    const ratio = logWords / logMax
     const computedHeight = Math.round(ratio * scale)
-    const minHeight = words === 0 ? 6 : 28
+    const minHeight = words === 0 ? 4 : 16
     const blogCount = item.count ?? 0
     const blogLabel = blogCount === 1 ? '1 blog' : `${blogCount} blogs`
     const wordLabel = words === 1 ? '1 word' : `${words.toLocaleString()} words`
