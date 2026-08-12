@@ -81,7 +81,7 @@ const blankMessage = computed(() => {
   <section class="panel panel--scroll">
     <header class="panel__header">
       <p class="eyebrow">
-        Browse Memory Sequences
+        Browse Memory Sequence
         <span class="eyebrow__count">({{ visibleCount }})</span>
       </p>
       <button

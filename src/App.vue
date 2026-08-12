@@ -576,7 +576,7 @@ watch(sourceEntries, (list) => {
           <h1 class="wordmark">
             <span class="wordmark__memory">MEMORY</span>
             <span class="wordmark__space" aria-hidden="true"> </span>
-            <span class="wordmark__sequences">SEQUENCES</span>
+            <span class="wordmark__sequence">SEQUENCE</span>
           </h1>
         </div>
         <button
@@ -755,11 +755,17 @@ watch(sourceEntries, (list) => {
   width: 100%;
 }
 
-/* ── Wordmark — the bold logo text ── */
+/* ── Wordmark — the logo text ── */
 .wordmark {
   margin: 0;
-  font-family: var(--font-body);
-  font-weight: 900;
+  font-family: 'Bitcount Prop Single', system-ui;
+  font-optical-sizing: auto;
+  font-variation-settings:
+    "slnt" 0,
+    "CRSV" 0.5,
+    "ELSH" 0,
+    "ELXP" 0;
+  font-weight: 400;
   font-size: clamp(1.8rem, 1.2rem + 4vw, 4rem);
   letter-spacing: -0.03em;
   line-height: 1;
@@ -770,7 +776,7 @@ watch(sourceEntries, (list) => {
 }
 
 .wordmark__memory,
-.wordmark__sequences {
+.wordmark__sequence {
   display: inline;
 }
 
