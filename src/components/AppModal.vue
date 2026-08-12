@@ -161,7 +161,7 @@ onBeforeUnmount(() => {
   text-transform: uppercase;
   color: var(--text-muted);
   font-weight: 500;
-  font-family: var(--font-ui);
+  font-family: var(--font-body);
 }
 
 .modal__close {

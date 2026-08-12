@@ -210,14 +210,14 @@ const handleUseExample = () => {
   font-size: clamp(1.45rem, 1.2rem + 1vw, 1.9rem);
   font-weight: 700;
   margin: 0;
-  font-family: var(--font-ui);
+  font-family: var(--font-body);
   color: var(--text);
 }
 
 .mount-panel__header p {
   margin: 0;
   color: var(--text-soft);
-  font-family: var(--font-ui);
+  font-family: var(--font-body);
   font-size: 1.05rem;
 }
 

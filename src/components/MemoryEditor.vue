@@ -265,7 +265,7 @@ const copyJson = async () => {
   text-transform: uppercase;
   color: var(--text-muted);
   font-weight: 500;
-  font-family: var(--font-ui);
+  font-family: var(--font-body);
 }
 
 .field input,
@@ -279,7 +279,7 @@ const copyJson = async () => {
   padding: 0.8rem 1rem;
   outline: none;
   transition: border-color 150ms ease;
-  font-family: var(--font-ui);
+  font-family: var(--font-body);
 }
 
 .field input::placeholder,
@@ -322,7 +322,7 @@ const copyJson = async () => {
   text-transform: uppercase;
   cursor: pointer;
   transition: background 150ms ease, border-color 150ms ease, color 150ms ease;
-  font-family: var(--font-ui);
+  font-family: var(--font-body);
 }
 
 .tag-input__cta:hover,
@@ -399,7 +399,7 @@ const copyJson = async () => {
   text-transform: uppercase;
   cursor: pointer;
   transition: background 150ms ease, border-color 150ms ease, color 150ms ease;
-  font-family: var(--font-ui);
+  font-family: var(--font-body);
 }
 
 .editor__secondary {
@@ -459,7 +459,7 @@ const copyJson = async () => {
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--text-muted);
-  font-family: var(--font-ui);
+  font-family: var(--font-body);
 }
 
 .editor__copy {
@@ -474,7 +474,7 @@ const copyJson = async () => {
   text-transform: uppercase;
   cursor: pointer;
   transition: background 150ms ease, border-color 150ms ease, color 150ms ease;
-  font-family: var(--font-ui);
+  font-family: var(--font-body);
 }
 
 .editor__copy:hover,

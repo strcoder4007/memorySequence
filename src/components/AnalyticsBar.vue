@@ -235,7 +235,7 @@ const handleSelect = (item) => {
   letter-spacing: 0.03em;
   margin-bottom: 0.35rem;
   white-space: nowrap;
-  font-family: var(--font-ui);
+  font-family: var(--font-body);
   opacity: 0;
   transition: opacity 150ms ease;
   height: 0;
@@ -258,7 +258,7 @@ const handleSelect = (item) => {
   letter-spacing: 0.06em;
   color: var(--text-soft);
   font-weight: 600;
-  font-family: var(--font-ui);
+  font-family: var(--font-body);
   white-space: nowrap;
   pointer-events: none;
 }
