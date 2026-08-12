@@ -265,7 +265,7 @@ const copyJson = async () => {
   text-transform: uppercase;
   color: var(--text-muted);
   font-weight: 500;
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-ui);
 }
 
 .field input,
@@ -278,8 +278,8 @@ const copyJson = async () => {
   font-size: 0.95rem;
   padding: 0.8rem 1rem;
   outline: none;
-  transition: border-color 220ms cubic-bezier(0.34, 1.2, 0.64, 1), box-shadow 220ms cubic-bezier(0.34, 1.2, 0.64, 1), transform 220ms cubic-bezier(0.34, 1.2, 0.64, 1);
-  font-family: 'Outfit', sans-serif;
+  transition: border-color 150ms ease;
+  font-family: var(--font-ui);
 }
 
 .field input::placeholder,
@@ -290,8 +290,6 @@ const copyJson = async () => {
 .field input:focus-visible,
 .field textarea:focus-visible {
   border-color: var(--accent);
-  box-shadow: 0 0 0 3px var(--accent-dim), 0 4px 20px rgba(54, 211, 153, 0.12);
-  transform: translateY(-1px);
 }
 
 .field textarea {
@@ -323,16 +321,14 @@ const copyJson = async () => {
   letter-spacing: 0.06em;
   text-transform: uppercase;
   cursor: pointer;
-  transition: background 200ms cubic-bezier(0.34, 1.2, 0.64, 1), box-shadow 200ms cubic-bezier(0.34, 1.2, 0.64, 1), transform 200ms cubic-bezier(0.34, 1.2, 0.64, 1), color 200ms cubic-bezier(0.34, 1.2, 0.64, 1);
-  font-family: 'Outfit', sans-serif;
+  transition: background 150ms ease, border-color 150ms ease, color 150ms ease;
+  font-family: var(--font-ui);
 }
 
 .tag-input__cta:hover,
 .tag-input__cta:focus-visible {
   background: transparent;
   color: var(--accent);
-  box-shadow: 0 0 20px var(--accent-glow);
-  transform: translateY(-1px);
   outline: none;
 }
 
@@ -352,18 +348,12 @@ const copyJson = async () => {
   align-items: center;
   gap: 0.4rem;
   padding: 0.3rem 0.7rem;
-  border-radius: 20px;
+  border-radius: 999px;
   background: var(--accent-dim);
   color: var(--accent);
   font-size: 0.72rem;
   letter-spacing: 0.04em;
   border: 1px solid var(--accent);
-  transition: box-shadow 200ms cubic-bezier(0.34, 1.2, 0.64, 1), transform 200ms cubic-bezier(0.34, 1.2, 0.64, 1);
-}
-
-.tag-pill:hover {
-  box-shadow: 0 0 12px var(--accent-glow);
-  transform: translateY(-1px);
 }
 
 .tag-pill__remove {
@@ -408,8 +398,8 @@ const copyJson = async () => {
   letter-spacing: 0.08em;
   text-transform: uppercase;
   cursor: pointer;
-  transition: background 200ms cubic-bezier(0.34, 1.2, 0.64, 1), border-color 200ms cubic-bezier(0.34, 1.2, 0.64, 1), box-shadow 200ms cubic-bezier(0.34, 1.2, 0.64, 1), transform 200ms cubic-bezier(0.34, 1.2, 0.64, 1), color 200ms cubic-bezier(0.34, 1.2, 0.64, 1);
-  font-family: 'Outfit', sans-serif;
+  transition: background 150ms ease, border-color 150ms ease, color 150ms ease;
+  font-family: var(--font-ui);
 }
 
 .editor__secondary {
@@ -423,8 +413,6 @@ const copyJson = async () => {
   background: var(--surface-raised);
   border-color: var(--text-soft);
   color: var(--text);
-  box-shadow: 0 0 12px rgba(96, 165, 250, 0.15);
-  transform: translateY(-1px);
   outline: none;
 }
 
@@ -439,8 +427,6 @@ const copyJson = async () => {
 .editor__submit:focus-visible {
   background: transparent;
   color: var(--accent);
-  box-shadow: 0 0 0 2px var(--accent-glow), 0 0 24px var(--accent-glow);
-  transform: translateY(-2px) scale(1.02);
   outline: none;
 }
 
@@ -473,7 +459,7 @@ const copyJson = async () => {
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--text-muted);
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-ui);
 }
 
 .editor__copy {
@@ -487,16 +473,14 @@ const copyJson = async () => {
   letter-spacing: 0.06em;
   text-transform: uppercase;
   cursor: pointer;
-  transition: background 200ms cubic-bezier(0.34, 1.2, 0.64, 1), box-shadow 200ms cubic-bezier(0.34, 1.2, 0.64, 1), transform 200ms cubic-bezier(0.34, 1.2, 0.64, 1), color 200ms cubic-bezier(0.34, 1.2, 0.64, 1);
-  font-family: 'Outfit', sans-serif;
+  transition: background 150ms ease, border-color 150ms ease, color 150ms ease;
+  font-family: var(--font-ui);
 }
 
 .editor__copy:hover,
 .editor__copy:focus-visible {
   background: transparent;
   color: var(--accent);
-  box-shadow: 0 0 16px var(--accent-glow);
-  transform: translateY(-1px);
   outline: none;
 }
 
@@ -507,7 +491,7 @@ const copyJson = async () => {
   background: var(--surface);
   border: 1px solid var(--border-strong);
   color: var(--text);
-  font-family: 'JetBrains Mono', 'SFMono-Regular', Consolas, Menlo, monospace;
+  font-family: var(--font-ui);
   font-size: 0.82rem;
   line-height: 1.6;
   overflow: auto;
@@ -528,7 +512,7 @@ const copyJson = async () => {
 }
 
 .editor__hint code {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--font-ui);
   color: var(--accent);
 }
 

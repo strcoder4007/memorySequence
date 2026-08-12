@@ -703,7 +703,7 @@ watch(sourceEntries, (list) => {
       <AppModal
         :open="isEditorOpen"
         :title="isEditing ? 'Edit Memory' : 'Compose New Memory'"
-        width="90vw"
+        width="92vw"
         height="90vh"
         @close="handleEditorCancel"
       >
@@ -758,44 +758,15 @@ watch(sourceEntries, (list) => {
 /* ── Wordmark — the bold logo text ── */
 .wordmark {
   margin: 0;
-  font-family: 'Space Grotesk', 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
+  font-family: var(--font-body);
   font-weight: 900;
   font-size: clamp(1.8rem, 1.2rem + 4vw, 4rem);
   letter-spacing: -0.03em;
   line-height: 1;
   word-spacing: -0.02em;
-  background: linear-gradient(
-    100deg,
-    #1A9E5F 0%,
-    #2BC489 20%,
-    #3ECF8E 40%,
-    #5EDCA6 60%,
-    #7EFFBD 80%,
-    #A8FFD9 100%
-  );
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent;
+  color: var(--accent);
   display: inline-block;
-  position: relative;
   user-select: none;
-}
-
-/* Subtle shimmer texture */
-.wordmark::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: repeating-linear-gradient(
-    135deg,
-    transparent,
-    transparent 4px,
-    rgba(255, 255, 255, 0.018) 4px,
-    rgba(255, 255, 255, 0.018) 5px
-  );
-  pointer-events: none;
-  border-radius: inherit;
 }
 
 .wordmark__memory,
@@ -819,9 +790,8 @@ watch(sourceEntries, (list) => {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: background 200ms cubic-bezier(0.34, 1.2, 0.64, 1), border-color 200ms cubic-bezier(0.34, 1.2, 0.64, 1), color 200ms cubic-bezier(0.34, 1.2, 0.64, 1), box-shadow 200ms cubic-bezier(0.34, 1.2, 0.64, 1), transform 200ms cubic-bezier(0.34, 1.2, 0.64, 1);
+  transition: background 150ms ease, border-color 150ms ease, color 150ms ease;
   flex-shrink: 0;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
 .theme-toggle:hover,
@@ -829,13 +799,7 @@ watch(sourceEntries, (list) => {
   background: var(--accent-dim);
   border-color: var(--accent);
   color: var(--accent);
-  box-shadow: 0 0 20px var(--accent-glow);
-  transform: rotate(12deg) scale(1.05);
   outline: none;
-}
-
-:root.dark-theme .theme-toggle {
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
 }
 
 .data-actions {
@@ -852,9 +816,9 @@ watch(sourceEntries, (list) => {
   color: var(--text-soft);
   padding: 0.4rem 1.2rem;
   font-size: 0.72rem;
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: var(--font-body);
   cursor: pointer;
-  transition: background 200ms, border-color 200ms, color 200ms, box-shadow 200ms, transform 200ms;
+  transition: background 150ms ease, border-color 150ms ease, color 150ms ease;
 }
 
 .demount-button:hover,
@@ -862,8 +826,6 @@ watch(sourceEntries, (list) => {
   background: var(--error-dim);
   border-color: var(--error);
   color: var(--error);
-  box-shadow: 0 0 16px rgba(248, 113, 113, 0.2);
-  transform: translateY(-1px);
   outline: none;
 }
 
@@ -879,17 +841,15 @@ watch(sourceEntries, (list) => {
   color: var(--accent-text);
   padding: 0.4rem 1.2rem;
   font-size: 0.72rem;
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: var(--font-body);
   cursor: pointer;
-  transition: background 200ms, border-color 200ms, color 200ms, box-shadow 200ms, transform 200ms;
+  transition: background 150ms ease, border-color 150ms ease, color 150ms ease;
 }
 
 .generate-button:hover,
 .generate-button:focus-visible {
   background: transparent;
   color: var(--accent);
-  box-shadow: 0 0 20px var(--accent-glow);
-  transform: translateY(-1px);
   outline: none;
 }
 
@@ -905,16 +865,15 @@ watch(sourceEntries, (list) => {
   color: var(--text-muted);
   padding: 0.4rem 1rem;
   font-size: 0.72rem;
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: var(--font-body);
   cursor: pointer;
-  transition: background 200ms, border-color 200ms, color 200ms, transform 200ms;
+  transition: background 150ms ease, border-color 150ms ease, color 150ms ease;
 }
 
 .hide-json-button:hover,
 .hide-json-button:focus-visible {
   background: var(--accent-dim);
   color: var(--accent);
-  transform: translateY(-1px);
   outline: none;
 }
 
@@ -926,7 +885,7 @@ watch(sourceEntries, (list) => {
 .data-actions__status {
   font-size: 0.82rem;
   color: var(--tag-text);
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: var(--font-body);
 }
 
 .archive-json-viewer {
@@ -934,18 +893,13 @@ watch(sourceEntries, (list) => {
   border-radius: 12px;
   font-size: 0.8rem;
   line-height: 1.7;
-  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.08);
   border: 1px solid var(--ghost-border);
   background: var(--surface);
   color: var(--text);
   padding: 1rem;
-  font-family: 'JetBrains Mono', 'SFMono-Regular', Consolas, Menlo, monospace;
+  font-family: var(--font-ui);
   min-height: 320px;
   resize: vertical;
-}
-
-:root.dark-theme .archive-json-viewer {
-  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
 .filter-notice {
@@ -959,7 +913,7 @@ watch(sourceEntries, (list) => {
   color: var(--text-soft);
   font-size: 0.9rem;
   width: fit-content;
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: var(--font-body);
 }
 
 .filter-notice__clear {
@@ -970,16 +924,14 @@ watch(sourceEntries, (list) => {
   color: var(--tag-text);
   font-size: 0.75rem;
   cursor: pointer;
-  transition: background 200ms cubic-bezier(0.34, 1.2, 0.64, 1), border-color 200ms cubic-bezier(0.34, 1.2, 0.64, 1), box-shadow 200ms cubic-bezier(0.34, 1.2, 0.64, 1), transform 200ms cubic-bezier(0.34, 1.2, 0.64, 1);
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  transition: background 150ms ease, border-color 150ms ease, color 150ms ease;
+  font-family: var(--font-body);
 }
 
 .filter-notice__clear:hover,
 .filter-notice__clear:focus-visible {
   background: var(--tag-bg);
   border-color: var(--tag-text);
-  box-shadow: 0 0 12px rgba(96, 165, 250, 0.2);
-  transform: translateY(-1px);
   outline: none;
 }
 
@@ -999,19 +951,17 @@ watch(sourceEntries, (list) => {
   color: var(--text);
   font-size: 0.95rem;
   outline: none;
-  transition: border-color 220ms cubic-bezier(0.34, 1.2, 0.64, 1), box-shadow 220ms cubic-bezier(0.34, 1.2, 0.64, 1), transform 220ms cubic-bezier(0.34, 1.2, 0.64, 1);
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  transition: border-color 150ms ease;
+  font-family: var(--font-body);
 }
 
 .search-bar input::placeholder {
   color: var(--text-muted);
-  transition: color 200ms ease;
+  transition: color 150ms ease;
 }
 
 .search-bar input:focus-visible {
   border-color: var(--tag-text);
-  box-shadow: 0 0 0 3px var(--tag-bg), 0 4px 20px rgba(96, 165, 250, 0.12);
-  transform: translateY(-1px);
 }
 
 .search-bar__icon {
@@ -1024,13 +974,12 @@ watch(sourceEntries, (list) => {
   height: 1.2rem;
   color: var(--text-muted);
   pointer-events: none;
-  transition: color 220ms cubic-bezier(0.34, 1.2, 0.64, 1), transform 220ms cubic-bezier(0.34, 1.2, 0.64, 1);
+  transition: color 150ms ease;
 }
 
 .search-bar input:focus ~ .search-bar__icon,
 .search-bar:has(input:focus) .search-bar__icon {
   color: var(--tag-text);
-  transform: scale(1.1);
 }
 
 .layout {
@@ -1046,7 +995,7 @@ watch(sourceEntries, (list) => {
   font-size: 0.85rem;
   padding-top: 1rem;
   border-top: 1px solid var(--border);
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: var(--font-body);
 }
 
 @media (max-width: 960px) {

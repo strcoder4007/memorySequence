@@ -161,7 +161,7 @@ const handleSelect = (item) => {
   color: var(--text-muted);
   font-weight: 600;
   flex-shrink: 0;
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: var(--font-body);
 }
 
 .state {
@@ -172,7 +172,7 @@ const handleSelect = (item) => {
   color: var(--text-muted);
   font-size: 0.875rem;
   background: var(--surface-raised);
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: var(--font-body);
 }
 
 /* Scrollable container */
@@ -197,13 +197,7 @@ const handleSelect = (item) => {
   left: 0;
   right: 0;
   height: 1px;
-  background: linear-gradient(
-    to right,
-    transparent,
-    var(--border-strong) 8%,
-    var(--border-strong) 92%,
-    transparent
-  );
+  background: var(--border-strong);
   pointer-events: none;
   z-index: 0;
 }
@@ -241,7 +235,7 @@ const handleSelect = (item) => {
   letter-spacing: 0.03em;
   margin-bottom: 0.35rem;
   white-space: nowrap;
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-ui);
   opacity: 0;
   transition: opacity 150ms ease;
   height: 0;
@@ -264,7 +258,7 @@ const handleSelect = (item) => {
   letter-spacing: 0.06em;
   color: var(--text-soft);
   font-weight: 600;
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-ui);
   white-space: nowrap;
   pointer-events: none;
 }
@@ -274,16 +268,9 @@ const handleSelect = (item) => {
   height: calc(var(--bar-height) * 1px);
   min-height: 4px;
   border-radius: 4px;
-  background: linear-gradient(
-    160deg,
-    color-mix(in srgb, var(--accent) 75%, var(--bg) 25%) 0%,
-    var(--accent) 100%
-  );
+  background: color-mix(in srgb, var(--accent) 75%, var(--bg) 25%);
   position: relative;
-  transition:
-    transform 220ms cubic-bezier(0.34, 1.3, 0.64, 1),
-    box-shadow 200ms ease;
-  box-shadow: 0 0 8px var(--accent-glow);
+  transition: background 150ms ease;
 }
 
 .chart__bar--empty {
@@ -291,14 +278,10 @@ const handleSelect = (item) => {
   border-radius: 4px;
   height: 6px !important;
   min-height: 6px;
-  box-shadow: none;
 }
 
 .chart__bar--active {
-  background: linear-gradient(160deg, var(--accent) 0%, color-mix(in srgb, var(--accent) 60%, var(--bg) 40%) 100%);
-  box-shadow:
-    0 0 12px var(--accent-glow),
-    0 0 24px var(--accent-glow);
+  background: var(--accent);
 }
 
 .chart__bar-dot {
@@ -310,7 +293,6 @@ const handleSelect = (item) => {
   height: 7px;
   border-radius: 50%;
   background: var(--accent);
-  box-shadow: 0 0 0 2px var(--accent-glow);
 }
 
 .chart__column:focus-visible {
@@ -323,23 +305,21 @@ const handleSelect = (item) => {
 }
 
 .chart__column:hover .chart__bar:not(.chart__bar--empty):not(.chart__bar--active) {
-  transform: translateY(-3px);
-  box-shadow: 0 0 20px var(--accent-glow);
+  background: var(--accent);
 }
 
 .chart__tooltip {
   position: absolute;
   bottom: calc(100% + 10px);
   left: 50%;
-  transform: translate(-50%, 6px);
+  transform: translateX(-50%);
   padding: 0.6rem 0.9rem;
   border-radius: 8px;
   background: var(--surface-high);
   border: 1px solid var(--border-strong);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
   opacity: 0;
   pointer-events: none;
-  transition: opacity 180ms ease, transform 180ms cubic-bezier(0.34, 1.2, 0.64, 1);
+  transition: opacity 150ms ease;
   z-index: 20;
   white-space: nowrap;
 }
@@ -369,7 +349,6 @@ const handleSelect = (item) => {
 .chart__column:hover .chart__tooltip,
 .chart__column:focus-visible .chart__tooltip {
   opacity: 1;
-  transform: translate(-50%, 0);
 }
 
 

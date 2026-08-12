@@ -185,21 +185,18 @@ const handleUseExample = () => {
   flex-direction: column;
   gap: 1.5rem;
   padding: clamp(1.5rem, 1.2rem + 1.8vw, 2.5rem);
-  border-radius: 16px;
+  border-radius: 12px;
   border: 1px solid var(--border);
   background: var(--surface);
-  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.08);
-  animation: panel-in 400ms cubic-bezier(0.34, 1.1, 0.64, 1) both;
+  animation: panel-in 200ms ease both;
 }
 
 @keyframes panel-in {
   from {
     opacity: 0;
-    transform: translateY(12px);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
   }
 }
 
@@ -213,14 +210,14 @@ const handleUseExample = () => {
   font-size: clamp(1.45rem, 1.2rem + 1vw, 1.9rem);
   font-weight: 700;
   margin: 0;
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: var(--font-ui);
   color: var(--text);
 }
 
 .mount-panel__header p {
   margin: 0;
   color: var(--text-soft);
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-ui);
   font-size: 1.05rem;
 }
 
@@ -244,7 +241,7 @@ const handleUseExample = () => {
   font-size: 0.9rem;
   font-weight: 600;
   margin: 0;
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: var(--font-body);
   color: var(--text-heading);
 }
 
@@ -256,14 +253,12 @@ const handleUseExample = () => {
   border: 1px dashed var(--border-strong);
   background: transparent;
   cursor: pointer;
-  transition: border-color 200ms cubic-bezier(0.34, 1.2, 0.64, 1), background 200ms cubic-bezier(0.34, 1.2, 0.64, 1), box-shadow 200ms cubic-bezier(0.34, 1.2, 0.64, 1), transform 200ms cubic-bezier(0.34, 1.2, 0.64, 1);
+  transition: border-color 150ms ease, background 150ms ease;
 }
 
 .file-upload:hover {
   border-color: var(--tag-text);
   background: var(--tag-bg);
-  box-shadow: 0 0 16px rgba(96, 165, 250, 0.2);
-  transform: translateY(-1px);
 }
 
 .file-upload input {
@@ -278,7 +273,7 @@ const handleUseExample = () => {
   padding: 0.5rem 1.25rem;
   font-size: 0.82rem;
   color: var(--text-soft);
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: var(--font-body);
 }
 
 .file-upload--disabled {
@@ -294,7 +289,7 @@ const handleUseExample = () => {
   font-size: 0.72rem;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: var(--font-body);
 }
 
 .divider::before,
@@ -312,7 +307,7 @@ const handleUseExample = () => {
   background: var(--surface);
   color: var(--text);
   padding: 0.85rem 1rem;
-  font-family: 'JetBrains Mono', 'SFMono-Regular', Consolas, Menlo, monospace;
+  font-family: var(--font-ui);
   font-size: 0.82rem;
   resize: vertical;
   transition: border-color 160ms ease;
@@ -325,8 +320,6 @@ const handleUseExample = () => {
 .json-input:focus-visible {
   outline: none;
   border-color: var(--tag-text);
-  box-shadow: 0 0 0 3px var(--tag-bg), 0 4px 20px rgba(96, 165, 250, 0.15);
-  transform: translateY(-1px);
 }
 
 .json-input:disabled {
@@ -348,8 +341,8 @@ const handleUseExample = () => {
   text-transform: uppercase;
   cursor: pointer;
   border: 1px solid transparent;
-  transition: background 200ms cubic-bezier(0.34, 1.2, 0.64, 1), border-color 200ms cubic-bezier(0.34, 1.2, 0.64, 1), box-shadow 200ms cubic-bezier(0.34, 1.2, 0.64, 1), transform 200ms cubic-bezier(0.34, 1.2, 0.64, 1), color 200ms cubic-bezier(0.34, 1.2, 0.64, 1);
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  transition: background 150ms ease, border-color 150ms ease, color 150ms ease;
+  font-family: var(--font-body);
 }
 
 .mount-panel__actions button.primary {
@@ -363,8 +356,6 @@ const handleUseExample = () => {
 .mount-panel__actions button.primary:focus-visible {
   background: transparent;
   color: var(--accent);
-  box-shadow: 0 0 20px var(--accent-glow);
-  transform: translateY(-2px);
   outline: none;
 }
 
@@ -379,8 +370,6 @@ const handleUseExample = () => {
   background: var(--surface-high);
   border-color: var(--text-soft);
   color: var(--text);
-  box-shadow: 0 0 12px rgba(96, 165, 250, 0.15);
-  transform: translateY(-1px);
   outline: none;
 }
 
@@ -394,11 +383,11 @@ const handleUseExample = () => {
   font-size: 0.85rem;
   color: var(--text-soft);
   line-height: 1.55;
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: var(--font-body);
 }
 
 .mount-panel__hint code {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--font-ui);
   font-size: 0.8rem;
   background: var(--tag-bg);
   color: var(--tag-text);
@@ -414,7 +403,7 @@ const handleUseExample = () => {
   background: var(--surface);
   padding: 1rem;
   font-size: 0.78rem;
-  font-family: 'JetBrains Mono', 'SFMono-Regular', Consolas, Menlo, monospace;
+  font-family: var(--font-ui);
   line-height: 1.6;
   scrollbar-width: thin;
   scrollbar-color: var(--border-strong) transparent;
@@ -427,15 +416,15 @@ const handleUseExample = () => {
 
 .example-json code .key { color: var(--tag-text); }
 .example-json code .string { color: var(--accent); }
-.example-json code .number { color: #f0a869; }
-.example-json code .boolean { color: #c3a6ff; }
+.example-json code .number { color: var(--accent); }
+.example-json code .boolean { color: var(--text-soft); }
 .example-json code .null { color: var(--text-muted); }
 .example-json code .punct { color: var(--text-soft); }
 
 .state {
   margin: 0;
   font-size: 0.85rem;
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: var(--font-body);
 }
 
 .state--error {

@@ -104,16 +104,13 @@ onBeforeUnmount(() => {
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(12, 12, 15, 0.75);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  background: rgba(0, 0, 0, 0.55);
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
   padding: clamp(1.25rem, 3vw, 2.5rem);
   z-index: 9999;
-  overflow-y: auto;
-  animation: overlay-in 250ms cubic-bezier(0.34, 1.1, 0.64, 1) both;
+  animation: overlay-in 200ms ease both;
 }
 
 @keyframes overlay-in {
@@ -123,33 +120,25 @@ onBeforeUnmount(() => {
 
 .modal {
   width: var(--modal-width, 75vw);
-  max-width: 900px;
-  height: min(var(--modal-height, 90vh), calc(100vh - 4rem));
+  max-width: 1080px;
+  height: min(var(--modal-height, 90vh), calc(100dvh - 4rem));
   display: flex;
   flex-direction: column;
-  margin-top: clamp(1rem, 4vh, 3rem);
-  margin-bottom: clamp(1rem, 4vh, 3rem);
-  border-radius: 20px;
+  border-radius: 12px;
   border: 1px solid var(--border-strong);
   background: var(--surface);
-  box-shadow:
-    0 0 0 1px var(--border),
-    0 24px 64px rgba(0, 0, 0, 0.5),
-    0 0 80px rgba(184, 255, 0, 0.04);
   position: relative;
   overflow: hidden;
   outline: none;
-  animation: modal-spring-in 350ms cubic-bezier(0.34, 1.4, 0.64, 1) both;
+  animation: modal-fade-in 200ms ease both;
 }
 
-@keyframes modal-spring-in {
+@keyframes modal-fade-in {
   from {
     opacity: 0;
-    transform: scale(0.94) translateY(-8px);
   }
   to {
     opacity: 1;
-    transform: scale(1) translateY(0);
   }
 }
 
@@ -172,7 +161,7 @@ onBeforeUnmount(() => {
   text-transform: uppercase;
   color: var(--text-muted);
   font-weight: 500;
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-ui);
 }
 
 .modal__close {
@@ -186,7 +175,7 @@ onBeforeUnmount(() => {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: background 200ms cubic-bezier(0.34, 1.2, 0.64, 1), border-color 200ms cubic-bezier(0.34, 1.2, 0.64, 1), color 200ms cubic-bezier(0.34, 1.2, 0.64, 1), box-shadow 200ms cubic-bezier(0.34, 1.2, 0.64, 1), transform 200ms cubic-bezier(0.34, 1.2, 0.64, 1);
+  transition: background 150ms ease, border-color 150ms ease, color 150ms ease;
 }
 
 .modal__close:hover,
@@ -194,8 +183,6 @@ onBeforeUnmount(() => {
   background: var(--tag-bg);
   border-color: var(--tag-text);
   color: var(--tag-text);
-  box-shadow: 0 0 16px rgba(96, 165, 250, 0.25);
-  transform: rotate(90deg) scale(1.05);
   outline: none;
 }
 
@@ -208,10 +195,17 @@ onBeforeUnmount(() => {
   background: var(--surface);
 }
 
-@media (max-width: 960px) {
+@media (max-width: 768px) {
+  .modal-overlay {
+    padding: 0;
+  }
+
   .modal {
-    width: 94vw;
-    border-radius: 12px;
+    width: 100vw;
+    max-width: none;
+    height: 100dvh;
+    border-radius: 0;
+    border: none;
   }
 
   .modal__header,

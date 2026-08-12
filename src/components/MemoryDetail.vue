@@ -82,7 +82,7 @@ const props = defineProps({
   font-size: clamp(1.4rem, 1.2rem + 0.8vw, 2rem);
   line-height: 1.2;
   font-weight: 700;
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: var(--font-body);
   color: var(--text-heading);
 }
 
@@ -96,14 +96,14 @@ const props = defineProps({
   align-items: center;
   gap: 0.35rem;
   flex-wrap: wrap;
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: var(--font-body);
 }
 
 .subtext {
   margin: 0;
   color: var(--text-muted);
   font-size: 0.9rem;
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: var(--font-body);
 }
 
 .tag-group {
@@ -123,7 +123,7 @@ const props = defineProps({
   background: var(--tag-bg);
   color: var(--tag-text);
   border: 1px solid var(--tag-border);
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: var(--font-body);
   font-weight: 600;
   text-transform: uppercase;
 }
@@ -151,7 +151,7 @@ const props = defineProps({
   line-height: 1.9;
   font-size: 1.05rem;
   letter-spacing: 0.01em;
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: var(--font-body);
 }
 
 .prose :deep(p:last-child) {
@@ -194,7 +194,7 @@ const props = defineProps({
   margin-top: 4rem;
   text-align: center;
   color: var(--text-muted);
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: var(--font-body);
   font-style: italic;
   font-size: 1.05rem;
 }

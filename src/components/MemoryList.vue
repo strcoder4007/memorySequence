@@ -253,7 +253,7 @@ const blankMessage = computed(() => {
   align-items: center;
   gap: 0.35rem;
   flex-wrap: wrap;
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: var(--font-body);
 }
 
 .eyebrow__count {
@@ -272,16 +272,14 @@ const blankMessage = computed(() => {
   letter-spacing: 0.06em;
   text-transform: uppercase;
   cursor: pointer;
-  transition: background 200ms cubic-bezier(0.34, 1.2, 0.64, 1), color 200ms cubic-bezier(0.34, 1.2, 0.64, 1), box-shadow 200ms cubic-bezier(0.34, 1.2, 0.64, 1), transform 200ms cubic-bezier(0.34, 1.2, 0.64, 1);
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  transition: background 150ms ease, color 150ms ease, border-color 150ms ease;
+  font-family: var(--font-body);
 }
 
 .panel__cta:hover,
 .panel__cta:focus-visible {
   background: transparent;
   color: var(--accent);
-  box-shadow: 0 0 0 2px var(--accent-glow), 0 0 24px var(--accent-glow);
-  transform: translateY(-2px) scale(1.02);
   outline: none;
 }
 
@@ -313,7 +311,7 @@ const blankMessage = computed(() => {
   border: none;
   border-left: 3px solid transparent;
   background: transparent;
-  transition: border-color 200ms cubic-bezier(0.34, 1.2, 0.64, 1), background 200ms cubic-bezier(0.34, 1.2, 0.64, 1), box-shadow 200ms cubic-bezier(0.34, 1.2, 0.64, 1), transform 200ms cubic-bezier(0.34, 1.2, 0.64, 1);
+  transition: border-color 150ms ease, background 150ms ease;
 }
 
 .memory-card + .memory-card {
@@ -335,7 +333,7 @@ const blankMessage = computed(() => {
   justify-content: center;
   cursor: pointer;
   opacity: 0;
-  transition: opacity 200ms cubic-bezier(0.34, 1.2, 0.64, 1), border-color 200ms cubic-bezier(0.34, 1.2, 0.64, 1), color 200ms cubic-bezier(0.34, 1.2, 0.64, 1), background 200ms cubic-bezier(0.34, 1.2, 0.64, 1), box-shadow 200ms cubic-bezier(0.34, 1.2, 0.64, 1), transform 200ms cubic-bezier(0.34, 1.2, 0.64, 1);
+  transition: opacity 150ms ease, border-color 150ms ease, color 150ms ease, background 150ms ease;
   pointer-events: none;
   z-index: 2;
 }
@@ -355,7 +353,7 @@ const blankMessage = computed(() => {
   justify-content: center;
   cursor: pointer;
   opacity: 0;
-  transition: opacity 200ms cubic-bezier(0.34, 1.2, 0.64, 1), border-color 200ms cubic-bezier(0.34, 1.2, 0.64, 1), color 200ms cubic-bezier(0.34, 1.2, 0.64, 1), background 200ms cubic-bezier(0.34, 1.2, 0.64, 1), box-shadow 200ms cubic-bezier(0.34, 1.2, 0.64, 1), transform 200ms cubic-bezier(0.34, 1.2, 0.64, 1);
+  transition: opacity 150ms ease, border-color 150ms ease, color 150ms ease, background 150ms ease;
   pointer-events: none;
   z-index: 2;
 }
@@ -373,8 +371,6 @@ const blankMessage = computed(() => {
   background: var(--accent-dim);
   border-color: var(--accent);
   color: var(--accent);
-  box-shadow: 0 0 16px var(--accent-glow);
-  transform: scale(1.1);
   outline: none;
 }
 
@@ -383,8 +379,6 @@ const blankMessage = computed(() => {
   background: var(--error-dim);
   border-color: var(--error);
   color: var(--error);
-  box-shadow: 0 0 16px rgba(248, 113, 113, 0.25);
-  transform: scale(1.1);
   outline: none;
 }
 
@@ -413,7 +407,6 @@ const blankMessage = computed(() => {
   align-items: flex-start;
   border-radius: inherit;
   cursor: pointer;
-  transition: transform 200ms cubic-bezier(0.34, 1.2, 0.64, 1), box-shadow 200ms cubic-bezier(0.34, 1.2, 0.64, 1);
 }
 
 .memory-card__button:focus-visible {
@@ -423,15 +416,13 @@ const blankMessage = computed(() => {
 
 .memory-card:hover:not(.memory-card--active) {
   background: var(--surface-raised);
-  transform: translateX(4px);
-  box-shadow: -4px 0 20px var(--accent-glow);
 }
 
 .memory-card__date {
   font-size: 0.68rem;
   letter-spacing: 0.08em;
   color: var(--text-muted);
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: var(--font-body);
   font-weight: 500;
   text-transform: uppercase;
 }
@@ -441,7 +432,7 @@ const blankMessage = computed(() => {
   font-size: 1rem;
   font-weight: 600;
   color: var(--text-heading);
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: var(--font-body);
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
@@ -479,14 +470,9 @@ const blankMessage = computed(() => {
   color: var(--tag-text);
   font-weight: 600;
   border: 1px solid var(--tag-border);
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: var(--font-body);
   text-transform: uppercase;
   cursor: pointer;
-  transition: transform 200ms cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 200ms ease;
-}
-.memory-card__tags .tag-chip:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 12px var(--accent-glow);
 }
 
 .state {
@@ -549,13 +535,12 @@ const blankMessage = computed(() => {
 
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 220ms cubic-bezier(0.34, 1.1, 0.64, 1), transform 220ms cubic-bezier(0.34, 1.1, 0.64, 1);
+  transition: opacity 200ms ease;
 }
 
 .fade-enter-from,
 .fade-leave-to {
   opacity: 0;
-  transform: translateY(6px);
 }
 
 @media (max-width: 960px) {
