@@ -121,6 +121,7 @@ onBeforeUnmount(() => {
 .modal {
   width: var(--modal-width, 75vw);
   max-width: 1080px;
+  height: min(var(--modal-height, 90vh), calc(100vh - 4rem));
   height: min(var(--modal-height, 90vh), calc(100dvh - 4rem));
   display: flex;
   flex-direction: column;
@@ -203,6 +204,7 @@ onBeforeUnmount(() => {
   .modal {
     width: 100vw;
     max-width: none;
+    height: 100vh;
     height: 100dvh;
     border-radius: 0;
     border: none;

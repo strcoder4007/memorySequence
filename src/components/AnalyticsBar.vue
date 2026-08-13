@@ -356,5 +356,19 @@ const handleSelect = (item) => {
   .board {
     margin-top: 1.5rem;
   }
+
+  /* Many month columns: scroll horizontally instead of squeezing bars to slivers */
+  .chart-scroll {
+    overflow-x: auto;
+  }
+
+  .chart {
+    width: max-content;
+    min-width: 100%;
+  }
+
+  .chart__column {
+    min-width: 28px;
+  }
 }
 </style>
