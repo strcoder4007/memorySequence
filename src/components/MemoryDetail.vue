@@ -12,11 +12,15 @@ const props = defineProps({
     type: String,
     default: '',
   },
+  embedded: {
+    type: Boolean,
+    default: false,
+  },
 })
 </script>
 
 <template>
-  <section class="detail panel">
+  <section class="detail panel" :class="{ 'panel--embedded': embedded }">
     <div class="panel__header">
       <p class="eyebrow">Memory</p>
       <h2 v-if="entry">{{ entry.title }}</h2>
@@ -67,6 +71,13 @@ const props = defineProps({
   padding: clamp(1.5rem, 1.5rem + 1vw, 2.5rem);
   min-height: min(640px, 72vh);
   position: relative;
+}
+
+.panel--embedded {
+  border: none;
+  border-radius: 0;
+  min-height: 0;
+  padding: 0;
 }
 
 .panel__header {

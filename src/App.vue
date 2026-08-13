@@ -1,5 +1,5 @@
 <script setup>
-import { computed, onMounted, ref, watch } from 'vue'
+import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import DOMPurify from 'dompurify'
 
 import MemoryDetail from './components/MemoryDetail.vue'
@@ -28,6 +28,23 @@ const archiveCopyStatus = ref('')
 const editingEntry = ref(null)
 const editorSeed = ref('')
 const currentTheme = ref('dark')
+const isMobile = ref(false)
+const isDetailOpen = ref(false)
+
+let mobileQuery
+const syncMobile = () => {
+  isMobile.value = mobileQuery.matches
+}
+
+onMounted(() => {
+  mobileQuery = window.matchMedia('(max-width: 960px)')
+  syncMobile()
+  mobileQuery.addEventListener('change', syncMobile)
+})
+
+onBeforeUnmount(() => {
+  mobileQuery?.removeEventListener('change', syncMobile)
+})
 
 const latestEntry = computed(() => (entries.value.length ? entries.value[0] : null))
 
@@ -182,7 +199,12 @@ const selectEntry = (id) => {
     return
   }
   selectedId.value = id
+  isDetailOpen.value = true
   scrollToTopIfMobile()
+}
+
+const closeDetail = () => {
+  isDetailOpen.value = false
 }
 
 const handleMonthSelect = (key) => {
@@ -653,6 +675,7 @@ watch(sourceEntries, (list) => {
           @delete="deleteEntry"
         />
         <MemoryDetail
+          v-if="!isMobile"
           :entry="activeEntry"
           :loading="loading"
           :error="error"
@@ -699,6 +722,20 @@ watch(sourceEntries, (list) => {
         :value="archiveJson"
         readonly
       ></textarea>
+
+      <AppModal
+        :open="isMobile && isDetailOpen && !!activeEntry && !isEditorOpen"
+        title=""
+        fullscreen
+        @close="closeDetail"
+      >
+        <MemoryDetail
+          :entry="activeEntry"
+          :loading="loading"
+          :error="error"
+          embedded
+        />
+      </AppModal>
 
       <AppModal
         :open="isEditorOpen"

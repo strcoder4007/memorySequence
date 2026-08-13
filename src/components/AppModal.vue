@@ -18,6 +18,10 @@ const props = defineProps({
     type: String,
     default: '90vh',
   },
+  fullscreen: {
+    type: Boolean,
+    default: false,
+  },
 })
 
 const emit = defineEmits(['close'])
@@ -62,10 +66,11 @@ onBeforeUnmount(() => {
 
 <template>
   <Teleport to="body">
-    <div v-if="open" class="modal-overlay" @click.self="close">
+    <div v-if="open" class="modal-overlay" :class="{ 'modal-overlay--flush': fullscreen }" @click.self="close">
       <section
         ref="dialogRef"
         class="modal"
+        :class="{ 'modal--fullscreen': fullscreen }"
         role="dialog"
         aria-modal="true"
         :aria-label="title"
@@ -113,6 +118,10 @@ onBeforeUnmount(() => {
   animation: overlay-in 200ms ease both;
 }
 
+.modal-overlay--flush {
+  padding: 0;
+}
+
 @keyframes overlay-in {
   from { opacity: 0; }
   to { opacity: 1; }
@@ -132,6 +141,15 @@ onBeforeUnmount(() => {
   overflow: hidden;
   outline: none;
   animation: modal-fade-in 200ms ease both;
+}
+
+.modal--fullscreen {
+  width: 100vw;
+  max-width: none;
+  height: 100vh;
+  height: 100dvh;
+  border-radius: 0;
+  border: none;
 }
 
 @keyframes modal-fade-in {
